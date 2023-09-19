@@ -14,5 +14,7 @@ urlpatterns = [
     path('material-create', views.materialCreate, name='material-create'),
     path('material-update/<int:id>', views.materialUpdate, name='material-update'),
     path('material-delete/<int:id>', views.materialDelete, name='material-delete'),
+    path('labor-list', views.laborList, name='labor-list'),
+    path('labor-create', views.laborCreate, name='labor-create'),
 
 ]

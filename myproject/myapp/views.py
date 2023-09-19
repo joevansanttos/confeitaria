@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from .forms import MaterialForm, IngredientForm
+from .forms import MaterialForm, IngredientForm, LaborForm
 
-from .models import Material, Ingredient
+from .models import Material, Ingredient, Labor
 
 
 def ingredientList(request):
@@ -95,3 +95,23 @@ def materialDelete(request, id):
     except:
         pass
     return redirect('material-list')
+
+
+def laborList(request):
+    labors = Labor.objects.all()
+    return render(request, "labor-list.html", {'labors': labors})
+
+
+def laborCreate(request):
+    if request.method == "POST":
+        form = LaborForm(request.POST)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                return redirect('labor-list')
+            except:
+                pass
+    else:
+        form = LaborForm()
+    return render(request, 'labor-create.html', {'form': form})

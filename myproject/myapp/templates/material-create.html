@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
+</div>
 <div class="card-body">
-    <h5>Create New material</h5>
+    <h5>Adicione novo Material</h5>
+    {% load bootstrap %}
     <form method="post">
+        {{ form|bootstrap }}
         {% csrf_token %}
-        {{form.as_p}}
         <a type="button" class="btn btn-danger" href="{%url 'material-list' %}">Cancel</a>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
     </form>
 </div>
 {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Mão de Obra</h6>
+</div>
+<div class="card-body">
+    {% load bootstrap %}
+    <h4>Mão de obra Cadastrada</h4>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Itens</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for labor in labors %}
+                <tr>
+                    <td>{{ labor.salario }}</td>
+                    <td>{{ labor.horas }}</td>
+                    <td>{{ labor.tempo }}</td>
+                    <td><a type="button" class="btn btn-warning" href="/labor-update/{{ labor.id }}">Atualizar</a>
+                        <a type="button" class="btn btn-danger" href="/labor-delete/{{ labor.id }}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a type="button" class="btn btn-success" href="{%url 'material-create' %}">Cadastrar</a>
+</div>
+{% endblock %}

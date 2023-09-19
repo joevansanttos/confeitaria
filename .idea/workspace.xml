@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/book-create.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/book-list.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/material-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/material-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/settings.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2VdGnFwaIINhtK67jOOmNRAZRQ1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/joevanoliveira/dev/python/calc_confeitaria/myproject/myapp/templates",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/myproject/myapp/templates" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="" />
+      <created>1695158709251</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695158709251</updated>
+    </task>
+    <servers />
+  </component>
+</project>
