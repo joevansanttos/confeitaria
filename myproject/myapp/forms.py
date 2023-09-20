@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from .models import Material, Ingredient, Labor
+from .models import Material, Ingredient, Labor, Product
 
 
 class IngredientForm(ModelForm):
@@ -18,4 +18,10 @@ class MaterialForm(ModelForm):
 class LaborForm(ModelForm):
     class Meta:
         model = Labor
+        fields = '__all__'
+
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Product
         fields = '__all__'

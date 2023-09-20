@@ -109,6 +109,23 @@
                 </div>
             </li>
 
+             <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-pizza-slice"></i>
+                    <span>Produtos</span>
+                </a>
+                <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Itens:</h6>
+                        <a class="collapse-item" href="{%url 'product-create' %}">Cadastrar Produtos</a>
+                        <a class="collapse-item" href="{%url 'product-list' %}">Listar Produtos</a>
+                    </div>
+                </div>
+            </li>
+
 
 
             <!-- Sidebar Toggler (Sidebar) -->

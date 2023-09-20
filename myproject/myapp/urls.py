@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
@@ -16,5 +16,7 @@ urlpatterns = [
     path('material-delete/<int:id>', views.materialDelete, name='material-delete'),
     path('labor-list', views.laborList, name='labor-list'),
     path('labor-create', views.laborCreate, name='labor-create'),
+    path('product-list', views.productList, name='product-list'),
+    path('product-create', views.productCreate, name='product-create'),
 
 ]
