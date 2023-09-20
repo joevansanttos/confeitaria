@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add requirements.txt">
-      <change beforePath="$PROJECT_DIR$/.idea/calc_confeitaria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/calc_confeitaria.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
@@ -44,7 +42,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/joeva/dev/python/projeto_clientes",
+    "last_opened_file_path": "C:/Users/joeva/dev/python/confeitaria/myproject/myapp/templates",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
 }]]></component>
@@ -75,11 +73,19 @@
       <option name="project" value="LOCAL" />
       <updated>1695206480859</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: add login">
+      <created>1695221616348</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695221616348</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add requirements.txt" />
+    <MESSAGE value="feat: add login" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add login" />
   </component>
 </project>
