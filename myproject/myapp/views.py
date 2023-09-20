@@ -1,20 +1,16 @@
-from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, LoginForm
+from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm
 from .models import Material, Ingredient, Labor, Product
 
 
-@login_required
 def ingredientList(request):
     ingredients = Ingredient.objects.all()
     return render(request, "ingredient-list.html",
                   {'ingredients': ingredients})
 
 
-@login_required
 def ingredientCreate(request):
     if request.method == "POST":
         form = IngredientForm(request.POST)
@@ -30,7 +26,6 @@ def ingredientCreate(request):
     return render(request, 'ingredient-create.html', {'form': form})
 
 
-@login_required
 def ingredientUpdate(request, id):
     ingredient = Ingredient.objects.get(id=id)
     form = IngredientForm(
@@ -49,7 +44,7 @@ def ingredientUpdate(request, id):
     return render(request, 'ingredient-update.html', {'form': form})
 
 
-@login_required
+
 def ingredientDelete(request, id):
     ingredient = Ingredient.objects.get(id=id)
     try:
@@ -59,13 +54,11 @@ def ingredientDelete(request, id):
     return redirect('ingredient-list')
 
 
-@login_required
 def materialList(request):
     materials = Material.objects.all()
     return render(request, "material-list.html", {'materials': materials})
 
 
-@login_required
 def materialCreate(request):
     if request.method == "POST":
         form = MaterialForm(request.POST)
@@ -81,7 +74,6 @@ def materialCreate(request):
     return render(request, 'material-create.html', {'form': form})
 
 
-@login_required
 def materialUpdate(request, id):
     material = Material.objects.get(id=id)
     form = MaterialForm(initial={'title': material.title, 'description': material.description,
@@ -98,7 +90,6 @@ def materialUpdate(request, id):
     return render(request, 'material-update.html', {'form': form})
 
 
-@login_required
 def materialDelete(request, id):
     material = Material.objects.get(id=id)
     try:
@@ -108,13 +99,11 @@ def materialDelete(request, id):
     return redirect('material-list')
 
 
-@login_required
 def laborList(request):
     labors = Labor.objects.all()
     return render(request, "labor-list.html", {'labors': labors})
 
 
-@login_required
 def laborCreate(request):
     if request.method == "POST":
         form = LaborForm(request.POST)
@@ -130,13 +119,12 @@ def laborCreate(request):
     return render(request, 'labor-create.html', {'form': form})
 
 
-@login_required
+
 def productList(request):
     products = Product.objects.all()
     return render(request, "product-list.html", {'products': products})
 
 
-@login_required
 def productCreate(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
@@ -151,41 +139,3 @@ def productCreate(request):
         ingredients = Ingredient.objects.all()
         form = ProductForm()
     return render(request, 'product-create.html', {'form': form, 'ingredients': ingredients})
-
-
-# signup page
-def user_signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-
-
-# login page
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        print("not valido")
-        if form.is_valid():
-            print("valido")
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user:
-                print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>user")
-                login(request, user)
-                return redirect('product-list')
-    else:
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> not user")
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
-
-
-# logout page
-def user_logout(request):
-    logout(request)
-    return redirect('login')
