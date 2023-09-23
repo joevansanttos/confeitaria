@@ -24,6 +24,10 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
 
+def profile(request):
+    current_user = request.user
+    return render(request, "profile.html" ,
+                  {'current_user': current_user})
 
 def ingredientList(request):
     ingredients = Ingredient.objects.all()
