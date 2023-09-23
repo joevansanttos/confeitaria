@@ -1,5 +1,9 @@
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from . import views
+from .views import signup
+
 
 
 urlpatterns = [
@@ -18,5 +22,8 @@ urlpatterns = [
     path('labor-create', views.laborCreate, name='labor-create'),
     path('product-list', views.productList, name='product-list'),
     path('product-create', views.productCreate, name='product-create'),
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/accounts/login'), name='logout'),
+    path('signup/', signup, name='signup')
 
 ]

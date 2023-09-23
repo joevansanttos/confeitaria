@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add login">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add custom user model">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0002_labor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0003_auto_20230920_0733.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0004_product.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,12 +82,20 @@
       <option name="project" value="LOCAL" />
       <updated>1695234596996</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: add custom user model">
+      <created>1695425828183</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695425828183</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: add requirements.txt" />
     <MESSAGE value="feat: add login" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add login" />
+    <MESSAGE value="feat: add custom user model" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add custom user model" />
   </component>
 </project>

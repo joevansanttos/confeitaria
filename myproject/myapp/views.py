@@ -1,8 +1,28 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 
 from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm
 from .models import Material, Ingredient, Labor, Product
+from .forms import CustomUserCreationForm
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(request, email=user.email, password=raw_password)
+            if user is not None:
+                print('>>>>>>>>>> user')
+                login(request, user)
+            else:
+                print("user is not authenticated")
+            return redirect('myapp:profile')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'users/signup.html', {'form': form})
 
 
 def ingredientList(request):
@@ -42,7 +62,6 @@ def ingredientUpdate(request, id):
             except Exception as e:
                 pass
     return render(request, 'ingredient-update.html', {'form': form})
-
 
 
 def ingredientDelete(request, id):
@@ -117,7 +136,6 @@ def laborCreate(request):
     else:
         form = LaborForm()
     return render(request, 'labor-create.html', {'form': form})
-
 
 
 def productList(request):
