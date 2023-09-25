@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-
+<h1 class="h3 mb-2 text-gray-800">Mão de Obra</h1>
+<div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Mão de Obra</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Cadastre nova Mão de Obra</h6>
 </div>
 <div class="card-body">
-    {% load bootstrap %}
-    <h4>Mão de obra Cadastrada</h4>
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Nome</th>
-                    <th>Quantidade</th>
-                    <th>Preço</th>
-                    <th>Itens</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +30,7 @@
             </tbody>
         </table>
     </div>
-    <a type="button" class="btn btn-success" href="{%url 'material-create' %}">Cadastrar</a>
+    <a type="button" class="btn btn-success" href="{%url 'labor-create' %}">Cadastrar</a>
+</div>
 </div>
 {% endblock %}

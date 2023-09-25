@@ -6,15 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add custom user model">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/labor-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/labor-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/labor-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/labor-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/material-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/material-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/profile.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myproject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,18 +49,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/joeva/dev/python/recipe-app-api&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/joevanoliveira/dev/python/confeitaria/myproject/myapp/templates",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\joeva\dev\python\confeitaria\myproject\myapp\templates" />
       <recent name="$PROJECT_DIR$/myproject/myapp/templates" />
+      <recent name="C:\Users\joeva\dev\python\confeitaria\myproject\myapp\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/myproject/myapp/templates/registration" />
@@ -103,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1695489665102</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: add custom user model">
+      <created>1695504892664</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1695504892664</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

@@ -1,31 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
+<h1 class="h3 mb-2 text-gray-800">Materiais</h1>
+<div class="card shadow mb-4">
 <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Materiais/Embalagens</h6>
 </div>
 <div class="card-body">
-    <h4>Materiais Cadastrados</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Preço</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for material in materials %}
-            <tr>
-                <td>{{ material.nome }}</td>
-                <td>{{ material.quantidade }}</td>
-                <td>{{ material.valor }}</td>
-                <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ material.id }}">Atualizar</a>
-                    <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ material.id }}">Excluir</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a type="button" class="btn btn-success" href="{%url 'material-create' %}">Cadastrar</a>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width=100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col-3">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in materials %}
+                <tr>
+                    <td>{{ material.nome }}</td>
+                    <td>{{ material.quantidade }}</td>
+                    <td>{{ material.valor }}</td>
+                    <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ material.id }}">Atualizar</a>
+                        <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ material.id }}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a type="button" class="btn btn-success" href="{%url 'material-create' %}">Cadastrar</a>
+    </div>
+</div>
 </div>
 {% endblock %}

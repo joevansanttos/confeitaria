@@ -1,31 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
-</div>
-<div class="card-body">
-    <h4>Ingredientes Cadastrados</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Nome</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Preço</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ingredient in ingredients %}
-            <tr>
-                <td>{{ ingredient.nome }}</td>
-                <td>{{ ingredient.quantidade }}</td>
-                <td>{{ ingredient.valor }}</td>
-                <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}">Atualizar</a>
-                    <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ ingredient.id }}">Excluir</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+<h1 class="h3 mb-2 text-gray-800">Ingredientes</h1>
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Lista de Ingredientes</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width=100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ingredient in ingredients %}
+                        <tr>
+                            <td>{{ ingredient.nome }}</td>
+                            <td>{{ ingredient.quantidade }}</td>
+                            <td>{{ ingredient.valor }}</td>
+                            <td>
+                                <a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}">Atualizar</a>
+                                <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ ingredient.id }}">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

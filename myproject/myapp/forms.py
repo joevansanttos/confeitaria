@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.http import HttpResponseRedirect
 
 from .models import Material, Ingredient, Labor, Product
 
@@ -8,14 +9,12 @@ from .models import CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
-
     class Meta:
         model = CustomUser
         fields = ("email",)
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     class Meta:
         model = CustomUser
         fields = ("email",)
@@ -24,22 +23,26 @@ class CustomUserChangeForm(UserChangeForm):
 class IngredientForm(ModelForm):
     class Meta:
         model = Ingredient
-        fields = '__all__'
+        fields = ('nome', 'quantidade', 'valor')
+        exclude = ['user']
 
 
 class MaterialForm(ModelForm):
     class Meta:
         model = Material
-        fields = '__all__'
+        fields = ('nome', 'quantidade', 'valor')
+        exclude = ['user']
 
 
 class LaborForm(ModelForm):
     class Meta:
         model = Labor
-        fields = '__all__'
+        fields = ('nome', 'salario', 'horas', 'tempo')
+        exclude = ['user']
 
 
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ('nome', 'ingrediente', 'material', 'trabalho')
+        exclude = ['user']

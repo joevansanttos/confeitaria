@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
+<h1 class="h3 mb-2 text-gray-800">Produtos</h1>
+<div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Produtos</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Listar Todos Produtos</h6>
 </div>
 <div class="card-body">
-    <h4>Produtos Cadastrados</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Ingrediente</th>
-                <th scope="col">Material</th>
-                <th scope="col">Mão de Obra</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products %}
-            <tr>
-                <td>{{ product.ingredient.nome }}</td>
-                <td>{{ product.material.nome }}</td>
-                <td>{{ product.labor.salario }}</td>
-                <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ product.id }}">Atualizar</a>
-                    <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ product.id }}">Excluir</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ product.id }}">Atualizar</a>
+                        <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ product.id }}">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+    </div>
+</div>
 </div>
 {% endblock %}
