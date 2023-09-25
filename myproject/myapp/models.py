@@ -1,3 +1,4 @@
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -27,12 +28,25 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+MEDIDAS_CHOICES = [
+    ("KG", "Kg"),
+    ("GRAMA", "g"),
+]
+
+TEMPO_CHOICES = [
+    ("Hora", "Hora"),
+    ("Minutos", "Minutos"),
+    ("Segundos", "Segundos"),
+    ("Dias", "Dias")
+]
+
 class Ingredient(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    nome = models.CharField(db_column='name', max_length=100, blank=False)
+    nome = models.CharField(_("Nome do Item:"), db_column='name', max_length=100, blank=False)
     quantidade = models.IntegerField(
-        db_column='quantity', blank=False)
-    valor = models.FloatField(db_column='price', blank=False)
+        _("Quantidade do Pacote:"), db_column='value', blank=False)
+    medidas = models.CharField(_("Medida do Pacote:"), max_length=5, choices=MEDIDAS_CHOICES)
+    valor = models.FloatField(_("(R$) Valor do Pacote:"), db_column='price', blank=False)
 
     def __str__(self):
         return self.nome
@@ -43,10 +57,10 @@ class Ingredient(models.Model):
 
 class Material(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    nome = models.CharField(db_column='name', max_length=100, blank=False)
+    nome = models.CharField(_("Nome do Item:"), db_column='name', max_length=100, blank=False)
     quantidade = models.IntegerField(
-        db_column='quantity', blank=False)
-    valor = models.FloatField(db_column='price', blank=False)
+        _("Quantidade Comprada:"), db_column='quantity', blank=False)
+    valor = models.FloatField(_("(R$) Preço do Pacote de Embalagem:"), db_column='price', blank=False)
 
     def __str__(self):
         return self.nome
@@ -57,14 +71,14 @@ class Material(models.Model):
 
 class Labor(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    nome = models.CharField(db_column='name', max_length=100, blank=False)
-    salario = models.FloatField(db_column='salary', blank=False)
+    nome = models.CharField(_("Nome do Serviço:"), db_column='name', max_length=100, blank=False)
+    salario = models.FloatField(_("Salário Médio:"), db_column='salary', blank=False)
     horas = models.FloatField(
-        db_column='hours', blank=False)
-    tempo = models.CharField(db_column='time', max_length=100, blank=False)
+        _("Horas Mensais:"), db_column='hours', blank=False)
+    tempo = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TEMPO_CHOICES)
 
     def __str__(self):
-        string = str(self.salario / self.horas)
+        string = self.nome + " " + str(self.salario / self.horas)
         return string
 
     class Meta:

@@ -11,9 +11,9 @@
             <table class="table table-bordered" id="dataTable" width=100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Quantidade</th>
-                            <th>Preço</th>
+                            <th>Nome do Item</th>
+                            <th>Quantidade/Medida do Item</th>
+                            <th>Preço do Item</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -21,7 +21,7 @@
                         {% for ingredient in ingredients %}
                         <tr>
                             <td>{{ ingredient.nome }}</td>
-                            <td>{{ ingredient.quantidade }}</td>
+                            <td>{{ ingredient.quantidade }}{{" "}}{{ ingredient.medidas }}</td>
                             <td>{{ ingredient.valor }}</td>
                             <td>
                                 <a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}">Atualizar</a>

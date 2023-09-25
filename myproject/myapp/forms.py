@@ -1,6 +1,4 @@
-from django.forms import ModelForm
-from django.http import HttpResponseRedirect
-
+from django.forms import ModelForm, forms
 from .models import Material, Ingredient, Labor, Product
 
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -21,9 +19,10 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class IngredientForm(ModelForm):
+
     class Meta:
         model = Ingredient
-        fields = ('nome', 'quantidade', 'valor')
+        fields = ('nome', 'quantidade', 'medidas', 'valor')
         exclude = ['user']
 
 

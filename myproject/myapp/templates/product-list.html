@@ -17,9 +17,9 @@
             <tbody>
                 {% for product in products %}
                 <tr>
-                    <td>{{ product.name }}</td>
-                    <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ product.id }}">Atualizar</a>
-                        <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ product.id }}">Excluir</a>
+                    <td>{{ product.nome }}</td>
+                    <td><a type="button" class="btn btn-warning" href="/product-update/{{ product.id }}">Atualizar</a>
+                        <a type="button" class="btn btn-danger" href="/product-delete/{{ product.id }}">Excluir</a>
                     </td>
                 </tr>
                 {% endfor %}

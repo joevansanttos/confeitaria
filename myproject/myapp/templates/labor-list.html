@@ -10,18 +10,18 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Quantidade</th>
-                    <th scope="col">Preço</th>
+                    <th scope="col">Nome do Serviço</th>
+                    <th scope="col">Salário Médio</th>
+                    <th scope="col">Horas Mensais</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for labor in labors %}
                 <tr>
+                    <td>{{ labor.nome }}</td>
                     <td>{{ labor.salario }}</td>
-                    <td>{{ labor.horas }}</td>
-                    <td>{{ labor.tempo }}</td>
+                    <td>{{ labor.horas }}{{ "/" }}{{ labor.tempo }}</td>
                     <td><a type="button" class="btn btn-warning" href="/labor-update/{{ labor.id }}">Atualizar</a>
                         <a type="button" class="btn btn-danger" href="/labor-delete/{{ labor.id }}">Excluir</a>
                     </td>
