@@ -19,9 +19,9 @@
             <tbody>
                 {% for labor in labors %}
                 <tr>
-                    <td>{{ labor.nome }}</td>
-                    <td>{{ labor.salario }}</td>
-                    <td>{{ labor.horas }}{{ "/" }}{{ labor.tempo }}</td>
+                    <td>{{ labor.name }}</td>
+                    <td>{{ labor.salary }}</td>
+                    <td>{{ labor.hours }}{{ "/" }}{{ labor.time }}</td>
                     <td><a type="button" class="btn btn-warning" href="/labor-update/{{ labor.id }}">Atualizar</a>
                         <a type="button" class="btn btn-danger" href="/labor-delete/{{ labor.id }}">Excluir</a>
                     </td>

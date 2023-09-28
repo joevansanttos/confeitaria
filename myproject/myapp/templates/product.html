@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+{% load mathfilters %}
+<h1 class="h3 mb-2 text-gray-800">Produtos</h1>
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Produto {{ product.name }}</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Ingredientes</th>
+                        <th scope="col">Custo com os Ingredientes (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for percent_ingredient in product.percent_ingredients.all %}
+                    <tr>
+                        <td>{{ percent_ingredient.ingredient.name }}</td>
+                        <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Materiais</th>
+                        <th scope="col">Custo com os Materiais (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for percent_material in product.percent_materials.all %}
+                    <tr>
+                        <td>{{ percent_material.material.name }}</td>
+                        <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Mão de Obra</th>
+                        <th scope="col">Outros Custos (R$)</th>
+                        <th scope="col">Custos Incalculáveis (R$)</th>
+                        <th scope="col">Taxa de Marketplace %</th>
+                        <th scope="col">Impostos (R$)</th>
+                        <th scope="col">Quantidade Desejada</th>
+                        <th scope="col">Lucro Desejado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{product.labor.salary|div:product.labor.hours}}</td>
+                        <td> {{product.another_expenses }}</td>
+                        <td> {{product.incalculable_expenses }}</td>
+                        <td> {{product.marketplace_tax }}</td>
+                        <td> {{product.taxes }}</td>
+                        <td> {{product.quantity }}</td>
+                        <td> {{product.profit }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

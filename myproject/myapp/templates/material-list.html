@@ -13,15 +13,15 @@
                     <th scope="col">Nome do Item</th>
                     <th scope="col">Quantidade Comprada</th>
                     <th scope="col">Preço do Pacote (R$)</th>
-                    <th scope="col-3">Ações</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for material in materials %}
                 <tr>
-                    <td>{{ material.nome }}</td>
-                    <td>{{ material.quantidade }}</td>
-                    <td>{{ material.valor }}</td>
+                    <td>{{ material.name }}</td>
+                    <td>{{ material.quantity }}</td>
+                    <td>{{ material.price }}</td>
                     <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ material.id }}">Atualizar</a>
                         <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ material.id }}">Excluir</a>
                     </td>

@@ -20,9 +20,9 @@
                     <tbody>
                         {% for ingredient in ingredients %}
                         <tr>
-                            <td>{{ ingredient.nome }}</td>
-                            <td>{{ ingredient.quantidade }}{{" "}}{{ ingredient.medidas }}</td>
-                            <td>{{ ingredient.valor }}</td>
+                            <td>{{ ingredient.name }}</td>
+                            <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.measure }}</td>
+                            <td>{{ ingredient.price }}</td>
                             <td>
                                 <a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}">Atualizar</a>
                                 <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ ingredient.id }}">Excluir</a>

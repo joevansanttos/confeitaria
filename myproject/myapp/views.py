@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
-from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm
-from .models import Material, Ingredient, Labor, Product
+from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm
+from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
 from .forms import CustomUserCreationForm
 
 
@@ -86,6 +86,29 @@ def ingredientDelete(request, id):
 
 
 @login_required
+def percentIngredientList(request):
+    percent_ingredients = PercentIngredient.objects.all()
+    return render(request, "percent-ingredient-list.html",
+                  {'percent_ingredients': percent_ingredients})
+
+
+def percentIngredientCreate(request):
+    if request.method == "POST":
+        form = PercentIngredientForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.save()
+                form.save()
+                model = form.instance
+                return redirect('percent-ingredient-list')
+            except:
+                pass
+    else:
+        form = PercentIngredientForm()
+    return render(request, 'percent-ingredient-create.html', {'form': form})
+
+@login_required
 def materialList(request):
     materials = Material.objects.all()
     return render(request, "material-list.html", {'materials': materials})
@@ -136,6 +159,29 @@ def materialDelete(request, id):
         pass
     return redirect('material-list')
 
+
+@login_required
+def percentMaterialList(request):
+    percent_materials = PercentMaterial.objects.all()
+    return render(request, "percent-material-list.html",
+                  {'percent_materials': percent_materials})
+
+
+def percentMaterialCreate(request):
+    if request.method == "POST":
+        form = PercentMaterialForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.save()
+                form.save()
+                model = form.instance
+                return redirect('percent-material-list')
+            except:
+                pass
+    else:
+        form = PercentMaterialForm()
+    return render(request, 'percent-material-create.html', {'form': form})
 
 @login_required
 def laborList(request):
@@ -192,8 +238,6 @@ def laborDelete(request, id):
 @login_required
 def productList(request):
     products = Product.objects.all()
-    for product in products:
-        ingredientes = product.ingrediente.all()
     return render(request, "product-list.html", {'products': products})
 
 
@@ -224,3 +268,8 @@ def productDelete(request, id):
     except:
         pass
     return redirect('product-list')
+
+@login_required
+def product(request, id):
+    product = Product.objects.get(id=id)
+    return render(request, 'product.html', {'product': product})

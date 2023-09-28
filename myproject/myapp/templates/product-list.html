@@ -17,9 +17,12 @@
             <tbody>
                 {% for product in products %}
                 <tr>
-                    <td>{{ product.nome }}</td>
-                    <td><a type="button" class="btn btn-warning" href="/product-update/{{ product.id }}">Atualizar</a>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <a type="button" class="btn btn-warning" href="/product-update/{{ product.id }}">Atualizar</a>
                         <a type="button" class="btn btn-danger" href="/product-delete/{{ product.id }}">Excluir</a>
+                        <a type="button" class="btn btn-primary" href="/product/{{ product.id }}">Ver</a>
+
                     </td>
                 </tr>
                 {% endfor %}

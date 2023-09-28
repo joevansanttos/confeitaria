@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+{% load mathfilters %}
+
+<h1 class="h3 mb-2 text-gray-800">Materiais</h1>
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Lista de Materiais Com Medidas</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width=100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Preco Material</th>
+                            <th>Quantidade/Medida do Item</th>
+                            <th>Custo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_material in percent_materials %}
+                        <tr>
+                            <td>{{ percent_material.material.name }}</td>
+                            <td>{{ percent_material.material.price }}</td>
+                            <td>{{ percent_material.percent }}</td>
+                            <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
+
+                            <td>
+                                <a type="button" class="btn btn-warning" href="/percent-material-update/{{ percent_material.id }}">Atualizar</a>
+                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+            </table>
+            <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
