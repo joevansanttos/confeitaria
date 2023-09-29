@@ -42,7 +42,7 @@ class LaborForm(ModelForm):
 class PercentIngredientForm(ModelForm):
     class Meta:
         model = PercentIngredient
-        fields = ('ingredient', 'percent', 'measure')
+        fields = ('ingredient', 'percent', 'measure', 'product')
 
         labels = {
             "ingredient": "Ingrediente"
@@ -52,26 +52,14 @@ class PercentIngredientForm(ModelForm):
 class PercentMaterialForm(ModelForm):
     class Meta:
         model = PercentMaterial
-        fields = ('material', 'percent')
+        fields = ('material', 'percent', 'product')
 
 
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'percent_ingredients', 'percent_materials', 'labor',
+        fields = ('name', 'labor',
                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit' )
         exclude = ['user']
 
-    labels = {
-        "percent_ingredients": "Quant. Usada do Ingrediente"
-    }
 
-    percent_ingredients = ModelMultipleChoiceField(
-        queryset=PercentIngredient.objects.all(),
-        widget=CheckboxSelectMultiple
-    )
-
-    percent_materials = ModelMultipleChoiceField(
-        queryset=PercentMaterial.objects.all(),
-        widget=CheckboxSelectMultiple
-    )

@@ -10,7 +10,7 @@
         <form method="post">
             {{ form|bootstrap }}
             {% csrf_token %}
-            <a type="button" class="btn btn-danger" href="{%url 'percent-ingredient-list' %}">Cancel</a>
+            <a type="button" class="btn btn-danger" href="{%url 'product' %}">Cancel</a>
             <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
     </div>

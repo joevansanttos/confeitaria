@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add percent_ingredient and material">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/percent-ingredient-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/percent-ingredient-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,15 +43,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/joevan/dev/python/confeitaria/myproject/myapp/templates&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/joevan/dev/python/confeitaria/myproject/myapp/templates",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/myproject/myapp/templates" />

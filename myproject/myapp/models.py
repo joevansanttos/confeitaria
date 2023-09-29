@@ -87,11 +87,33 @@ class Labor(models.Model):
         ordering = ["name"]
 
 
+class Product(models.Model):
+    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(db_column='name', max_length=100, blank=False)
+    labor = models.ForeignKey(Labor, blank=True, on_delete=models.CASCADE)
+    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=True)
+    incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses',
+                                              blank=True)
+    marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace (R$):"), db_column='marketplace_tax',
+                                        blank=True)
+    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=True)
+    quantity = models.IntegerField(
+        _("Quantidade Desejada:"), db_column='quantity', blank=True)
+    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
 class PercentIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, blank=True, on_delete=models.CASCADE)
     percent = models.IntegerField(
         _("Quantidade Usada:"), db_column='percent', blank=False)
     measure = models.CharField(_("Medida do Pacote:"), max_length=8, choices=MEASURES_CHOICES)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s %s %s' % (self.ingredient.name, self.percent, self.measure)
@@ -104,34 +126,10 @@ class PercentMaterial(models.Model):
     material = models.ForeignKey(Material, blank=True, on_delete=models.CASCADE)
     percent = models.IntegerField(
         _("Quantidade Usada:"), db_column='percent', blank=False)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s %s' % (self.material.name, self.percent)
 
     class Meta:
         ordering = ["material"]
-
-
-class Product(models.Model):
-    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(db_column='name', max_length=100, blank=False)
-    percent_ingredients = models.ManyToManyField(PercentIngredient)
-    percent_materials = models.ManyToManyField(PercentMaterial)
-    labor = models.ForeignKey(Labor, blank=True, on_delete=models.CASCADE)
-    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=False)
-    incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses', blank=False)
-    marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace (R$):"), db_column='marketplace_tax', blank=False)
-    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=False)
-    quantity = models.IntegerField(
-        _("Quantidade Desejada:"), db_column='quantity', blank=False)
-    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=False)
-
-
-
-
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["name"]

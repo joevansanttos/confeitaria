@@ -272,16 +272,4 @@ def productDelete(request, id):
 @login_required
 def product(request, id):
     product = Product.objects.get(id=id)
-    percent_ingredients = product.percent_ingredients.all()
-    ingredients_cost = 0.0
-    for percent_ingredient in percent_ingredients:
-        ingredients_cost = (ingredients_cost + (percent_ingredient.percent/percent_ingredient.ingredient.quantity)
-                            * percent_ingredient.ingredient.price)
-    percent_materials = product.percent_materials.all()
-    materials_cost = 0.0
-    for percent_material in percent_materials:
-        materials_cost = (materials_cost + (
-                    percent_material.percent / percent_material.material.quantity)
-                          * percent_material.material.price)
-    unity_price = percent_ingredients + percent_materials + product.another_expenses + product.incalculable_expenses
-    return render(request, 'product.html', {'product': product, 'unity_price': unity_price})
+    return render(request, 'product.html', {'product': product})
