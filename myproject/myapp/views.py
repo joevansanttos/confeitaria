@@ -105,7 +105,8 @@ def percentIngredientCreate(request, id):
                 instance.save()
                 form.save()
                 model = form.instance
-                return redirect('product')
+                return render(request, 'product.html',
+                              {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
             except:
                 pass
     else:
