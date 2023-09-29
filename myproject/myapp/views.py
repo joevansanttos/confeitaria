@@ -112,6 +112,19 @@ def percentIngredientCreate(request, id):
     else:
         print("invaliddooooooo")
         form = PercentIngredientForm()
+    return redirect('product-list')
+
+@login_required
+def percentIngredientDelete(request, id):
+    percent_ingredient = PercentIngredient.objects.get(id=id)
+    print(percent_ingredient)
+    percent_ingredients = PercentIngredient.objects.all()
+
+    form = PercentIngredientForm()
+    try:
+        percent_ingredient.delete()
+    except:
+        pass
     return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
 
 
@@ -284,4 +297,7 @@ def product(request, id):
     form = PercentIngredientForm()
     product = Product.objects.get(id=id)
     percent_ingredients = PercentIngredient.objects.all()
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>>. start")
+    for percent in percent_ingredients:
+        print(percent.ingredient.name)
     return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
