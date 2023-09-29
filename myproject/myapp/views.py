@@ -92,21 +92,27 @@ def percentIngredientList(request):
                   {'percent_ingredients': percent_ingredients})
 
 
-def percentIngredientCreate(request):
+def percentIngredientCreate(request, id):
+    product = Product.objects.get(id=id)
+    percent_ingredients = PercentIngredient.objects.all()
     if request.method == "POST":
         form = PercentIngredientForm(request.POST)
         if form.is_valid():
+            print("validddo")
             try:
                 instance = form.save(commit=False)
+                instance.product = product
                 instance.save()
                 form.save()
                 model = form.instance
-                return redirect('percent-ingredient-list')
+                return redirect('product')
             except:
                 pass
     else:
+        print("invaliddooooooo")
         form = PercentIngredientForm()
-    return render(request, 'percent-ingredient-create.html', {'form': form})
+    return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
+
 
 @login_required
 def materialList(request):
@@ -183,6 +189,7 @@ def percentMaterialCreate(request):
         form = PercentMaterialForm()
     return render(request, 'percent-material-create.html', {'form': form})
 
+
 @login_required
 def laborList(request):
     labors = Labor.objects.all()
@@ -238,6 +245,7 @@ def laborDelete(request, id):
 @login_required
 def productList(request):
     products = Product.objects.all()
+
     return render(request, "product-list.html", {'products': products})
 
 
@@ -269,7 +277,10 @@ def productDelete(request, id):
         pass
     return redirect('product-list')
 
+
 @login_required
 def product(request, id):
+    form = PercentIngredientForm()
     product = Product.objects.get(id=id)
-    return render(request, 'product.html', {'product': product})
+    percent_ingredients = PercentIngredient.objects.all()
+    return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})

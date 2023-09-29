@@ -12,7 +12,7 @@ urlpatterns = [
     path('ingredient-delete/<int:id>',
          views.ingredientDelete, name='ingredient-delete'),
     path('percent-ingredient-list', views.percentIngredientList, name='percent-ingredient-list'),
-    path('percent-ingredient-create', views.percentIngredientCreate, name='percent-ingredient-create'),
+    path('percent-ingredient-create/<int:id>', views.percentIngredientCreate, name='percent-ingredient-create'),
     path('material-list', views.materialList, name='material-list'),
     path('material-create', views.materialCreate, name='material-create'),
     path('material-update/<int:id>', views.materialUpdate, name='material-update'),

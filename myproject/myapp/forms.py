@@ -47,6 +47,8 @@ class PercentIngredientForm(ModelForm):
         labels = {
             "ingredient": "Ingrediente"
         }
+        exclude = ['product']
+
 
 
 class PercentMaterialForm(ModelForm):
