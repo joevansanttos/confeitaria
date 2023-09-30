@@ -1,4 +1,7 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
@@ -91,41 +94,39 @@ def percentIngredientList(request):
     return render(request, "percent-ingredient-list.html",
                   {'percent_ingredients': percent_ingredients})
 
-
+@login_required()
 def percentIngredientCreate(request, id):
-    product = Product.objects.get(id=id)
-    percent_ingredients = PercentIngredient.objects.all()
     if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        percent_ingredients = PercentIngredient.objects.all()
         form = PercentIngredientForm(request.POST)
         if form.is_valid():
-            print("validddo")
             try:
                 instance = form.save(commit=False)
                 instance.product = product
                 instance.save()
                 form.save()
                 model = form.instance
-                return render(request, 'product.html',
-                              {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
+                return HttpResponseRedirect('/product/%d' % id)
             except:
                 pass
     else:
-        print("invaliddooooooo")
         form = PercentIngredientForm()
     return redirect('product-list')
+
 
 @login_required
 def percentIngredientDelete(request, id):
     percent_ingredient = PercentIngredient.objects.get(id=id)
-    print(percent_ingredient)
-    percent_ingredients = PercentIngredient.objects.all()
-
-    form = PercentIngredientForm()
+    product = percent_ingredient.product
+    product_id = product.id
     try:
         percent_ingredient.delete()
     except:
         pass
-    return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
+    return HttpResponseRedirect('/product/%d' % product_id)
 
 
 @login_required
@@ -186,22 +187,38 @@ def percentMaterialList(request):
     return render(request, "percent-material-list.html",
                   {'percent_materials': percent_materials})
 
-
-def percentMaterialCreate(request):
+@login_required()
+def percentMaterialCreate(request, id):
     if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        percent_materials = PercentMaterial.objects.all()
         form = PercentMaterialForm(request.POST)
         if form.is_valid():
             try:
                 instance = form.save(commit=False)
+                instance.product = product
                 instance.save()
                 form.save()
                 model = form.instance
-                return redirect('percent-material-list')
+                return HttpResponseRedirect('/product/%d' % id)
             except:
                 pass
     else:
         form = PercentMaterialForm()
-    return render(request, 'percent-material-create.html', {'form': form})
+    return redirect('product-list')
+
+@login_required
+def percentMaterialDelete(request, id):
+    percent_material = PercentMaterial.objects.get(id=id)
+    product = percent_material.product
+    product_id = product.id
+    try:
+        percent_material.delete()
+    except:
+        pass
+    return HttpResponseRedirect('/product/%d' % product_id)
 
 
 @login_required
@@ -294,10 +311,17 @@ def productDelete(request, id):
 
 @login_required
 def product(request, id):
-    form = PercentIngredientForm()
+    percent_ingredient_form = PercentIngredientForm()
+    percent_material_form = PercentMaterialForm()
     product = Product.objects.get(id=id)
     percent_ingredients = PercentIngredient.objects.all()
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>>. start")
-    for percent in percent_ingredients:
-        print(percent.ingredient.name)
-    return render(request, 'product.html', {'product': product, 'form': form, 'percent_ingredients': percent_ingredients})
+    percent_materials = PercentMaterial.objects.all()
+    return render(
+        request, 'product.html', {
+            'product': product,
+            'percent_ingredient_form': percent_ingredient_form,
+            'percent_material_form': percent_material_form,
+            'percent_ingredients': percent_ingredients,
+            'percent_materials': percent_materials
+        }
+    )

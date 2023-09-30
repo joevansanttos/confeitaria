@@ -23,8 +23,8 @@
                         <td>{{ percent_ingredient.ingredient.name }}</td>
                         <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
                         <td>
-                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}">Excluir</a>
-                            </td>
+                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -36,13 +36,17 @@
                     <tr>
                         <th scope="col">Materiais</th>
                         <th scope="col">Custo com os Materiais (R$)</th>
+                        <th scope="col">Acoes</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for percent_material in product.percent_materials.all %}
+                    {% for percent_material in percent_materials %}
                     <tr>
                         <td>{{ percent_material.material.name }}</td>
                         <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
+                         <td>
+                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -74,35 +78,53 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div>
-             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Ingrediente</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Material</button>
+        <a type="button" class="btn btn-success" data-toggle="modal" data-target="#ingredientModal" ><i class="fas fa-plus"> Ingrediente</i></a>
+        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#materialModal" ><i class="fas fa-plus"> Material</i></button>
+        <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ingredientModalLabel">Quantidade de Ingrediente</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/percent-ingredient-create/{{ product.id }}">
+                            {{ percent_ingredient_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {% load bootstrap %}
-                    <form method="post">
-                        {{ form|bootstrap}}
-                        {% csrf_token %}
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a type="submit" class="btn btn-success" href="/percent-ingredient-create/{{ product.id }}">Cadastrar</a>
-
-                    </form>
-                </div>
-
+        <div class="modal fade" id="materialModal" tabindex="-1" role="dialog" aria-labelledby="materialModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="materialModalLabel">Quantidade de Material/Embalagem</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/percent-material-create/{{ product.id }}">
+                            {{ percent_material_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 </div>
 

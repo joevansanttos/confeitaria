@@ -50,18 +50,17 @@ class PercentIngredientForm(ModelForm):
         exclude = ['product']
 
 
-
 class PercentMaterialForm(ModelForm):
     class Meta:
         model = PercentMaterial
         fields = ('material', 'percent', 'product')
+
+        exclude = ['product']
 
 
 class ProductForm(ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'labor',
-                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit' )
+                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit')
         exclude = ['user']
-
-
