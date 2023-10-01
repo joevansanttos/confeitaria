@@ -92,6 +92,8 @@
                 </div>
             </li>
 
+
+
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLabors"
@@ -105,6 +107,23 @@
                         <h6 class="collapse-header">Itens:</h6>
                         <a class="collapse-item" href="{%url 'labor-create' %}">Cadastrar Mão de Obra</a>
                         <a class="collapse-item" href="{%url 'labor-list' %}">Listar Mão de Obra</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCost"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-dollar-sign"></i>
+                    <span>Custos Fixos</span>
+                </a>
+                <div id="collapseCost" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Itens:</h6>
+                        <a class="collapse-item" href="{%url 'cost-create' %}">Cadastrar Custo</a>
+                        <a class="collapse-item" href="{%url 'cost-list' %}">Listar Custos</a>
                     </div>
                 </div>
             </li>

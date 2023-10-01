@@ -80,7 +80,22 @@ class Labor(models.Model):
     time = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TIME_CHOICES)
 
     def __str__(self):
-        string = self.name + " " + str(self.salary / self.hours)
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Cost(models.Model):
+    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(_("Nome do Custo:"), db_column='name', max_length=100, blank=False)
+    price = models.FloatField(_("Preço (R$):"), db_column='price', blank=False)
+    hours = models.FloatField(
+        _("Horas Mensais:"), db_column='hours', blank=False)
+    time = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TIME_CHOICES)
+
+    def __str__(self):
+        string = self.name + " " + str(self.price / self.hours)
         return string
 
     class Meta:
@@ -88,18 +103,17 @@ class Labor(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, blank=False, on_delete=models.CASCADE)
     name = models.CharField(db_column='name', max_length=100, blank=False)
-    labor = models.ForeignKey(Labor, blank=True, on_delete=models.CASCADE)
-    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=True)
+    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=False)
     incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses',
                                               blank=True)
-    marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace (R$):"), db_column='marketplace_tax',
-                                        blank=True)
-    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=True)
+    marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace %:"), db_column='marketplace_tax',
+                                        blank=False)
+    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=False)
     quantity = models.IntegerField(
-        _("Quantidade Desejada:"), db_column='quantity', blank=True)
-    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
+        _("Quantidade Desejada:"), db_column='quantity', blank=False)
+    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=False)
 
     def __str__(self):
         return self.name
@@ -133,3 +147,31 @@ class PercentMaterial(models.Model):
 
     class Meta:
         ordering = ["material"]
+
+
+class PercentLabor(models.Model):
+    labor = models.ForeignKey(Labor, blank=True, on_delete=models.CASCADE)
+    hours = models.FloatField(
+        _("Horas de Consumo:"), db_column='hours', blank=False)
+    time = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TIME_CHOICES)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s %s' % (self.labor.name, self.hours)
+
+    class Meta:
+        ordering = ["labor"]
+
+
+class PercentCost(models.Model):
+    cost = models.ForeignKey(Cost, blank=True, on_delete=models.CASCADE)
+    hours = models.FloatField(
+        _("Horas de Consumo:"), db_column='hours', blank=False)
+    time = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TIME_CHOICES)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s %s' % (self.cost.name, self.hours)
+
+    class Meta:
+        ordering = ["cost"]

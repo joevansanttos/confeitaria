@@ -5,8 +5,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
-from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm
-from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
+from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
+    CostForm, PercentLaborForm, PercentCostForm
+from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
+    PercentCost
 from .forms import CustomUserCreationForm
 import logging
 
@@ -280,8 +282,148 @@ def laborDelete(request, id):
 
 
 @login_required
+def percentLaborList(request):
+    percent_labors = PercentLabor.objects.all()
+    return render(request, "percent-labor-list.html",
+                  {'percent_labors': percent_labors})
+
+
+@login_required()
+def percentLaborCreate(request, id):
+    if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        percent_labors = PercentLabor.objects.all()
+        form = PercentLaborForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = PercentLaborForm()
+    return redirect('product-list')
+
+
+@login_required
+def percentLaborDelete(request, id):
+    percent_labor = PercentLabor.objects.get(id=id)
+    product = percent_labor.product
+    product_id = product.id
+    try:
+        percent_labor.delete()
+    except:
+        pass
+    return HttpResponseRedirect('/product/%d' % product_id)
+
+
+@login_required
+def costList(request):
+    costs = Cost.objects.all()
+    return render(request, "cost-list.html",
+                  {'costs': costs})
+
+
+def costCreate(request):
+    if request.method == "POST":
+        form = CostForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.save()
+                form.save()
+                model = form.instance
+                return redirect('cost-list')
+            except:
+                pass
+    else:
+        form = CostForm()
+    return render(request, 'cost-create.html', {'form': form})
+
+
+@login_required
+def costUpdate(request, id):
+    cost = Cost.objects.get(id=id)
+    form = CostForm(
+        initial={'name': cost.name,
+                 'price': cost.price, 'hours': cost.hours, 'time': cost.time}
+    )
+    if request.method == "POST":
+        form = CostForm(request.POST, instance=cost)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                return redirect('/cost-list')
+            except Exception as e:
+                pass
+    return render(request, 'cost-update.html', {'form': form})
+
+
+@login_required
+def costDelete(request, id):
+    cost = Cost.objects.get(id=id)
+    try:
+        cost.delete()
+    except:
+        pass
+    return redirect('cost-list')
+
+
+@login_required
+def percentCostList(request):
+    percent_costs = PercentCost.objects.all()
+    return render(request, "percent-cost-list.html",
+                  {'percent_costs': percent_costs})
+
+
+@login_required()
+def percentCostCreate(request, id):
+    if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        percent_costs = PercentCost.objects.all()
+        form = PercentCostForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = PercentCostForm()
+    return redirect('product-list')
+
+
+@login_required
+def percentCostDelete(request, id):
+    percent_cost = PercentCost.objects.get(id=id)
+    product = percent_cost.product
+    product_id = product.id
+    try:
+        percent_cost.delete()
+    except:
+        pass
+    return HttpResponseRedirect('/product/%d' % product_id)
+
+
+@login_required
 def productList(request):
+    print("produtosss")
     products = Product.objects.all()
+    print(products)
 
     return render(request, "product-list.html", {'products': products})
 
@@ -291,6 +433,7 @@ def productCreate(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
+            print('validoooo')
             try:
                 instance = form.save(commit=False)
                 instance.user = request.user
@@ -301,6 +444,8 @@ def productCreate(request):
             except:
                 pass
     else:
+        print('invalidoooo')
+
         form = ProductForm()
     return render(request, 'product-create.html', {'form': form})
 
@@ -319,38 +464,52 @@ def productDelete(request, id):
 def product(request, id):
     percent_ingredient_form = PercentIngredientForm()
     percent_material_form = PercentMaterialForm()
-    product = Product.objects.get(id=id)
+    percent_labor_form = PercentLaborForm()
+    percent_cost_form = PercentCostForm()
     percent_ingredients = PercentIngredient.objects.all()
     percent_materials = PercentMaterial.objects.all()
+    percent_labors = PercentLabor.objects.all()
+    percent_costs = PercentCost.objects.all()
+    product = Product.objects.get(id=id)
 
-    price_unity = generate_price_unity(product, percent_ingredients, percent_materials)
+    price_unity = generate_price_unity(product)
 
     return render(
         request, 'product.html', {
             'product': product,
             'percent_ingredient_form': percent_ingredient_form,
             'percent_material_form': percent_material_form,
+            'percent_labor_form': percent_labor_form,
+            'percent_cost_form': percent_cost_form,
             'percent_ingredients': percent_ingredients,
             'percent_materials': percent_materials,
+            'percent_labors': percent_labors,
+            'percent_costs': percent_costs,
             'price_unity': price_unity
         }
     )
 
 
-def generate_price_unity(product, percent_ingredients, percent_materials):
+def generate_price_unity(product):
+    percent_ingredients = PercentIngredient.objects.all()
+    percent_materials = PercentMaterial.objects.all()
+    percent_labors = PercentLabor.objects.all()
+    percent_costs = PercentCost.objects.all()
     total_ingredients = calc_ingredients_value(percent_ingredients)
     logger.warning('total_ingredients: ' + str(total_ingredients))
     total_materials = calc_materials_value(percent_materials)
     logger.warning('total_materials: ' + str(total_materials))
-    labor_value = product.labor.hours * (product.labor.salary / 220)
-    logger.warning('labor_value: ' + str(labor_value))
-    incalculable = product.incalculable_expenses/100 * total_ingredients
+    total_labors = calc_labors_value(percent_labors)
+    logger.warning('total_labors: ' + str(total_labors))
+    total_costs = calc_costs_value(percent_costs)
+    logger.warning('total_costs: ' + str(total_costs))
+    incalculable = product.incalculable_expenses / 100 * total_ingredients
     logger.warning('incalculable: ' + str(incalculable))
     total_cost = total_ingredients + total_materials + product.another_expenses + incalculable + product.profit
     logger.warning('total_cost: ' + str(total_cost))
-    machine = product.taxes/100
+    machine = product.taxes / 100
     logger.warning('machine: ' + str(machine))
-    comission = product.marketplace_tax/100
+    comission = product.marketplace_tax / 100
     logger.warning('comission: ' + str(comission))
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
     logger.warning('taxes_market: ' + str(taxes_market))
@@ -358,7 +517,7 @@ def generate_price_unity(product, percent_ingredients, percent_materials):
     logger.warning('comission_tax: ' + str(comission_tax))
     comission_machine = taxes_market * (machine / (comission + machine))
     logger.warning('comission_machine: ' + str(comission_machine))
-    price_unity = total_ingredients + total_materials + labor_value + product.another_expenses + \
+    price_unity = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + \
                   incalculable + comission_tax + comission_machine + product.profit / product.quantity
     logger.warning('price_unity: ' + str(price_unity))
     return round(price_unity, 2)
@@ -377,6 +536,22 @@ def calc_materials_value(percent_materials):
     calc_materials = 0
     for percent_material in percent_materials:
         calc_material = (percent_material.percent / percent_material.material.quantity) * \
-                          percent_material.material.price
+                        percent_material.material.price
         calc_materials = calc_materials + calc_material
     return calc_materials
+
+
+def calc_labors_value(percent_labors):
+    calc_labors = 0
+    for percent_labor in percent_labors:
+        calc_labor = (percent_labor.hours / percent_labor.labor.salary) / percent_labor.labor.hours
+        calc_labors = calc_labors + calc_labor
+    return calc_labors
+
+
+def calc_costs_value(percent_costs):
+    calc_costs = 0
+    for percent_cost in percent_costs:
+        calc_cost = (percent_cost.hours / percent_cost.cost.price) / percent_cost.cost.hours
+        calc_costs = calc_costs + calc_cost
+    return calc_costs

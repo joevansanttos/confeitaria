@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
-from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser
+from .models import CustomUser, Cost, PercentCost, PercentLabor
 from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
 
 
@@ -39,6 +38,13 @@ class LaborForm(ModelForm):
         exclude = ['user']
 
 
+class CostForm(ModelForm):
+    class Meta:
+        model = Cost
+        fields = ('name', 'price', 'hours', 'time')
+        exclude = ['user']
+
+
 class PercentIngredientForm(ModelForm):
     class Meta:
         model = PercentIngredient
@@ -58,9 +64,25 @@ class PercentMaterialForm(ModelForm):
         exclude = ['product']
 
 
+class PercentLaborForm(ModelForm):
+    class Meta:
+        model = PercentLabor
+        fields = ('labor', 'hours', 'time', 'product')
+
+        exclude = ['product']
+
+
+class PercentCostForm(ModelForm):
+    class Meta:
+        model = PercentCost
+        fields = ('cost', 'hours', 'time', 'product')
+
+        exclude = ['product']
+
+
 class ProductForm(ModelForm):
     class Meta:
         model = Product
-        fields = ('name', 'labor',
+        fields = ('name',
                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit')
         exclude = ['user']
