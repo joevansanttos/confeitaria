@@ -421,9 +421,10 @@ def percentCostDelete(request, id):
 
 @login_required
 def productList(request):
-    print("produtosss")
     products = Product.objects.all()
-    print(products)
+    for product in products:
+        price_unity = generate_price_unity(product)
+        product.price_unity = price_unity
 
     return render(request, "product-list.html", {'products': products})
 

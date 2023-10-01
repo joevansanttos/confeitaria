@@ -22,14 +22,30 @@
                     <td>{{ material.name }}</td>
                     <td>{{ material.quantity }}</td>
                     <td>{{ material.price }}</td>
-                    <td><a type="button" class="btn btn-warning" href="/ingredient-update/{{ material.id }}"><i class="fas fa-edit"></i> Atualizar</a>
-                        <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ material.id }}"><i class="fas fa-trash"></i> Excluir</a>
+                    <td>
+                        <a href="/material-update/{{ material.id }}" class="btn btn-warning btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                    <span class="text">Atualizar</span>
+                        </a>
+                        <a href="/material-delete/{{ material.id }}" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Excluir</span>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a type="button" class="btn btn-success" href="{%url 'material-create' %}"><i class="fas fa-plus"></i> Cadastrar</a>
+        <a href="{%url 'material-create' %}" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Novo Material</span>
+        </a>
     </div>
 </div>
 </div>
