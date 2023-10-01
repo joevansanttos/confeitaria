@@ -434,7 +434,6 @@ def productCreate(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
-            print('validoooo')
             try:
                 instance = form.save(commit=False)
                 instance.user = request.user
@@ -445,10 +444,28 @@ def productCreate(request):
             except:
                 pass
     else:
-        print('invalidoooo')
-
         form = ProductForm()
     return render(request, 'product-create.html', {'form': form})
+
+@login_required
+def productUpdate(request, id):
+    product = Product.objects.get(id=id)
+    form = ProductForm(
+        initial={'name': product.name,
+                 'another_expenses': product.another_expenses, 'incalculable_expenses': product.incalculable_expenses,
+                 'marketplace_tax': product.marketplace_tax, 'taxes': product.taxes,
+                 'quantity': product.quantity, 'profit': product.profit}
+    )
+    if request.method == "POST":
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                return redirect('/product-list')
+            except Exception as e:
+                pass
+    return render(request, 'product-update.html', {'form': form})
 
 
 @login_required
@@ -506,20 +523,20 @@ def generate_price_unity(product):
     logger.warning('total_costs: ' + str(total_costs))
     incalculable = product.incalculable_expenses / 100 * total_ingredients
     logger.warning('incalculable: ' + str(incalculable))
-    total_cost = total_ingredients + total_materials + product.another_expenses + incalculable + product.profit
+    total_cost = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + product.profit
     logger.warning('total_cost: ' + str(total_cost))
-    machine = product.taxes / 100
+    machine = product.taxes / 100 if product.taxes != 0 else 0
     logger.warning('machine: ' + str(machine))
-    comission = product.marketplace_tax / 100
+    comission = product.marketplace_tax / 100 if product.marketplace_tax != 0 else 0
     logger.warning('comission: ' + str(comission))
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
     logger.warning('taxes_market: ' + str(taxes_market))
-    comission_tax = taxes_market * (comission / (comission + machine))
+    comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
     logger.warning('comission_tax: ' + str(comission_tax))
-    comission_machine = taxes_market * (machine / (comission + machine))
+    comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
     logger.warning('comission_machine: ' + str(comission_machine))
-    price_unity = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + \
-                  incalculable + comission_tax + comission_machine + product.profit / product.quantity
+    price_unity = (total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + \
+                  incalculable + comission_tax + comission_machine + product.profit) / product.quantity
     logger.warning('price_unity: ' + str(price_unity))
     return round(price_unity, 2)
 
@@ -545,7 +562,7 @@ def calc_materials_value(percent_materials):
 def calc_labors_value(percent_labors):
     calc_labors = 0
     for percent_labor in percent_labors:
-        calc_labor = (percent_labor.hours / percent_labor.labor.salary) / percent_labor.labor.hours
+        calc_labor = percent_labor.hours * (percent_labor.labor.salary / percent_labor.labor.hours)
         calc_labors = calc_labors + calc_labor
     return calc_labors
 
@@ -553,6 +570,6 @@ def calc_labors_value(percent_labors):
 def calc_costs_value(percent_costs):
     calc_costs = 0
     for percent_cost in percent_costs:
-        calc_cost = (percent_cost.hours / percent_cost.cost.price) / percent_cost.cost.hours
+        calc_cost = percent_cost.hours * (percent_cost.cost.price / percent_cost.cost.hours)
         calc_costs = calc_costs + calc_cost
     return calc_costs

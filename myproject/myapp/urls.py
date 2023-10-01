@@ -44,6 +44,8 @@ urlpatterns = [
     path('product-list', views.productList, name='product-list'),
     path('product-create', views.productCreate, name='product-create'),
     path('product-delete/<int:id>', views.productDelete, name='product-delete'),
+    path('product-update/<int:id>',
+         views.productUpdate, name='product-update'),
     path('product/<int:id>',
          views.product, name='product'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
