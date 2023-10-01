@@ -8,6 +8,9 @@ from django.contrib.auth import login, authenticate
 from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm
 from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
 from .forms import CustomUserCreationForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def signup(request):
@@ -93,6 +96,7 @@ def percentIngredientList(request):
     percent_ingredients = PercentIngredient.objects.all()
     return render(request, "percent-ingredient-list.html",
                   {'percent_ingredients': percent_ingredients})
+
 
 @login_required()
 def percentIngredientCreate(request, id):
@@ -187,6 +191,7 @@ def percentMaterialList(request):
     return render(request, "percent-material-list.html",
                   {'percent_materials': percent_materials})
 
+
 @login_required()
 def percentMaterialCreate(request, id):
     if request.method == "POST":
@@ -208,6 +213,7 @@ def percentMaterialCreate(request, id):
     else:
         form = PercentMaterialForm()
     return redirect('product-list')
+
 
 @login_required
 def percentMaterialDelete(request, id):
@@ -249,8 +255,8 @@ def laborCreate(request):
 @login_required
 def laborUpdate(request, id):
     labor = Labor.objects.get(id=id)
-    form = LaborForm(initial={'name': labor.nome, 'salary': labor.salario,
-                              'hours': labor.horas, 'time': labor.tempo})
+    form = LaborForm(initial={'name': labor.name, 'salary': labor.salary,
+                              'hours': labor.hours, 'time': labor.time})
     if request.method == "POST":
         form = LaborForm(request.POST, instance=labor)
         if form.is_valid():
@@ -316,12 +322,61 @@ def product(request, id):
     product = Product.objects.get(id=id)
     percent_ingredients = PercentIngredient.objects.all()
     percent_materials = PercentMaterial.objects.all()
+
+    price_unity = generate_price_unity(product, percent_ingredients, percent_materials)
+
     return render(
         request, 'product.html', {
             'product': product,
             'percent_ingredient_form': percent_ingredient_form,
             'percent_material_form': percent_material_form,
             'percent_ingredients': percent_ingredients,
-            'percent_materials': percent_materials
+            'percent_materials': percent_materials,
+            'price_unity': price_unity
         }
     )
+
+
+def generate_price_unity(product, percent_ingredients, percent_materials):
+    total_ingredients = calc_ingredients_value(percent_ingredients)
+    logger.warning('total_ingredients: ' + str(total_ingredients))
+    total_materials = calc_materials_value(percent_materials)
+    logger.warning('total_materials: ' + str(total_materials))
+    labor_value = product.labor.hours * (product.labor.salary / 220)
+    logger.warning('labor_value: ' + str(labor_value))
+    incalculable = product.incalculable_expenses/100 * total_ingredients
+    logger.warning('incalculable: ' + str(incalculable))
+    total_cost = total_ingredients + total_materials + product.another_expenses + incalculable + product.profit
+    logger.warning('total_cost: ' + str(total_cost))
+    machine = product.taxes/100
+    logger.warning('machine: ' + str(machine))
+    comission = product.marketplace_tax/100
+    logger.warning('comission: ' + str(comission))
+    taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
+    logger.warning('taxes_market: ' + str(taxes_market))
+    comission_tax = taxes_market * (comission / (comission + machine))
+    logger.warning('comission_tax: ' + str(comission_tax))
+    comission_machine = taxes_market * (machine / (comission + machine))
+    logger.warning('comission_machine: ' + str(comission_machine))
+    price_unity = total_ingredients + total_materials + labor_value + product.another_expenses + \
+                  incalculable + comission_tax + comission_machine + product.profit / product.quantity
+    logger.warning('price_unity: ' + str(price_unity))
+    return round(price_unity, 2)
+
+
+def calc_ingredients_value(percent_ingredients):
+    calc_ingredients = 0
+    for percent_ingredient in percent_ingredients:
+        calc_ingredient = (percent_ingredient.percent / percent_ingredient.ingredient.quantity) * \
+                          percent_ingredient.ingredient.price
+        calc_ingredients = calc_ingredients + calc_ingredient
+    return calc_ingredients
+
+
+def calc_materials_value(percent_materials):
+    calc_materials = 0
+    for percent_material in percent_materials:
+        calc_material = (percent_material.percent / percent_material.material.quantity) * \
+                          percent_material.material.price
+        calc_materials = calc_materials + calc_material
+    return calc_materials

@@ -8,12 +8,28 @@
         <h6 class="m-0 font-weight-bold text-primary">Produto {{ product.name }}</h6>
     </div>
     <div class="card-body">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Preço de Venda (Unidade)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{price_unity}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive" style="margin-top:5px">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th scope="col">Ingredientes</th>
-                        <th scope="col">Custo com os Ingredientes (R$)</th>
+                        <th scope="col">Ingrediente</th>
+                        <th scope="col">Custo Total (R$)</th>
                         <th scope="col">Acoes</th>
                     </tr>
                 </thead>

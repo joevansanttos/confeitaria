@@ -24,14 +24,14 @@
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.measure }}</td>
                             <td>{{ ingredient.price }}</td>
                             <td>
-                                <a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}">Atualizar</a>
-                                <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ ingredient.id }}">Excluir</a>
+                                <a type="button" class="btn btn-warning" href="/ingredient-update/{{ ingredient.id }}"><i class="fas fa-edit"></i>Atualizar</a>
+                                <a type="button" class="btn btn-danger" href="/ingredient-delete/{{ ingredient.id }}"><i class="fas fa-trash"></i>Excluir</a>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
             </table>
-            <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}">Cadastrar</a>
+            <a type="button" class="btn btn-success" href="{%url 'ingredient-create' %}"><i class="fas fa-plus"></i> Cadastrar</a>
         </div>
     </div>
 </div>

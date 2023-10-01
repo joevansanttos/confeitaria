@@ -133,3 +133,16 @@ LOGIN_REDIRECT_URL = "profile"
 
 LOGOUT_REDIRECT_URL = "login"
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}

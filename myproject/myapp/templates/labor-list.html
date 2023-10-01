@@ -22,15 +22,31 @@
                     <td>{{ labor.name }}</td>
                     <td>{{ labor.salary }}</td>
                     <td>{{ labor.hours }}{{ "/" }}{{ labor.time }}</td>
-                    <td><a type="button" class="btn btn-warning" href="/labor-update/{{ labor.id }}">Atualizar</a>
-                        <a type="button" class="btn btn-danger" href="/labor-delete/{{ labor.id }}">Excluir</a>
+                    <td>
+                        <a href="/labor-update/{{ labor.id }}" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="text">Atualizar</span>
+                        </a>
+                        <a href="/labor-delete/{{ labor.id }}" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Excluir</span>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <a type="button" class="btn btn-success" href="{%url 'labor-create' %}">Cadastrar</a>
+    <a href="{%url 'labor-create' %}" class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus"></i>
+        </span>
+        <span class="text">Cadastrar</span>
+    </a>
 </div>
 </div>
 {% endblock %}
