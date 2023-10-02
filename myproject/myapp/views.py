@@ -119,9 +119,8 @@ def percentIngredientCreate(request, id):
             except:
                 pass
     else:
+        print("percent")
         form = PercentIngredientForm()
-        current_user = request.user
-        form.fields["ingredient"].current_user.ingredient_set.all()
     return redirect('product-list')
 
 
@@ -488,9 +487,14 @@ def productDelete(request, id):
 def product(request, id):
     product = Product.objects.get(id=id)
     percent_ingredient_form = PercentIngredientForm()
+    current_user = request.user
+    percent_ingredient_form.fields["ingredient"].queryset = Ingredient.objects.filter(user_id=current_user.id)
     percent_material_form = PercentMaterialForm()
+    percent_material_form.fields["material"].queryset = Material.objects.filter(user_id=current_user.id)
     percent_labor_form = PercentLaborForm()
+    percent_labor_form.fields["labor"].queryset = Labor.objects.filter(user_id=current_user.id)
     percent_cost_form = PercentCostForm()
+    percent_cost_form.fields["cost"].queryset = Cost.objects.filter(user_id=current_user.id)
     percent_ingredients = product.percentingredient_set.all()
     percent_materials = product.percentmaterial_set.all()
     percent_labors = product.percentlabor_set.all()
@@ -520,30 +524,18 @@ def generate_price_unity(product):
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
     total_ingredients = calc_ingredients_value(percent_ingredients)
-    logger.warning('total_ingredients: ' + str(total_ingredients))
     total_materials = calc_materials_value(percent_materials)
-    logger.warning('total_materials: ' + str(total_materials))
     total_labors = calc_labors_value(percent_labors)
-    logger.warning('total_labors: ' + str(total_labors))
     total_costs = calc_costs_value(percent_costs)
-    logger.warning('total_costs: ' + str(total_costs))
     incalculable = product.incalculable_expenses / 100 * total_ingredients
-    logger.warning('incalculable: ' + str(incalculable))
     total_cost = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + product.profit
-    logger.warning('total_cost: ' + str(total_cost))
     machine = product.taxes / 100 if product.taxes != 0 else 0
-    logger.warning('machine: ' + str(machine))
     comission = product.marketplace_tax / 100 if product.marketplace_tax != 0 else 0
-    logger.warning('comission: ' + str(comission))
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
-    logger.warning('taxes_market: ' + str(taxes_market))
     comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
-    logger.warning('comission_tax: ' + str(comission_tax))
     comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
-    logger.warning('comission_machine: ' + str(comission_machine))
     price_unity = (total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + \
                   incalculable + comission_tax + comission_machine + product.profit) / product.quantity
-    logger.warning('price_unity: ' + str(price_unity))
     return round(price_unity, 2)
 
 
