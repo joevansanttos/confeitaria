@@ -70,7 +70,7 @@ def ingredientUpdate(request, id):
     ingredient = Ingredient.objects.get(id=id)
     form = IngredientForm(
         initial={'name': ingredient.name,
-                 'quantity': ingredient.quantity, 'value': ingredient.value}
+                 'quantity': ingredient.quantity, 'price': ingredient.price, 'measure': ingredient.measure}
     )
     if request.method == "POST":
         form = IngredientForm(request.POST, instance=ingredient)
@@ -138,7 +138,8 @@ def percentIngredientDelete(request, id):
 
 @login_required
 def materialList(request):
-    materials = Material.objects.all()
+    current_user = request.user
+    materials = current_user.material_set.all()
     return render(request, "material-list.html", {'materials': materials})
 
 
@@ -232,7 +233,8 @@ def percentMaterialDelete(request, id):
 
 @login_required
 def laborList(request):
-    labors = Labor.objects.all()
+    current_user = request.user
+    labors = current_user.labor_set.all()
     return render(request, "labor-list.html", {'labors': labors})
 
 
@@ -326,7 +328,8 @@ def percentLaborDelete(request, id):
 
 @login_required
 def costList(request):
-    costs = Cost.objects.all()
+    current_user = request.user
+    costs = current_user.cost_set.all()
     return render(request, "cost-list.html",
                   {'costs': costs})
 
@@ -422,7 +425,8 @@ def percentCostDelete(request, id):
 
 @login_required
 def productList(request):
-    products = Product.objects.all()
+    current_user = request.user
+    products = current_user.product_set.all()
     for product in products:
         price_unity = generate_price_unity(product)
         product.price_unity = price_unity

@@ -1,12 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="card-body">
-    <h4>Atualizar ingrediente</h4>
-    <form method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <a type="button" class="btn btn-danger" href="{%url 'ingredient-list' %}">Cancel</a>
-        <button type="submit" class="btn btn-success">Update</button>
-    </form>
+<h1 class="h3 mb-2 text-gray-800">Ingredientes</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Atualizar Ingrediente</h6>
+    </div>
+    <div class="card-body">
+        {% load bootstrap %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <a  href="{%url 'ingredient-list' %}" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-reply"></i>
+                </span>
+                <span class="text">Cancelar</span>
+            </a>
+            <button type="submit" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-edit"></i>
+                </span>
+                <span class="text">Atualizar</span>
+            </button>
+        </form>
+    </div>
 </div>
 {% endblock %}
