@@ -41,7 +41,8 @@ def profile(request):
 
 @login_required
 def ingredientList(request):
-    ingredients = Ingredient.objects.all()
+    current_user = request.user
+    ingredients = current_user.ingredient_set.all()
     return render(request, "ingredient-list.html",
                   {'ingredients': ingredients})
 
