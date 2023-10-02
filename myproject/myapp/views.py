@@ -120,6 +120,8 @@ def percentIngredientCreate(request, id):
                 pass
     else:
         form = PercentIngredientForm()
+        current_user = request.user
+        form.fields["ingredient"].current_user.ingredient_set.all()
     return redirect('product-list')
 
 
