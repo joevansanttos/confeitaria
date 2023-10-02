@@ -107,7 +107,6 @@ def percentIngredientCreate(request, id):
         product = Product.objects.get(id=id)
         if not product:
             return redirect('product-list')
-        percent_ingredients = PercentIngredient.objects.all()
         form = PercentIngredientForm(request.POST)
         if form.is_valid():
             try:
@@ -485,15 +484,15 @@ def productDelete(request, id):
 
 @login_required
 def product(request, id):
+    product = Product.objects.get(id=id)
     percent_ingredient_form = PercentIngredientForm()
     percent_material_form = PercentMaterialForm()
     percent_labor_form = PercentLaborForm()
     percent_cost_form = PercentCostForm()
-    percent_ingredients = PercentIngredient.objects.all()
-    percent_materials = PercentMaterial.objects.all()
-    percent_labors = PercentLabor.objects.all()
-    percent_costs = PercentCost.objects.all()
-    product = Product.objects.get(id=id)
+    percent_ingredients = product.percentingredient_set.all()
+    percent_materials = product.percentmaterial_set.all()
+    percent_labors = product.percentlabor_set.all()
+    percent_costs =product.percentcost_set.all()
 
     price_unity = generate_price_unity(product)
 
@@ -514,10 +513,10 @@ def product(request, id):
 
 
 def generate_price_unity(product):
-    percent_ingredients = PercentIngredient.objects.all()
-    percent_materials = PercentMaterial.objects.all()
-    percent_labors = PercentLabor.objects.all()
-    percent_costs = PercentCost.objects.all()
+    percent_ingredients = product.percentingredient_set.all()
+    percent_materials = product.percentmaterial_set.all()
+    percent_labors = product.percentlabor_set.all()
+    percent_costs =product.percentcost_set.all()
     total_ingredients = calc_ingredients_value(percent_ingredients)
     logger.warning('total_ingredients: ' + str(total_ingredients))
     total_materials = calc_materials_value(percent_materials)
