@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.contrib import messages #import messages
+
 
 from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate
@@ -57,6 +59,7 @@ def ingredientCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
+                messages.success(request, " Novo Ingrediente Criado")
                 return redirect('ingredient-list')
             except:
                 pass
