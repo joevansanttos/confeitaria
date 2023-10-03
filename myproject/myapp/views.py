@@ -439,16 +439,20 @@ def productCreate(request):
     if request.method == "POST":
         form = ProductForm(request.POST)
         if form.is_valid():
+            print("is valido")
             try:
                 instance = form.save(commit=False)
                 instance.user = request.user
+                print("ok")
                 instance.save()
                 form.save()
                 model = form.instance
                 return redirect('product-list')
             except:
+                print("erro")
                 pass
     else:
+        print("nopt is is valido")
         form = ProductForm()
     return render(request, 'product-create.html', {'form': form})
 

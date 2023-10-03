@@ -103,17 +103,17 @@ class Cost(models.Model):
 
 
 class Product(models.Model):
-    user = models.ForeignKey(CustomUser, blank=False, on_delete=models.CASCADE)
-    name = models.CharField(db_column='name', max_length=100, blank=False)
-    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=False)
+    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(_("Nome do Produto:"),db_column='name', max_length=100, blank=False)
+    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=True)
     incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses',
                                               blank=True)
     marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace %:"), db_column='marketplace_tax',
-                                        blank=False)
-    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=False)
+                                        blank=True)
+    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=True)
     quantity = models.IntegerField(
-        _("Quantidade Desejada:"), db_column='quantity', blank=False)
-    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=False)
+        _("Quantidade Desejada:"), db_column='quantity', blank=True)
+    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
 
     def __str__(self):
         return self.name
