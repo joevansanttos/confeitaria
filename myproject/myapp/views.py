@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
 from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
-    CostForm, PercentLaborForm, PercentCostForm
+    CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate
 from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
@@ -442,7 +442,14 @@ def productCreate(request):
             try:
                 instance = form.save(commit=False)
                 instance.user = request.user
+                instance.another_expenses = 0
+                instance.incalculable_expenses = 0
+                instance.marketplace_tax = 0
+                instance.taxes = 0
+                instance.quantity = 0
+                instance.profit = 0
                 instance.save()
+                print(instance.user.email)
                 form.save()
                 model = form.instance
                 return redirect('product-list')
@@ -455,19 +462,19 @@ def productCreate(request):
 @login_required
 def productUpdate(request, id):
     product = Product.objects.get(id=id)
-    form = ProductForm(
+    form = ProductFormUpdate(
         initial={'name': product.name,
                  'another_expenses': product.another_expenses, 'incalculable_expenses': product.incalculable_expenses,
                  'marketplace_tax': product.marketplace_tax, 'taxes': product.taxes,
                  'quantity': product.quantity, 'profit': product.profit}
     )
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductFormUpdate(request.POST, instance=product)
         if form.is_valid():
             try:
                 form.save()
                 model = form.instance
-                return redirect('/product-list')
+                return HttpResponseRedirect('/product/%d' % id)
             except Exception as e:
                 pass
     return render(request, 'product-update.html', {'form': form})
@@ -534,8 +541,9 @@ def generate_price_unity(product):
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
     comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
     comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
-    price_unity = (total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + \
-                  incalculable + comission_tax + comission_machine + product.profit) / product.quantity
+    price_unity = (total_ingredients + total_materials + total_labors + total_costs + product.another_expenses +
+                   incalculable + comission_tax + comission_machine + product.profit) / product.quantity \
+        if product.profit != 0 and product.quantity != 0 else 0
     return round(price_unity, 2)
 
 

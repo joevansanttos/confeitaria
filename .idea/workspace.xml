@@ -4,7 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add logs and calc for price_unity" />
+    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add logs and calc for price_unity">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/ingredient-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

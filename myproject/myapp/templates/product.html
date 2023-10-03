@@ -18,7 +18,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">${{price_unity}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -55,9 +55,14 @@
             </table>
         </div>
         {% else %}
-        <button href="#" class="btn btn-success btn-block"><i class="fab fa-pizza-slice fa-fw"></i>
-            Sem Ingredientes Adicionados</button>
+         <div class="card mb-4 py-3 border-left-success">
+             <div class="card-body">
+                 Sem Ingredientes Adicionados
+             </div>
+         </div>
         {% endif %}
+
+        {% if percent_materials %}
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -87,6 +92,17 @@
                 </tbody>
             </table>
         </div>
+
+        {% else %}
+         <div class="card mb-4 py-3 border-left-warning">
+             <div class="card-body">
+                 Sem Materiais Adicionados
+             </div>
+         </div>
+        {% endif %}
+
+
+        {% if percent_costs%}
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -116,6 +132,16 @@
                 </tbody>
             </table>
         </div>
+
+        {% else %}
+        <div class="card mb-4 py-3 border-left-primary">
+             <div class="card-body">
+                 Sem Mãos de Obras Adicionadas
+             </div>
+         </div>
+        {% endif %}
+
+        {% if percent_costs%}
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -145,6 +171,15 @@
                 </tbody>
             </table>
         </div>
+
+        {% else %}
+        <div class="card mb-4 py-3 border-left-danger">
+             <div class="card-body">
+                 Sem Custos Fixos Adicionados
+             </div>
+         </div>
+        {% endif %}
+
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -155,6 +190,7 @@
                         <th scope="col">Impostos %</th>
                         <th scope="col">Quantidade (Uni)</th>
                         <th scope="col">Lucro Desejado (R$)</th>
+                        <th scope="col">Acões</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,6 +201,10 @@
                         <td> {{product.taxes }}</td>
                         <td> {{product.quantity }}</td>
                         <td> {{product.profit }}</td>
+                        <td>
+                            <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
+
+                        </td>
                     </tr>
                 </tbody>
             </table>
