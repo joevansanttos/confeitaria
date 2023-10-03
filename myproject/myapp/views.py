@@ -443,26 +443,19 @@ def productCreate(request):
             try:
                 instance = form.save(commit=False)
                 instance.user = request.user
-<<<<<<< HEAD
                 instance.another_expenses = 0
                 instance.incalculable_expenses = 0
                 instance.marketplace_tax = 0
                 instance.taxes = 0
                 instance.quantity = 0
                 instance.profit = 0
-=======
-                print("ok")
->>>>>>> 6dcbc09642e41c690a9984380c661c9d800c0800
                 instance.save()
-                print(instance.user.email)
                 form.save()
                 model = form.instance
                 return redirect('product-list')
             except:
-                print("erro")
                 pass
     else:
-        print("nopt is is valido")
         form = ProductForm()
     return render(request, 'product-create.html', {'form': form})
 

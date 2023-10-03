@@ -103,13 +103,8 @@ class Cost(models.Model):
 
 
 class Product(models.Model):
-<<<<<<< HEAD
     user = models.ForeignKey(CustomUser, blank=False, on_delete=models.CASCADE)
     name = models.CharField(_("Nome do Produto:"), db_column='name', max_length=100, blank=False)
-=======
-    user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(_("Nome do Produto:"),db_column='name', max_length=100, blank=False)
->>>>>>> 6dcbc09642e41c690a9984380c661c9d800c0800
     another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=True)
     incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses',
                                               blank=True)
