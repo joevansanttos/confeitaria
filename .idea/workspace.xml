@@ -8,8 +8,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myproject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myproject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/scss/_alert.scss" beforeDir="false" afterPath="$PROJECT_DIR$/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/scss/_alert.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696345233606</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: add product form update">
+      <option name="closed" value="true" />
+      <created>1696361511759</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1696361511759</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

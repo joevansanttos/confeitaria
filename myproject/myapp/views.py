@@ -59,7 +59,7 @@ def ingredientCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
-                messages.success(request, " Novo Ingrediente Criado")
+                messages.success(request, "Ingrediente " + instance.name + " Adicionado!")
                 return redirect('ingredient-list')
             except:
                 pass
@@ -81,6 +81,7 @@ def ingredientUpdate(request, id):
             try:
                 form.save()
                 model = form.instance
+                messages.info(request, "Ingrediente " + ingredient.name + " Atualizado!!!")
                 return redirect('/ingredient-list')
             except Exception as e:
                 pass
@@ -92,6 +93,7 @@ def ingredientDelete(request, id):
     ingredient = Ingredient.objects.get(id=id)
     try:
         ingredient.delete()
+        messages.error(request, "Ingrediente " + ingredient.name + " excluído!!!")
     except:
         pass
     return redirect('ingredient-list')
@@ -157,6 +159,7 @@ def materialCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
+                messages.success(request, "Material " + instance.name + " Adicionado!")
                 return redirect('material-list')
             except:
                 pass
@@ -176,6 +179,7 @@ def materialUpdate(request, id):
             try:
                 form.save()
                 model = form.instance
+                messages.info(request, "Material " + material.name + " Atualizado!!!")
                 return redirect('/material-list')
             except Exception as e:
                 pass
@@ -187,6 +191,7 @@ def materialDelete(request, id):
     material = Material.objects.get(id=id)
     try:
         material.delete()
+        messages.error(request, "Material " + material.name + " excluído!!!")
     except:
         pass
     return redirect('material-list')
@@ -252,6 +257,7 @@ def laborCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
+                messages.success(request, "Mão de Obra " + instance.name + " Adicionada!")
                 return redirect('labor-list')
             except:
                 pass
@@ -271,6 +277,7 @@ def laborUpdate(request, id):
             try:
                 form.save()
                 model = form.instance
+                messages.info(request, "Mão de Obra " + labor.name + " Atualizado!!!")
                 return redirect('/labor-list')
             except Exception as e:
                 pass
@@ -282,6 +289,7 @@ def laborDelete(request, id):
     labor = Labor.objects.get(id=id)
     try:
         labor.delete()
+        messages.error(request, "Mão de Obra " + labor.name + " excluído!!!")
     except:
         pass
     return redirect('labor-list')
@@ -347,6 +355,7 @@ def costCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
+                messages.success(request, "Custo Fixo " + instance.name + " Adicionado!")
                 return redirect('cost-list')
             except:
                 pass
@@ -368,6 +377,7 @@ def costUpdate(request, id):
             try:
                 form.save()
                 model = form.instance
+                messages.info(request, "Custo Fixo " + cost.name + " Atualizado!!!")
                 return redirect('/cost-list')
             except Exception as e:
                 pass
@@ -379,6 +389,7 @@ def costDelete(request, id):
     cost = Cost.objects.get(id=id)
     try:
         cost.delete()
+        messages.error(request, "Custo Fixo " + cost.name + " excluído!!!")
     except:
         pass
     return redirect('cost-list')
@@ -455,6 +466,7 @@ def productCreate(request):
                 instance.save()
                 form.save()
                 model = form.instance
+                messages.success(request, "Produto " + instance.name + " Adicionado!")
                 return redirect('product-list')
             except:
                 pass
@@ -477,6 +489,7 @@ def productUpdate(request, id):
             try:
                 form.save()
                 model = form.instance
+                messages.info(request, "Produto " + product.name + " Atualizado!!!")
                 return HttpResponseRedirect('/product/%d' % id)
             except Exception as e:
                 pass
@@ -488,6 +501,7 @@ def productDelete(request, id):
     product = Product.objects.get(id=id)
     try:
         product.delete()
+        messages.error(request, "Produto " + product.name + " excluído!!!")
     except:
         pass
     return redirect('product-list')
@@ -553,8 +567,14 @@ def generate_price_unity(product):
 def calc_ingredients_value(percent_ingredients):
     calc_ingredients = 0
     for percent_ingredient in percent_ingredients:
-        calc_ingredient = (percent_ingredient.percent / percent_ingredient.ingredient.quantity) * \
-                          percent_ingredient.ingredient.price
+
+        if percent_ingredient.measure != percent_ingredient.ingredient.measure:
+            calc_ingredient = (percent_ingredient.percent / (percent_ingredient.ingredient.quantity * 1000)) * \
+                              percent_ingredient.ingredient.price
+        else:
+            calc_ingredient = (percent_ingredient.percent / percent_ingredient.ingredient.quantity) * \
+                              percent_ingredient.ingredient.price
+
         calc_ingredients = calc_ingredients + calc_ingredient
     return calc_ingredients
 

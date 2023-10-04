@@ -31,7 +31,6 @@
 
 <body id="page-top">
 
-    {% include 'messages.html' %}
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -252,9 +251,15 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+
+
                      {% block content %}
                     {% endblock %}
                 </div>
+
+                {% include 'messages.html' %}
+
+
 
                     <!-- Page Heading -->
 

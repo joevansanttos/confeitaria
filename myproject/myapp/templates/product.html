@@ -44,7 +44,14 @@
                         <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
                         <td>{{ percent_ingredient.ingredient.price }}</td>
                         <td>{{ percent_ingredient.percent }}</td>
-                        <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
+                        {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
+                            {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
+                            <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
+                             {% endwith %}
+                        {% else %}
+                            <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
+                        {% endif %}
+
                         <td>
                             <a type="button" class="btn btn-primary" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-edit"></i></a></a>
                             <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
