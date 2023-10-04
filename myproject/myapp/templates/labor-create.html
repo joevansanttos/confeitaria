@@ -10,8 +10,18 @@
         <form method="post">
             {{ form|bootstrap }}
             {% csrf_token %}
-            <a type="button" class="btn btn-danger" href="{%url 'material-list' %}">Cancel</a>
-            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <a  href="{%url 'labor-list' %}" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-reply"></i>
+                </span>
+                <span class="text">Cancelar</span>
+            </a>
+            <button type="submit" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file"></i>
+                </span>
+                <span class="text">Cadastrar</span>
+            </button>
         </form>
     </div>
 </div>

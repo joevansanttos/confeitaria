@@ -16,6 +16,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+@login_required
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 
 def signup(request):
     if request.method == 'POST':
@@ -171,8 +175,8 @@ def materialCreate(request):
 @login_required
 def materialUpdate(request, id):
     material = Material.objects.get(id=id)
-    form = MaterialForm(initial={'title': material.title, 'description': material.description,
-                                 'author': material.author, 'year': material.year})
+    form = MaterialForm(initial={'name': material.name, 'quantity': material.quantity,
+                                 'price': material.price})
     if request.method == "POST":
         form = MaterialForm(request.POST, instance=material)
         if form.is_valid():

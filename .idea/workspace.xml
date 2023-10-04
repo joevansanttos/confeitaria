@@ -4,14 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add product form update">
+    <list default="true" id="e05a587a-8900-49fb-9c43-737c20767092" name="Changes" comment="feat: add new message">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/messages.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/cost-update.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/labor-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/labor-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/material-create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/templates/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/templates/product.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myproject/myapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myproject/myapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/myproject/myapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/scss/_alert.scss" beforeDir="false" afterPath="$PROJECT_DIR$/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/scss/_alert.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,15 +43,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/joevanoliveira/dev/python/confeitaria/myproject/myapp/templates&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.editor&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/joevan/dev/python/confeitaria/myproject/myapp/templates",
+    "settings.editor.selected.configurable": "configurable.group.editor"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/myproject/myapp/templates" />
@@ -210,7 +213,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696361511759</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="feat: add new message">
+      <option name="closed" value="true" />
+      <created>1696440779933</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1696440779933</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -233,6 +244,7 @@
     <MESSAGE value="feat: add percent ingredient form" />
     <MESSAGE value="feat: add logs and calc for price_unity" />
     <MESSAGE value="feat: add product form update" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add product form update" />
+    <MESSAGE value="feat: add new message" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add new message" />
   </component>
 </project>

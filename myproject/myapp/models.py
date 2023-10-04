@@ -76,8 +76,8 @@ class Labor(models.Model):
     name = models.CharField(_("Nome do Serviço:"), db_column='name', max_length=100, blank=False)
     salary = models.FloatField(_("Salário Médio:"), db_column='salary', blank=False)
     hours = models.FloatField(
-        _("Horas Mensais:"), db_column='hours', blank=False)
-    time = models.CharField(_("Tempo de Medida:"), max_length=15, choices=TIME_CHOICES)
+        _("Tempo:"), db_column='hours', blank=False)
+    time = models.CharField(_("Medida do Tempo:"), max_length=15, choices=TIME_CHOICES)
 
     def __str__(self):
         return self.name
@@ -110,9 +110,9 @@ class Product(models.Model):
                                               blank=True)
     marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace %:"), db_column='marketplace_tax',
                                         blank=True)
-    taxes = models.FloatField(_("Impostos:"), db_column='taxes', blank=True)
+    taxes = models.FloatField(_("Impostos %:"), db_column='taxes', blank=True)
     quantity = models.IntegerField(
-        _("Quantidade Desejada:"), db_column='quantity', blank=True)
+        _("Quantidade Desejada (UNI):"), db_column='quantity', blank=True)
     profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
 
     def __str__(self):

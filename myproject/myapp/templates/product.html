@@ -53,7 +53,6 @@
                         {% endif %}
 
                         <td>
-                            <a type="button" class="btn btn-primary" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-edit"></i></a></a>
                             <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
                         </td>
                     </tr>
@@ -91,7 +90,6 @@
                         <td>{{ percent_material.percent }}</td>
                         <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
                          <td>
-                             <a type="button" class="btn btn-primary" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-edit"></i></a></a>
                              <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
                         </td>
                     </tr>
@@ -131,7 +129,6 @@
                          <td>{{ percent_labor.hours }}</td>
                         <td> {{percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours|floatformat:2 }}</td>
                          <td>
-                             <a type="button" class="btn btn-primary" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-edit"></i></a></a>
                              <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
                         </td>
                     </tr>
@@ -170,8 +167,7 @@
                          <td>{{ percent_cost.hours }}</td>
                         <td> {{percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours|floatformat:2 }}</td>
                          <td>
-                             <a type="button" class="btn btn-primary" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-edit"></i></a></a>
-                             <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
+                             <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
                         </td>
                     </tr>
                     {% endfor %}
