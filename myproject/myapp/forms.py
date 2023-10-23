@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
-from .models import CustomUser, Cost, PercentCost, PercentLabor
+from .models import CustomUser, Cost, PercentCost, PercentDiscount, PercentLabor
 from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
 
 
@@ -76,6 +76,13 @@ class PercentCostForm(ModelForm):
     class Meta:
         model = PercentCost
         fields = ('cost', 'hours', 'time', 'product')
+
+        exclude = ['product']
+
+class PercentDiscountForm(ModelForm):
+    class Meta:
+        model = PercentDiscount
+        fields = ('percent',)
 
         exclude = ['product']
 

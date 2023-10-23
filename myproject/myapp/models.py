@@ -175,3 +175,14 @@ class PercentCost(models.Model):
 
     class Meta:
         ordering = ["cost"]
+
+class PercentDiscount(models.Model):
+    percent = models.FloatField(
+        _("Porcentagem do Desconto:"), db_column='percent', blank=False)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
+
+    def __float__(self):
+        return self.percent
+
+    class Meta:
+        ordering = ["percent"]

@@ -7,9 +7,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages #import messages
 
 
-from .forms import MaterialForm, IngredientForm, LaborForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
+from .forms import MaterialForm, IngredientForm, LaborForm, PercentDiscountForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate
-from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
+from .models import Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
 import logging
@@ -442,11 +442,53 @@ def percentCostDelete(request, id):
 
 
 @login_required
+def percentDiscountList(request):
+    percent_discounts = PercentDiscount.objects.all()
+    return render(request, "percent-discount-list.html",
+                  {'percent_discounts': percent_discounts})
+
+
+@login_required()
+def percentDiscountCreate(request, id):
+    if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        form = PercentDiscountForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = PercentDiscountForm()
+    return redirect('product-list')
+
+
+@login_required
+def percentDiscountDelete(request, id):
+    percent_discount = PercentDiscount.objects.get(id=id)
+    product = percent_discount.product
+    product_id = product.id
+    try:
+        percent_discount.delete()
+    except:
+        pass
+    return HttpResponseRedirect('/product/%d' % product_id)
+
+
+
+@login_required
 def productList(request):
     current_user = request.user
     products = current_user.product_set.all()
     for product in products:
-        price_unity = generate_price_unity(product)
+        price_unity, all_total_costs = generate_price_unity(product)
         product.price_unity = price_unity
 
     return render(request, "product-list.html", {'products': products})
@@ -523,12 +565,14 @@ def product(request, id):
     percent_labor_form.fields["labor"].queryset = Labor.objects.filter(user_id=current_user.id)
     percent_cost_form = PercentCostForm()
     percent_cost_form.fields["cost"].queryset = Cost.objects.filter(user_id=current_user.id)
+    percent_discount_form = PercentDiscountForm()
     percent_ingredients = product.percentingredient_set.all()
     percent_materials = product.percentmaterial_set.all()
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
+    percent_discounts =product.percentdiscount_set.all()
 
-    price_unity = generate_price_unity(product)
+    price_unity, all_total_costs = generate_price_unity(product)
 
     return render(
         request, 'product.html', {
@@ -537,11 +581,14 @@ def product(request, id):
             'percent_material_form': percent_material_form,
             'percent_labor_form': percent_labor_form,
             'percent_cost_form': percent_cost_form,
+            'percent_discount_form':  percent_discount_form,
             'percent_ingredients': percent_ingredients,
             'percent_materials': percent_materials,
             'percent_labors': percent_labors,
             'percent_costs': percent_costs,
-            'price_unity': price_unity
+            'percent_discounts': percent_discounts,
+            'price_unity': price_unity,
+            'all_total_costs': all_total_costs,
         }
     )
 
@@ -562,10 +609,10 @@ def generate_price_unity(product):
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
     comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
     comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
-    price_unity = (total_ingredients + total_materials + total_labors + total_costs + product.another_expenses +
-                   incalculable + comission_tax + comission_machine + product.profit) / product.quantity \
+    all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
+    price_unity = (all_total_costs + product.profit) / product.quantity \
         if product.profit != 0 and product.quantity != 0 else 0
-    return round(price_unity, 2)
+    return round(price_unity, 2), round(all_total_costs, 2)
 
 
 def calc_ingredients_value(percent_ingredients):

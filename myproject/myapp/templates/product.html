@@ -43,7 +43,7 @@
                         <td>{{ percent_ingredient.ingredient.name }}</td>
                         <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
                         <td>{{ percent_ingredient.ingredient.price }}</td>
-                        <td>{{ percent_ingredient.percent }}</td>
+                        <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
                         {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
                             {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
                             <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
@@ -107,7 +107,7 @@
         {% endif %}
 
 
-        {% if percent_costs%}
+        {% if percent_labors%}
         <div class="table-responsive">
             <table class="table table-bordered" width="100%" cellspacing="0">
                 <thead>
@@ -212,30 +212,32 @@
                 </tbody>
             </table>
         </div>
-        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Ingrediente</span>
-        </a>
-        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Material</span>
-        </a>
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Mão de Obra</span>
-        </a>
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Custo Fixo</span>
-        </a>
+        <div>
+            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Ingrediente</span>
+            </a>
+            <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Material</span>
+            </a>
+            <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Mão de Obra</span>
+            </a>
+            <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Custo Fixo</span>
+            </a>
+        </div>        
         <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -312,6 +314,76 @@
                         {% load bootstrap %}
                         <form method="post"  action="/percent-cost-create/{{ product.id }}">
                             {{ percent_cost_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if percent_discounts%}
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th scope="col">Porcentagem</th>
+                        <th scope="col">Preço com Desconto (R$)</th>
+                        <th scope="col">Lucro com Desconto</th>
+                        <th scope="col">Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for percent_discount in percent_discounts %}
+                    <tr>
+                        <td>{{ percent_discount.percent }}</td>
+                        {% with percent_discount_100=percent_discount.percent|div:100  %}
+                        {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
+                        {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
+                        {% with price_discount_quantity=price_discount|floatformat:2|mul:product.quantity  %}
+                        {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
+
+
+                        <td>{{ price_discount|floatformat:2 }}</td>
+                        <td>{{ profit_discount|floatformat:2 }}</td>
+                        {% endwith %}
+                        {% endwith %}
+                        {% endwith %}
+                        {% endwith %}
+                        {% endwith %}
+                         <td>
+                             <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash"></i></a></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+        <div class="card mb-4 py-3 border-left-danger">
+             <div class="card-body">
+                 Sem Simuladores Adicionados
+             </div>
+         </div>
+        {% endif %}
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-primary btn-block">
+            <i class="fab fa-pencil fa-fw"></i>
+            <span class="text">SIMULADOR</span>
+        </a>
+        <div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="discountModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="discountModalLabel">Simulador</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/percent-discount-create/{{ product.id }}">
+                            {{ percent_discount_form|bootstrap}}
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Cadastrar</button>
