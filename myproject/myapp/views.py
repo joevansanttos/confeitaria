@@ -574,6 +574,8 @@ def product(request, id):
 
     price_unity, all_total_costs = generate_price_unity(product)
 
+    print(price_unity)
+
     return render(
         request, 'product.html', {
             'product': product,

@@ -32,9 +32,15 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                     Preço Mais Barato (Unidade) </div>
+                                {% if all_total_costs > 0 and product.quantity > 0 %}
                                 {% with minor_price=all_total_costs|div:product.quantity %}
+
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">${{minor_price|floatformat:2}}</div>
                                 {% endwith %}
+                                {% else %}
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$0</div>
+                                {% endif %}
+
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -44,7 +50,7 @@
                 </div>
             </div>
         </div>
-        
+
         {% if percent_ingredients %}
         <div class="table-responsive" style="margin-top:5px">
             <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
@@ -258,7 +264,7 @@
                 </span>
                 <span class="text">Custo Fixo</span>
             </a>
-        </div>        
+        </div>
         <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
