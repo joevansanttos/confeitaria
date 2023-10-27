@@ -8,25 +8,46 @@
         <h6 class="m-0 font-weight-bold text-primary">Produto {{ product.name }}</h6>
     </div>
     <div class="card-body">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Preço de Venda (Unidade)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{price_unity}}</div>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Preço de Venda (Unidade)</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">${{price_unity}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-danger shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                    Preço Mais Barato (Unidade) </div>
+                                {% with minor_price=all_total_costs|div:product.quantity %}
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">${{minor_price|floatformat:2}}</div>
+                                {% endwith %}
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         {% if percent_ingredients %}
         <div class="table-responsive" style="margin-top:5px">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Ingrediente</th>
@@ -70,7 +91,7 @@
 
         {% if percent_materials %}
         <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Material/Embalagem</th>
@@ -109,7 +130,7 @@
 
         {% if percent_labors%}
         <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Mão de Obra</th>
@@ -147,7 +168,7 @@
 
         {% if percent_costs%}
         <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Custo Fixo</th>
@@ -184,7 +205,7 @@
         {% endif %}
 
         <div class="table-responsive">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Outros Custos (R$)</th>
@@ -324,7 +345,7 @@
         </div>
         {% if percent_discounts%}
         <div class="table-responsive mt-4">
-            <table class="table table-bordered" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th scope="col">Porcentagem</th>
