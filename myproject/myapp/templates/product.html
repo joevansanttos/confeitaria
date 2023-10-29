@@ -15,7 +15,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 ${{price_unity}}
                                 <div class="text-xs font-weight-bold text-success mb-1">
-                                    RETORNO % {{roi}} 
+                                    RETORNO % {{roi|floatformat:2}} 
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,6 @@
             </div>
         </div>
     </div>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
@@ -67,7 +66,7 @@
                             <th scope="col">Preço (R$)</th>
                             <th scope="col">Quantidade Utilizada</th>
                             <th scope="col">Custo (R$)</th>
-                            <th scope="col">Acoes</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -82,7 +81,9 @@
                                 <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
                                 {% endwith %}
                             {% else %}
-                                <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
+                                {% with cost_ingredient=percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price %}
+                                <td> {{ cost_ingredient|floatformat:2}}</td>
+                                {% endwith %}
                             {% endif %}
 
                             <td>
@@ -102,7 +103,6 @@
             {% endif %}
         </div>
     </div>
-    
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
@@ -148,7 +148,6 @@
             {% endif %}
         </div>
     </div>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Mão de Obras</h6>
@@ -164,7 +163,7 @@
                             <th scope="col">Horas/Mês</th>
                             <th scope="col">Horas Utilizadas</th>
                             <th scope="col">Custo (R$)</th>
-                            <th scope="col">Acoes</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -174,7 +173,9 @@
                             <td>{{ percent_labor.labor.salary }}</td>
                             <td>{{ percent_labor.labor.hours }}</td>
                             <td>{{ percent_labor.hours }}</td>
-                            <td> {{percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours|floatformat:2 }}</td>
+                            {% with cost_labor=percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours %}
+                            <td> {{cost_labor|floatformat:2 }}</td>
+                            {% endwith %}
                             <td>
                                 <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
@@ -193,7 +194,6 @@
         {% endif %}
         </div>
     </div>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
@@ -209,7 +209,7 @@
                             <th scope="col">Horas/Mês</th>
                             <th scope="col">Horas Utilizadas</th>
                             <th scope="col">Custo (R$)</th>
-                            <th scope="col">Acoes</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -219,7 +219,9 @@
                             <td>{{ percent_cost.cost.price }}</td>
                             <td>{{ percent_cost.cost.hours }}</td>
                             <td>{{ percent_cost.hours }}</td>
-                            <td> {{percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours|floatformat:2 }}</td>
+                            {% with cost_cost=percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours %}
+                            <td> {{cost_cost|floatformat:2 }}</td>
+                            {% endwith %}
                             <td>
                                 <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
@@ -326,34 +328,34 @@
         {% endif %}
         </div>
     </div>
-    <div>
-        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
+    <div class="row mb-4">
+        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split mr-1">
             <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-seedling"></i>
             </span>
             <span class="text">Ingrediente</span>
         </a>
-        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split">
+        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split mr-1">
             <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-tree"></i>
             </span>
             <span class="text">Material</span>
         </a>
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split">
+        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split mr-1">
             <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-hammer"></i>
             </span>
             <span class="text">Mão de Obra</span>
         </a>
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split">
+        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split mr-1">
             <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-dollar-sign"></i>
             </span>
             <span class="text">Custo Fixo</span>
         </a>
         <a data-toggle="modal" data-target="#discountModal" class="btn btn-dark btn-icon-split">
             <span class="icon text-white-50">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-calculator"></i>
             </span>
             <span class="text">Simulador</span>
         </a>
@@ -464,17 +466,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
-        
-
-        
-
-       
-        
-        
-    
-
 {% endblock %}
