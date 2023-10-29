@@ -78,7 +78,9 @@
                             <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
                             {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
                                 {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
-                                <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
+                                {% with cost_ingredient=percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price %}
+                                <td>{{cost_ingredient|floatformat:2}}</td>
+                                {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price %}
