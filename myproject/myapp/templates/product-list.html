@@ -25,9 +25,22 @@
                             <span class="icon text-white-50">
                                 <i class="fas fa-pizza-slice"></i>
                             </span>
-                            <span class="text">Ver Produto</span>
+                            <span class="text">Precificar</span>
+                        </a>
+                        <a href="/product-update/{{ product.id }}" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="text">Atualizar</span>
+                        </a>
+                        <a href="/product-delete/{{ product.id }}" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Excluir</span>
                         </a>
                     </td>
+                    
                 </tr>
                 {% endfor %}
             </tbody>

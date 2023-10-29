@@ -513,7 +513,7 @@ def productCreate(request):
                 form.save()
                 model = form.instance
                 messages.success(request, "Produto " + instance.name + " Adicionado!")
-                return redirect('product-list')
+                return HttpResponseRedirect('/product/%d' % model.id)
             except:
                 pass
     else:
@@ -571,10 +571,9 @@ def product(request, id):
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
     percent_discounts =product.percentdiscount_set.all()
-
     price_unity, all_total_costs = generate_price_unity(product)
+    roi = (product.profit * all_total_costs) / 100
 
-    print(price_unity)
 
     return render(
         request, 'product.html', {
@@ -591,6 +590,7 @@ def product(request, id):
             'percent_discounts': percent_discounts,
             'price_unity': price_unity,
             'all_total_costs': all_total_costs,
+            'roi': roi
         }
     )
 

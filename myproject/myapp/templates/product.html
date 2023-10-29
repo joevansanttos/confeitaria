@@ -1,270 +1,364 @@
 {% extends "base.html" %}
 {% block content %}
 {% load mathfilters %}
-<h1 class="h3 mb-2 text-gray-800">Produtos</h1>
-<div class="card shadow mb-4">
+<h1 class="h3 mb-2 text-gray-800">Produto {{ product.name }}</h1>
 
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Produto {{ product.name }}</h6>
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Preço de Venda (Unidade)
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                ${{price_unity}}
+                                <div class="text-xs font-weight-bold text-success mb-1">
+                                    RETORNO % {{roi}} 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Preço Mais Barato (Unidade) </div>
+                            {% if all_total_costs > 0 and product.quantity > 0 %}
+                            {% with minor_price=all_total_costs|div:product.quantity %}
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{minor_price|floatformat:2}}</div>
+                            {% endwith %}
+                            {% else %}
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$0</div>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Preço de Venda (Unidade)</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">${{price_unity}}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-danger shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                    Preço Mais Barato (Unidade) </div>
-                                {% if all_total_costs > 0 and product.quantity > 0 %}
-                                {% with minor_price=all_total_costs|div:product.quantity %}
 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">${{minor_price|floatformat:2}}</div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
+        </div>
+        <div class="card-body">
+            {% if percent_ingredients %}
+            <div class="table-responsive" style="margin-top:5px">
+                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ingrediente</th>
+                            <th scope="col">Quantidade Comprada</th>
+                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Quantidade Utilizada</th>
+                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_ingredient in percent_ingredients%}
+                        <tr>
+                            <td>{{ percent_ingredient.ingredient.name }}</td>
+                            <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
+                            <td>{{ percent_ingredient.ingredient.price }}</td>
+                            <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
+                            {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
+                                {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
+                                <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
                                 {% endwith %}
-                                {% else %}
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$0</div>
-                                {% endif %}
+                            {% else %}
+                                <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
+                            {% endif %}
 
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
+                            <td>
+                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="card mb-4 py-3 border-left-success">
+                <div class="card-body">
+                    Sem Ingredientes Adicionados
                 </div>
             </div>
+            {% endif %}
         </div>
-
-        {% if percent_ingredients %}
-        <div class="table-responsive" style="margin-top:5px">
-            <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Ingrediente</th>
-                        <th scope="col">Quantidade Comprada</th>
-                        <th scope="col">Preço (R$)</th>
-                        <th scope="col">Quantidade Utilizada</th>
-                        <th scope="col">Custo (R$)</th>
-                        <th scope="col">Acoes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for percent_ingredient in percent_ingredients%}
-                    <tr>
-                        <td>{{ percent_ingredient.ingredient.name }}</td>
-                        <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
-                        <td>{{ percent_ingredient.ingredient.price }}</td>
-                        <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
-                        {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
-                            {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
-                            <td>{{percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price }}</td>
-                             {% endwith %}
-                        {% else %}
-                            <td> {{percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price }}</td>
-                        {% endif %}
-
-                        <td>
-                            <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    </div>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
         </div>
-        {% else %}
-         <div class="card mb-4 py-3 border-left-success">
-             <div class="card-body">
-                 Sem Ingredientes Adicionados
-             </div>
-         </div>
-        {% endif %}
+        <div class="card-body">
 
-        {% if percent_materials %}
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Material/Embalagem</th>
-                        <th scope="col">Quantidade Comprada</th>
-                        <th scope="col">Preço (R$)</th>
-                        <th scope="col">Quantidade Utilizada</th>
-                        <th scope="col">Custo (R$)</th>
-                        <th scope="col">Acoes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for percent_material in percent_materials %}
-                    <tr>
-                        <td>{{ percent_material.material.name }}</td>
-                        <td>{{ percent_material.material.quantity }}{{ " "}}{{ percent_material.material.measure }}</td>
-                        <td>{{ percent_material.material.price }}</td>
-                        <td>{{ percent_material.percent }}</td>
-                        <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
-                         <td>
-                             <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% if percent_materials %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Material/Embalagem</th>
+                            <th scope="col">Quantidade Comprada</th>
+                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Quantidade Utilizada</th>
+                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_material in percent_materials %}
+                        <tr>
+                            <td>{{ percent_material.material.name }}</td>
+                            <td>{{ percent_material.material.quantity }}{{ " "}}{{ percent_material.material.measure }}</td>
+                            <td>{{ percent_material.material.price }}</td>
+                            <td>{{ percent_material.percent }}</td>
+                            <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
+                            <td>
+                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% else %}
+            <div class="card mb-4 py-3 border-left-warning">
+                <div class="card-body">
+                    Sem Materiais Adicionados
+                </div>
+            </div>
+            {% endif %}
         </div>
+    </div>
 
-        {% else %}
-         <div class="card mb-4 py-3 border-left-warning">
-             <div class="card-body">
-                 Sem Materiais Adicionados
-             </div>
-         </div>
-        {% endif %}
-
-
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Mão de Obras</h6>
+        </div>
+        <div class="card-body">
         {% if percent_labors%}
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Mão de Obra</th>
-                        <th scope="col">Salário (R$)</th>
-                        <th scope="col">Horas/Mês</th>
-                        <th scope="col">Horas Utilizadas</th>
-                        <th scope="col">Custo (R$)</th>
-                        <th scope="col">Acoes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for percent_labor in percent_labors %}
-                    <tr>
-                        <td>{{ percent_labor.labor.name }}</td>
-                        <td>{{ percent_labor.labor.salary }}</td>
-                        <td>{{ percent_labor.labor.hours }}</td>
-                         <td>{{ percent_labor.hours }}</td>
-                        <td> {{percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours|floatformat:2 }}</td>
-                         <td>
-                             <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mão de Obra</th>
+                            <th scope="col">Salário (R$)</th>
+                            <th scope="col">Horas/Mês</th>
+                            <th scope="col">Horas Utilizadas</th>
+                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_labor in percent_labors %}
+                        <tr>
+                            <td>{{ percent_labor.labor.name }}</td>
+                            <td>{{ percent_labor.labor.salary }}</td>
+                            <td>{{ percent_labor.labor.hours }}</td>
+                            <td>{{ percent_labor.hours }}</td>
+                            <td> {{percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours|floatformat:2 }}</td>
+                            <td>
+                                <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
         {% else %}
-        <div class="card mb-4 py-3 border-left-primary">
-             <div class="card-body">
-                 Sem Mãos de Obras Adicionadas
-             </div>
-         </div>
+            <div class="card mb-4 py-3 border-left-primary">
+                <div class="card-body">
+                    Sem Mãos de Obras Adicionadas
+                </div>
+            </div>
         {% endif %}
+        </div>
+    </div>
 
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
+        </div>
+        <div class="card-body">
         {% if percent_costs%}
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Custo Fixo</th>
-                        <th scope="col">Preço (R$)</th>
-                        <th scope="col">Horas/Mês</th>
-                        <th scope="col">Horas Utilizadas</th>
-                        <th scope="col">Custo (R$)</th>
-                        <th scope="col">Acoes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for percent_cost in percent_costs %}
-                    <tr>
-                        <td>{{ percent_cost.cost.name }}</td>
-                        <td>{{ percent_cost.cost.price }}</td>
-                        <td>{{ percent_cost.cost.hours }}</td>
-                         <td>{{ percent_cost.hours }}</td>
-                        <td> {{percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours|floatformat:2 }}</td>
-                         <td>
-                             <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Custo Fixo</th>
+                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Horas/Mês</th>
+                            <th scope="col">Horas Utilizadas</th>
+                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_cost in percent_costs %}
+                        <tr>
+                            <td>{{ percent_cost.cost.name }}</td>
+                            <td>{{ percent_cost.cost.price }}</td>
+                            <td>{{ percent_cost.cost.hours }}</td>
+                            <td>{{ percent_cost.hours }}</td>
+                            <td> {{percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours|floatformat:2 }}</td>
+                            <td>
+                                <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
         {% else %}
-        <div class="card mb-4 py-3 border-left-danger">
-             <div class="card-body">
-                 Sem Custos Fixos Adicionados
-             </div>
-         </div>
+            <div class="card mb-4 py-3 border-left-danger">
+                <div class="card-body">
+                    Sem Custos Fixos Adicionados
+                </div>
+            </div>
         {% endif %}
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Outros Custos (R$)</th>
-                        <th scope="col">Custos Incalculáveis (R$)</th>
-                        <th scope="col">Taxa de Marketplace %</th>
-                        <th scope="col">Impostos %</th>
-                        <th scope="col">Quantidade (Uni)</th>
-                        <th scope="col">Lucro Desejado (R$)</th>
-                        <th scope="col">Acões</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> {{product.another_expenses }}</td>
-                        <td> {{product.incalculable_expenses }}</td>
-                        <td> {{product.marketplace_tax }}</td>
-                        <td> {{product.taxes }}</td>
-                        <td> {{product.quantity }}</td>
-                        <td> {{product.profit }}</td>
-                        <td>
-                            <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
-
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-        <div>
-            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Ingrediente</span>
-            </a>
-            <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Material</span>
-            </a>
-            <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Mão de Obra</span>
-            </a>
-            <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Custo Fixo</span>
-            </a>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Outros Custos</h6>
         </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Outros Custos (R$)</th>
+                            <th scope="col">Custos Incalculáveis (R$)</th>
+                            <th scope="col">Taxa de Marketplace %</th>
+                            <th scope="col">Impostos %</th>
+                            <th scope="col">Quantidade (Uni)</th>
+                            <th scope="col">Lucro Desejado (R$)</th>
+                            <th scope="col">Acões</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> {{product.another_expenses }}</td>
+                            <td> {{product.incalculable_expenses }}</td>
+                            <td> {{product.marketplace_tax }}</td>
+                            <td> {{product.taxes }}</td>
+                            <td> {{product.quantity }}</td>
+                            <td> {{product.profit }}</td>
+                            <td>
+                                <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
+    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Simuladores</h6>
+        </div>
+        <div class="card-body">
+        {% if percent_discounts%}
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Porcentagem</th>
+                            <th scope="col">Preço com Desconto (R$)</th>
+                            <th scope="col">Lucro com Desconto</th>
+                            <th scope="col">Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_discount in percent_discounts %}
+                        <tr>
+                            <td>{{ percent_discount.percent }}</td>
+                            {% with percent_discount_100=percent_discount.percent|div:100  %}
+                            {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
+                            {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
+                            {% with price_discount_quantity=price_discount|floatformat:2|mul:product.quantity  %}
+                            {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
+
+
+                            <td>{{ price_discount|floatformat:2 }}</td>
+                            <td>{{ profit_discount|floatformat:2 }}</td>
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                            {% endwith %}
+                            <td>
+                                <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash"></i></a></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <div class="card mb-4 py-3 border-left-danger">
+                <div class="card-body">
+                    Sem Simuladores Adicionados
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+    <div>
+        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Ingrediente</span>
+        </a>
+        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Material</span>
+        </a>
+        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Mão de Obra</span>
+        </a>
+        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Custo Fixo</span>
+        </a>
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-dark btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Simulador</span>
+        </a>
+    </div>
+    <div>
         <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -349,55 +443,6 @@
                 </div>
             </div>
         </div>
-        {% if percent_discounts%}
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">Porcentagem</th>
-                        <th scope="col">Preço com Desconto (R$)</th>
-                        <th scope="col">Lucro com Desconto</th>
-                        <th scope="col">Acoes</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for percent_discount in percent_discounts %}
-                    <tr>
-                        <td>{{ percent_discount.percent }}</td>
-                        {% with percent_discount_100=percent_discount.percent|div:100  %}
-                        {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
-                        {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
-                        {% with price_discount_quantity=price_discount|floatformat:2|mul:product.quantity  %}
-                        {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
-
-
-                        <td>{{ price_discount|floatformat:2 }}</td>
-                        <td>{{ profit_discount|floatformat:2 }}</td>
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                        {% endwith %}
-                         <td>
-                             <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash"></i></a></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        {% else %}
-        <div class="card mb-4 py-3 border-left-danger">
-             <div class="card-body">
-                 Sem Simuladores Adicionados
-             </div>
-         </div>
-        {% endif %}
-        <a data-toggle="modal" data-target="#discountModal" class="btn btn-primary btn-block">
-            <i class="fab fa-pencil fa-fw"></i>
-            <span class="text">SIMULADOR</span>
-        </a>
         <div class="modal fade" id="discountModal" tabindex="-1" role="dialog" aria-labelledby="discountModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -419,10 +464,17 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 
+        
 
-</div>
+        
+
+       
+        
+        
+    
 
 {% endblock %}
