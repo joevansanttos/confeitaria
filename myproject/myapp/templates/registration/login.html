@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 {% load static %}
-{% load bootstrap %}
 
 
 
@@ -38,15 +37,21 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <img src="{% static 'img/anh-nguyen-kcA-c3f_3FE-unsplash.jpg' %}" class="img-fluid" alt="Responsive image">
+
+                            </div>
                             <div class="col-lg-6">
+                                {% load bootstrap %}
+
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bem Vindo!</h1>
                                     </div>
                                     <form method="post" class="user">
+                                        {{ form|bootstrap }}
                                         {% csrf_token %}
-                                        {{ form.as_p }}
+                                  
                                         <button class="btn btn-primary btn-user btn-block" type="submit">Log In</button>
                                     </form>
                                 </div>
