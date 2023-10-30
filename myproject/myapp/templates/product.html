@@ -15,7 +15,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 ${{price_unity}}
                                 <div class="text-xs font-weight-bold text-success mb-1">
-                                    RETORNO % {{roi|floatformat:2}} 
+                                    RETORNO % {{roi|floatformat:2}}
                                 </div>
                             </div>
                         </div>
@@ -88,8 +88,8 @@
                                 {% endwith %}
                             {% endif %}
 
-                            <td>
-                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -132,8 +132,8 @@
                             <td>{{ percent_material.material.price }}</td>
                             <td>{{ percent_material.percent }}</td>
                             <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
-                            <td>
-                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -178,8 +178,8 @@
                             {% with cost_labor=percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours %}
                             <td> {{cost_labor|floatformat:2 }}</td>
                             {% endwith %}
-                            <td>
-                                <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -224,8 +224,8 @@
                             {% with cost_cost=percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours %}
                             <td> {{cost_cost|floatformat:2 }}</td>
                             {% endwith %}
-                            <td>
-                                <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -270,7 +270,7 @@
                             <td> {{product.profit }}</td>
                             <td>
                                 <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
-    
+
                             </td>
                         </tr>
                     </tbody>
@@ -312,8 +312,8 @@
                             {% endwith %}
                             {% endwith %}
                             {% endwith %}
-                            <td>
-                                <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash"></i></a></a>
+                            <td class="text-center">
+                                <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -355,7 +355,7 @@
             </span>
             <span class="text">Custo Fixo</span>
         </a>
-        <a data-toggle="modal" data-target="#discountModal" class="btn btn-dark btn-icon-split">
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-info btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-calculator"></i>
             </span>
