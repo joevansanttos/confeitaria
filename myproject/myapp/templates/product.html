@@ -121,7 +121,7 @@
                             <th scope="col">Preço (R$)</th>
                             <th scope="col">Quantidade Utilizada</th>
                             <th scope="col">Custo (R$)</th>
-                            <th scope="col">Acoes</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -291,7 +291,7 @@
                             <th scope="col">Porcentagem</th>
                             <th scope="col">Preço com Desconto (R$)</th>
                             <th scope="col">Lucro com Desconto</th>
-                            <th scope="col">Acoes</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -330,7 +330,34 @@
         {% endif %}
         </div>
     </div>
-    <div class="row mb-4">
+    <div class="row d-lg-none">
+        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success mr-1">
+            <span class="icon text-white-50">
+                <i class="fas fa-seedling"></i>
+            </span>
+        </a>
+        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning mr-1">
+            <span class="icon text-white-50">
+                <i class="fas fa-tree"></i>
+            </span>
+        </a>
+        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary mr-1">
+            <span class="icon text-white-50">
+                <i class="fas fa-hammer"></i>
+            </span>
+        </a>
+        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger mr-1">
+            <span class="icon text-white-50">
+                <i class="fas fa-dollar-sign"></i>
+            </span>
+        </a>
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-info">
+            <span class="icon text-white-50">
+                <i class="fas fa-calculator"></i>
+            </span>
+        </a>
+    </div>
+    <div class="row mb-4 d-none d-lg-block">
         <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split mr-1">
             <span class="icon text-white-50">
                 <i class="fas fa-seedling"></i>

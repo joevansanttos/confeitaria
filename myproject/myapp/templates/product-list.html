@@ -7,7 +7,7 @@
 </div>
 <div class="card-body">
     <div class="table-responsive">
-        <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th scope="col">Nome</th>
@@ -21,26 +21,45 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.price_unity }}</td>
                     <td>
-                        <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-pizza-slice"></i>
-                            </span>
-                            <span class="text">Precificar</span>
-                        </a>
-                        <a href="/product-update/{{ product.id }}" class="btn btn-warning btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-edit"></i>
-                            </span>
-                            <span class="text">Atualizar</span>
-                        </a>
-                        <a href="/product-delete/{{ product.id }}" class="btn btn-danger btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-trash"></i>
-                            </span>
-                            <span class="text">Excluir</span>
-                        </a>
+                        <div class="d-none d-lg-block">
+                            <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-pizza-slice"></i>
+                                </span>
+                                <span class="text">Precificar</span>
+                            </a>
+                            <a href="/product-update/{{ product.id }}" class="btn btn-warning btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span class="text">Atualizar</span>
+                            </a>
+                            <a href="/product-delete/{{ product.id }}" class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span class="text">Excluir</span>
+                            </a>
+                        </div>
+                        <div class="d-lg-none row">
+                            <a href="/product/{{ product.id }}" class="btn btn-primary">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-pizza-slice"></i>
+                                </span>
+                            </a>
+                            <a href="/product-update/{{ product.id }}" class="btn btn-warning">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                            <a href="/product-delete/{{ product.id }}" class="btn btn-danger">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
                     </td>
-                    
+
                 </tr>
                 {% endfor %}
             </tbody>
