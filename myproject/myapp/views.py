@@ -144,6 +144,23 @@ def percentIngredientDelete(request, id):
         pass
     return HttpResponseRedirect('/product/%d' % product_id)
 
+@login_required
+def percentIngredientUpdate(request, id):
+    percentIngredient = PercentIngredient.objects.get(id=id)
+    form = PercentIngredientForm(initial={'name': labor.name, 'salary': labor.salary,
+                              'hours': labor.hours, 'time': labor.time})
+    if request.method == "POST":
+        form = LaborForm(request.POST, instance=labor)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                messages.info(request, "Mão de Obra " + labor.name + " Atualizado!!!")
+                return redirect('/labor-list')
+            except Exception as e:
+                pass
+    return render(request, 'labor-update.html', {'form': form})
+
 
 @login_required
 def materialList(request):
