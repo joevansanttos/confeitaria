@@ -31,7 +31,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 MEASURES_CHOICES = [
     ("KG", "Kg"),
     ("GRAMAS", "Gramas"),
-    ("UNIDADES", "Unidades")
+    ("L", "L"),
+    ("mL", "ML"),
+    ("UNIDADES", "Unidade(s)")
 ]
 
 TIME_CHOICES = [
