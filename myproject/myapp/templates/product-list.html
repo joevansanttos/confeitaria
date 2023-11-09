@@ -21,31 +21,51 @@
                     <td>{{ product.name }}</td>
                     <td>R$ {{ product.price_unity }}</td>
                     <td>
-                        <div class="d-none d-lg-block">
-                            <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-edit"></i>
-                                </span>
-                                <span class="text">Atualizar</span>
-                            </a>
-                            <a href="/product-delete/{{ product.id }}" class="btn btn-danger btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                                <span class="text">Excluir</span>
-                            </a>
-                        </div>
-                        <div class="d-lg-none row">
-                            <a href="/product/{{ product.id }}" class="btn btn-primary">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-edit"></i>
-                                </span>
-                            </a>
-                            <a href="/product-delete/{{ product.id }}" class="btn btn-danger">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            </a>
+                        <div>
+                            <div class="d-none d-lg-block">
+                                <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                    <span class="text">Atualizar</span>
+                                </a>
+                                <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Excluir</span>
+                                </a>
+                            </div>
+                            <div class="d-lg-none row">
+                                <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-primary">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                </a>
+                                <a href="/product-delete/{{ product.id }}" class="btn btn-danger">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="modal fade" id="modal_{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ product.id }}"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ product.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir o ingrediente {{product.name}}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/product-delete/{{ product.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
                         </div>
                     </td>
 
