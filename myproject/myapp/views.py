@@ -9,7 +9,7 @@ from django.contrib import messages #import messages
 
 from .forms import MaterialForm, IngredientForm, LaborForm, PercentDiscountForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate
-from .models import Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
+from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
 import logging
@@ -273,6 +273,7 @@ def laborCreate(request):
         form = LaborForm(request.POST)
         if form.is_valid():
             try:
+                form.instance.time = 'Hora'
                 instance = form.save(commit=False)
                 instance.user = request.user
                 instance.save()

@@ -35,7 +35,7 @@ class LaborForm(ModelForm):
     class Meta:
         model = Labor
         fields = ('name', 'salary', 'hours', 'time')
-        exclude = ['user']
+        exclude = ['user', 'time']
 
 
 class CostForm(ModelForm):

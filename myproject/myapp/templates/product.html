@@ -50,6 +50,38 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Quantidade (Unidade) </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.quantity}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Lucro Desejado </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
@@ -69,9 +101,9 @@
                         <tr>
                             <th scope="col">Ingrediente</th>
                             <th scope="col">Quantidade Comprada</th>
-                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Preço</th>
                             <th scope="col">Quantidade Utilizada</th>
-                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Custo</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -102,17 +134,17 @@
                         <tr>
                             <td>{{ percent_ingredient.ingredient.name }}</td>
                             <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
-                            <td>{{ percent_ingredient.ingredient.price }}</td>
+                            <td>R$ {{ percent_ingredient.ingredient.price|stringformat:"0.2f" }}</td>
                             <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
                             {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
                                 {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price %}
-                                <td>{{cost_ingredient|floatformat:2}}</td>
+                                <td>R$ {{cost_ingredient|stringformat:"0.2f"}}</td>
                                 {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price %}
-                                <td> {{ cost_ingredient|floatformat:2}}</td>
+                                <td> R$ {{ cost_ingredient|stringformat:"0.2f"}}</td>
                                 {% endwith %}
                             {% endif %}
 
@@ -157,9 +189,9 @@
                         <tr>
                             <th scope="col">Material/Embalagem</th>
                             <th scope="col">Quantidade Comprada</th>
-                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Preço</th>
                             <th scope="col">Quantidade Utilizada</th>
-                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Custo</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -168,9 +200,9 @@
                         <tr>
                             <td>{{ percent_material.material.name }}</td>
                             <td>{{ percent_material.material.quantity }}{{ " "}}{{ percent_material.material.measure }}</td>
-                            <td>{{ percent_material.material.price }}</td>
+                            <td>R$ {{ percent_material.material.price|stringformat:"0.2f" }}</td>
                             <td>{{ percent_material.percent }}</td>
-                            <td> {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price }}</td>
+                            <td> R$ {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price|stringformat:"0.2f" }}</td>
                             <td class="text-center">
                                 <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
@@ -206,10 +238,10 @@
                     <thead>
                         <tr>
                             <th scope="col">Mão de Obra</th>
-                            <th scope="col">Salário (R$)</th>
+                            <th scope="col">Salário</th>
                             <th scope="col">Horas/Mês</th>
                             <th scope="col">Horas Utilizadas</th>
-                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Custo</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -217,11 +249,11 @@
                         {% for percent_labor in percent_labors %}
                         <tr>
                             <td>{{ percent_labor.labor.name }}</td>
-                            <td>{{ percent_labor.labor.salary }}</td>
+                            <td>R$ {{ percent_labor.labor.salary|stringformat:"0.2f" }}</td>
                             <td>{{ percent_labor.labor.hours }}</td>
                             <td>{{ percent_labor.hours }}</td>
                             {% with cost_labor=percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours %}
-                            <td> {{cost_labor|floatformat:2 }}</td>
+                            <td> R$ {{cost_labor|stringformat:"0.2f" }}</td>
                             {% endwith %}
                             <td class="text-center">
                                 <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
@@ -258,10 +290,10 @@
                     <thead>
                         <tr>
                             <th scope="col">Custo Fixo</th>
-                            <th scope="col">Preço (R$)</th>
+                            <th scope="col">Preço</th>
                             <th scope="col">Horas/Mês</th>
                             <th scope="col">Horas Utilizadas</th>
-                            <th scope="col">Custo (R$)</th>
+                            <th scope="col">Custo</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -269,11 +301,11 @@
                         {% for percent_cost in percent_costs %}
                         <tr>
                             <td>{{ percent_cost.cost.name }}</td>
-                            <td>{{ percent_cost.cost.price }}</td>
+                            <td>R$ {{ percent_cost.cost.price|stringformat:"0.2f" }}</td>
                             <td>{{ percent_cost.cost.hours }}</td>
                             <td>{{ percent_cost.hours }}</td>
                             {% with cost_cost=percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours %}
-                            <td> {{cost_cost|floatformat:2 }}</td>
+                            <td> R$ {{cost_cost|stringformat:"0.2f" }}</td>
                             {% endwith %}
                             <td class="text-center">
                                 <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
@@ -304,24 +336,20 @@
                 <table class="table table-bordered table-sm" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th scope="col">Outros Custos (R$)</th>
-                            <th scope="col">Custos Incalculáveis (R$)</th>
-                            <th scope="col">Taxa de Marketplace %</th>
-                            <th scope="col">Impostos %</th>
-                            <th scope="col">Quantidade (Uni)</th>
-                            <th scope="col">Lucro Desejado (R$)</th>
-                            <th scope="col">Acões</th>
+                            <th scope="col">Outros Custos</th>
+                            <th scope="col">Custos Incalculáveis</th>
+                            <th scope="col">Taxa de Marketplace </th>
+                            <th scope="col">Impostos</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td> {{product.another_expenses }}</td>
-                            <td> {{product.incalculable_expenses }}</td>
-                            <td> {{product.marketplace_tax }}</td>
-                            <td> {{product.taxes }}</td>
-                            <td> {{product.quantity }}</td>
-                            <td> {{product.profit }}</td>
-                            <td>
+                            <td>{{"R$ "}}{{ product.another_expenses|stringformat:"0.2f"}}</td>
+                            <td>{{"R$ "}}{{ product.incalculable_expenses|stringformat:"0.2f"}}</td>
+                            <td> {{product.marketplace_tax }} %</td>
+                            <td> {{product.taxes }} %</td>
+                            <td class="text-center">
                                 <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
 
                             </td>
@@ -348,7 +376,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Porcentagem</th>
-                            <th scope="col">Preço com Desconto (R$)</th>
+                            <th scope="col">Preço com Desconto</th>
                             <th scope="col">Lucro com Desconto</th>
                             <th scope="col">Ações</th>
                         </tr>
@@ -356,7 +384,7 @@
                     <tbody>
                         {% for percent_discount in percent_discounts %}
                         <tr>
-                            <td>{{ percent_discount.percent }}</td>
+                            <td>{{ percent_discount.percent }} %</td>
                             {% with percent_discount_100=percent_discount.percent|div:100  %}
                             {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
                             {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
@@ -364,8 +392,8 @@
                             {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
 
 
-                            <td>{{ price_discount|floatformat:2 }}</td>
-                            <td>{{ profit_discount|floatformat:2 }}</td>
+                            <td>R$ {{ price_discount|floatformat:2 }}</td>
+                            <td>R$ {{ profit_discount|floatformat:2 }}</td>
                             {% endwith %}
                             {% endwith %}
                             {% endwith %}

@@ -12,7 +12,7 @@
                 <tr>
                     <th scope="col">Nome do Item</th>
                     <th scope="col">Quantidade Comprada</th>
-                    <th scope="col">Preço do Pacote (R$)</th>
+                    <th scope="col">Preço do Pacote</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ material.name }}</td>
                     <td>{{ material.quantity }}</td>
-                    <td>{{ material.price }}</td>
+                    <td>{{"R$ "}}{{ material.price|stringformat:"0.2f"}}</td>
                     <td>
                         <div>
                             <div class="d-none d-lg-block">
@@ -51,7 +51,7 @@
                                         </span>
                                     </a>
                                 </div>
-                                
+
                             </div>
                             <div class="modal fade" id="modal_{{ material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ material.id }}"
                                             aria-hidden="true">
