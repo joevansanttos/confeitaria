@@ -55,6 +55,16 @@ class PercentIngredientForm(ModelForm):
         }
         exclude = ['product']
 
+class PercentIngredientUpdateForm(ModelForm):
+    class Meta:
+        model = PercentIngredient
+        fields = ('percent', 'measure')
+
+        labels = {
+            "ingredient": "Ingrediente"
+        }
+        exclude = ['product', 'ingredient', 'product']
+
 
 class PercentMaterialForm(ModelForm):
     class Meta:
@@ -92,13 +102,27 @@ class ProductForm(ModelForm):
         model = Product
         fields = ('name',)
         exclude = ['user',
-                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit']
+                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes']
 
 
 class ProductFormUpdate(ModelForm):
     class Meta:
         model = Product
         fields = ('name',
-                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity', 'profit')
+                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes')
         exclude = ['user']
+
+class ProductQuantityFormUpdate(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('quantity',)
+        exclude = ['user', 'name',
+                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'profit']
+
+class ProductProfitFormUpdate(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('profit',)
+        exclude = ['user', 'name',
+                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity']
 

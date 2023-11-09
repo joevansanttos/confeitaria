@@ -2,7 +2,6 @@
 {% block content %}
 {% load mathfilters %}
 <h1 class="h3 mb-2 text-gray-800">Produto {{ product.name }}</h1>
-
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
@@ -18,9 +17,6 @@
                                     RETORNO % {{roi|floatformat:2}}
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -43,9 +39,7 @@
                             {% endif %}
 
                         </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -60,7 +54,11 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.quantity}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -76,7 +74,11 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit}}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -113,16 +115,17 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="percentIngredientModalLabel_{{ percent_ingredient.id }}">Quantidade de Ingrediente</h5>
+                                        <h5 class="modal-title" id="percentIngredientModalLabel_{{ percent_ingredient.id }}">Quantidade do Ingrediente {{percent_ingredient.ingredient.name}}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        {% load bootstrap %}
                                         <form method="post"  action="/percent-ingredient-update/{{ percent_ingredient.id }}">
-                                            {{ percent_ingredient_form|bootstrap}}
                                             {% csrf_token %}
+                                            {% load bootstrap %}
+
+                                            {{ percent_ingredient_update_form|bootstrap }}
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-success">Cadastrar</button>
                                         </form>
@@ -149,12 +152,12 @@
                             {% endif %}
 
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
                                 <a data-toggle="modal" data-target="#percentIngredientModal_{{ percent_ingredient.id }}" class="btn btn-primary">
-                                    <span class="icon text-white-50">
+                                    <span class="icon">
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
+                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -337,7 +340,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Outros Custos</th>
-                            <th scope="col">Custos Incalculáveis</th>
+                            <th scope="col">Custos Incalculáveis (%)</th>
                             <th scope="col">Taxa de Marketplace </th>
                             <th scope="col">Impostos</th>
                             <th scope="col">Ações</th>
@@ -351,7 +354,6 @@
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
                                 <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
-
                             </td>
                         </tr>
                     </tbody>
@@ -515,6 +517,48 @@
                         {% load bootstrap %}
                         <form method="post"  action="/percent-discount-create/{{ product.id }}">
                             {{ percent_discount_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="quantityModalLabel">Quantidade</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/product-quantity-update/{{ product.id }}">
+                            {{ product_quantity_update_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="profitModal" tabindex="-1" role="dialog" aria-labelledby="profitModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profitModalLabel">Quantidade</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/product-profit-update/{{ product.id }}">
+                            {{ product_profit_update_form|bootstrap}}
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Cadastrar</button>

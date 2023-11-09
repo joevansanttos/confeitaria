@@ -7,8 +7,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages #import messages
 
 
-from .forms import MaterialForm, IngredientForm, LaborForm, PercentDiscountForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
-    CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate
+from .forms import MaterialForm, IngredientForm, LaborForm, PercentDiscountForm, PercentIngredientUpdateForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
+    CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
@@ -559,6 +559,44 @@ def productUpdate(request, id):
                 pass
     return render(request, 'product-update.html', {'form': form})
 
+@login_required
+def productQuantityUpdate(request, id):
+    product = Product.objects.get(id=id)
+    if request.method == "POST":
+        form = ProductQuantityFormUpdate(request.POST, instance=product)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = ProductQuantityFormUpdate()
+    return redirect('product-list')
+
+@login_required
+def productProfitUpdate(request, id):
+    product = Product.objects.get(id=id)
+    if request.method == "POST":
+        form = ProductProfitFormUpdate(request.POST, instance=product)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = ProductProfitFormUpdate()
+    return redirect('product-list')
+
 
 @login_required
 def productDelete(request, id):
@@ -575,6 +613,7 @@ def productDelete(request, id):
 def product(request, id):
     product = Product.objects.get(id=id)
     percent_ingredient_form = PercentIngredientForm()
+    percent_ingredient_update_form = PercentIngredientUpdateForm()
     current_user = request.user
     percent_ingredient_form.fields["ingredient"].queryset = Ingredient.objects.filter(user_id=current_user.id)
     percent_material_form = PercentMaterialForm()
@@ -584,6 +623,8 @@ def product(request, id):
     percent_cost_form = PercentCostForm()
     percent_cost_form.fields["cost"].queryset = Cost.objects.filter(user_id=current_user.id)
     percent_discount_form = PercentDiscountForm()
+    product_quantity_update_form = ProductQuantityFormUpdate()
+    product_profit_update_form = ProductProfitFormUpdate()
     percent_ingredients = product.percentingredient_set.all()
     percent_materials = product.percentmaterial_set.all()
     percent_labors = product.percentlabor_set.all()
@@ -597,10 +638,13 @@ def product(request, id):
         request, 'product.html', {
             'product': product,
             'percent_ingredient_form': percent_ingredient_form,
+            'percent_ingredient_update_form': percent_ingredient_update_form,
             'percent_material_form': percent_material_form,
             'percent_labor_form': percent_labor_form,
             'percent_cost_form': percent_cost_form,
             'percent_discount_form':  percent_discount_form,
+            'product_quantity_update_form': product_quantity_update_form,
+            'product_profit_update_form': product_profit_update_form,
             'percent_ingredients': percent_ingredients,
             'percent_materials': percent_materials,
             'percent_labors': percent_labors,
