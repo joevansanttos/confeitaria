@@ -52,8 +52,14 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
+            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Ingrediente</span>
+            </a>
         </div>
         <div class="card-body">
             {% if percent_ingredients %}
@@ -133,8 +139,14 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
+            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Material</span>
+            </a>
         </div>
         <div class="card-body">
 
@@ -178,8 +190,14 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Mão de Obras</h6>
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
+            <h6 class="m-0 font-weight-bold text-primary">Mãos de Obras</h6>
+            <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Mão de Obra</span>
+            </a>
         </div>
         <div class="card-body">
         {% if percent_labors%}
@@ -224,8 +242,14 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
+            <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Custo Fixo</span>
+            </a>
         </div>
         <div class="card-body">
         {% if percent_costs%}
@@ -308,8 +332,14 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Simuladores</h6>
+            <a data-toggle="modal" data-target="#discountModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Simulador</span>
+            </a>
         </div>
         <div class="card-body">
         {% if percent_discounts%}
@@ -358,65 +388,6 @@
             </div>
         {% endif %}
         </div>
-    </div>
-    <div class="row d-lg-none">
-        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-seedling"></i>
-            </span>
-        </a>
-        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-tree"></i>
-            </span>
-        </a>
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-hammer"></i>
-            </span>
-        </a>
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-dollar-sign"></i>
-            </span>
-        </a>
-        <a data-toggle="modal" data-target="#discountModal" class="btn btn-info">
-            <span class="icon text-white-50">
-                <i class="fas fa-calculator"></i>
-            </span>
-        </a>
-    </div>
-    <div class="row mb-4 d-none d-lg-block">
-        <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-seedling"></i>
-            </span>
-            <span class="text">Ingrediente</span>
-        </a>
-        <a data-toggle="modal" data-target="#materialModal" class="btn btn-warning btn-icon-split mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-tree"></i>
-            </span>
-            <span class="text">Material</span>
-        </a>
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-primary btn-icon-split mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-hammer"></i>
-            </span>
-            <span class="text">Mão de Obra</span>
-        </a>
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-danger btn-icon-split mr-1">
-            <span class="icon text-white-50">
-                <i class="fas fa-dollar-sign"></i>
-            </span>
-            <span class="text">Custo Fixo</span>
-        </a>
-        <a data-toggle="modal" data-target="#discountModal" class="btn btn-info btn-icon-split">
-            <span class="icon text-white-50">
-                <i class="fas fa-calculator"></i>
-            </span>
-            <span class="text">Simulador</span>
-        </a>
     </div>
     <div>
         <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">

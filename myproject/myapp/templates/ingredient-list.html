@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-{% load humanize %}
 
 
 <h1 class="h3 mb-2 text-gray-800">Ingredientes</h1>
@@ -25,7 +24,7 @@
                         <tr>
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.measure }}</td>
-                            <td>{{ ingredient.price|intcomma }}</td>
+                            <td>{{"R$ "}}{{ ingredient.price|stringformat:"0.2f"}}</td>
                             <td >
                                 <div>
                                     <div class="d-none d-lg-block">
@@ -35,7 +34,7 @@
                                             </span>
                                             <span class="text">Atualizar</span>
                                         </a>
-                                        <a data-toggle="modal" data-target="#deleteIngredientModal" class="btn btn-danger btn-icon-split">
+                                        <a data-toggle="modal" data-target="#modal_{{ ingredient.id }}" class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash"></i>
                                             </span>
@@ -49,33 +48,31 @@
                                                 <i class="fas fa-edit"></i>
                                             </span>
                                         </a>
-                                        <a data-toggle="modal" data-target="#deleteIngredientModal" class="btn btn-danger">
+                                        <a data-toggle="modal" data-target="#modal_{{ ingredient.id }}" class="btn btn-danger">
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-trash"></i>
                                             </span>
                                         </a>
                                     </div>
-                                    <div class="modal fade" id="deleteIngredientModal" tabindex="-1" role="dialog" aria-labelledby="deleteIngredientModalLabel"
+                                    <div class="modal fade" id="modal_{{ ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ ingredient.id }}" 
                                         aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="deleteIngredientModalLabel">Tem certeza que deseja excluir?</h5>
-                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">×</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">Clique em excluir pra excluir o ingrediente</div>
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                            <a href="/ingredient-delete/{{ ingredient.id }}" class="btn btn-primary">Excluir</a>
-                                                        </div>
-                                                    </div>
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ ingredient.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
                                                 </div>
+                                                <div class="modal-body">Clique em excluir pra excluir o ingrediente {{ingredient.name}}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/ingredient-delete/{{ ingredient.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-
                             </td>
                         </tr>
                         {% endfor %}
