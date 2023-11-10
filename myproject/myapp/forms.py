@@ -108,9 +108,8 @@ class ProductForm(ModelForm):
 class ProductFormUpdate(ModelForm):
     class Meta:
         model = Product
-        fields = ('name',
-                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes')
-        exclude = ['user']
+        fields = ('another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes')
+        exclude = ['user', 'name']
 
 class ProductQuantityFormUpdate(ModelForm):
     class Meta:
