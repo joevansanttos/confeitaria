@@ -7,7 +7,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages #import messages
 
 
-from .forms import MaterialForm, IngredientForm, LaborForm, PercentDiscountForm, PercentIngredientUpdateForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
+from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateForm, PercentDiscountForm, PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
@@ -147,19 +147,18 @@ def percentIngredientDelete(request, id):
 @login_required
 def percentIngredientUpdate(request, id):
     percentIngredient = PercentIngredient.objects.get(id=id)
-    form = PercentIngredientForm(initial={'name': labor.name, 'salary': labor.salary,
-                              'hours': labor.hours, 'time': labor.time})
+    form = PercentIngredientUpdateForm(initial={'percent': percentIngredient.percent, 'measure': percentIngredient.measure, 'ingredient': percentIngredient.ingredient, 'product': percentIngredient.product})
     if request.method == "POST":
-        form = LaborForm(request.POST, instance=labor)
+        form = PercentIngredientUpdateForm(request.POST, instance=percentIngredient)
         if form.is_valid():
             try:
                 form.save()
                 model = form.instance
-                messages.info(request, "Mão de Obra " + labor.name + " Atualizado!!!")
-                return redirect('/labor-list')
+                messages.info(request, "Porcentagem do ingrediente " + percentIngredient.ingredient.name + " Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentIngredient.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'labor-update.html', {'form': form})
+    return render(request, 'percent-ingredient-update.html', {'form': form})
 
 
 @login_required
@@ -258,6 +257,22 @@ def percentMaterialDelete(request, id):
     except:
         pass
     return HttpResponseRedirect('/product/%d' % product_id)
+
+@login_required
+def percentMaterialUpdate(request, id):
+    percentMaterial = PercentMaterial.objects.get(id=id)
+    form = PercentMaterialUpdateForm(initial={'percent': percentMaterial.percent, 'material': percentMaterial.material, 'product': percentMaterial.product})
+    if request.method == "POST":
+        form = PercentMaterialUpdateForm(request.POST, instance=percentMaterial)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                messages.info(request, "Porcentagem do Material " + percentMaterial.material.name + " Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentMaterial.product.pk)
+            except Exception as e:
+                pass
+    return render(request, 'percent-material-update.html', {'form': form})
 
 
 @login_required
@@ -358,6 +373,22 @@ def percentLaborDelete(request, id):
         pass
     return HttpResponseRedirect('/product/%d' % product_id)
 
+@login_required
+def percentLaborUpdate(request, id):
+    percentLabor = PercentLabor.objects.get(id=id)
+    form = PercentLaborUpdateForm(initial={'time': percentLabor.time, 'hours': percentLabor.hours, 'labor': percentLabor.labor, 'product': percentLabor.product})
+    if request.method == "POST":
+        form = PercentLaborUpdateForm(request.POST, instance=percentLabor)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                messages.info(request, "Porcentagem do Material " + percentLabor.labor.name + " Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentLabor.product.pk)
+            except Exception as e:
+                pass
+    return render(request, 'percent-labor-update.html', {'form': form})
+
 
 @login_required
 def costList(request):
@@ -457,6 +488,22 @@ def percentCostDelete(request, id):
     except:
         pass
     return HttpResponseRedirect('/product/%d' % product_id)
+
+@login_required
+def percentCostUpdate(request, id):
+    percentCost = PercentCost.objects.get(id=id)
+    form = PercentCostUpdateForm(initial={'time': percentCost.time, 'hours': percentCost.hours, 'cost': percentCost.cost, 'product': percentCost.product})
+    if request.method == "POST":
+        form = PercentCostUpdateForm(request.POST, instance=percentCost)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                messages.info(request, "Porcentagem do Custo " + percentCost.cost.name + " Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentCost.product.pk)
+            except Exception as e:
+                pass
+    return render(request, 'percent-cost-update.html', {'form': form})
 
 
 @login_required

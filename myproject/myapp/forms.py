@@ -59,12 +59,7 @@ class PercentIngredientUpdateForm(ModelForm):
     class Meta:
         model = PercentIngredient
         fields = ('percent', 'measure')
-
-        labels = {
-            "ingredient": "Ingrediente"
-        }
-        exclude = ['product', 'ingredient', 'product']
-
+        exclude = ['product', 'ingredient']
 
 class PercentMaterialForm(ModelForm):
     class Meta:
@@ -72,6 +67,13 @@ class PercentMaterialForm(ModelForm):
         fields = ('material', 'percent', 'product')
 
         exclude = ['product']
+
+class PercentMaterialUpdateForm(ModelForm):
+    class Meta:
+        model = PercentMaterial
+        fields = ('percent',)
+
+        exclude = ['product', 'material']
 
 
 class PercentLaborForm(ModelForm):
@@ -81,6 +83,17 @@ class PercentLaborForm(ModelForm):
 
         exclude = ['product']
 
+        labels = {
+            "labor": "Mão de Obra"
+        }
+
+class PercentLaborUpdateForm(ModelForm):
+    class Meta:
+        model = PercentLabor
+        fields = ('hours', 'time')
+
+        exclude = ['product', 'labor']
+
 
 class PercentCostForm(ModelForm):
     class Meta:
@@ -88,6 +101,18 @@ class PercentCostForm(ModelForm):
         fields = ('cost', 'hours', 'time', 'product')
 
         exclude = ['product']
+
+        labels = {
+            "cost": "Custo Fixo"
+        }
+
+class PercentCostUpdateForm(ModelForm):
+    class Meta:
+        model = PercentCost
+        fields = ('hours', 'time')
+
+        exclude = ['cost', 'product']
+
 
 class PercentDiscountForm(ModelForm):
     class Meta:

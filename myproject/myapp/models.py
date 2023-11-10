@@ -53,7 +53,8 @@ class Ingredient(models.Model):
     price = models.FloatField(_("(R$) Valor do Pacote:"), db_column='price', blank=False)
 
     def __str__(self):
-        return self.name
+        string = self.name + " " + str(self.quantity)
+        return string
 
     class Meta:
         ordering = ["name"]
@@ -67,7 +68,9 @@ class Material(models.Model):
     price = models.FloatField(_("(R$) Preço do Pacote de Embalagem:"), db_column='price', blank=False)
 
     def __str__(self):
-        return self.name
+        string = self.name + " " + str(self.quantity)
+        return string
+
 
     class Meta:
         ordering = ["name"]
@@ -82,7 +85,8 @@ class Labor(models.Model):
     time = models.CharField(_("Medida do Tempo:"), max_length=15, choices=TIME_CHOICES)
 
     def __str__(self):
-        return self.name
+        string = self.name + " " + str(self.salary)
+        return string
 
     class Meta:
         ordering = ["name"]
@@ -118,7 +122,8 @@ class Product(models.Model):
     profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
 
     def __str__(self):
-        return self.name
+        string = self.name + " " + str(self.quantity)
+        return string
 
     class Meta:
         ordering = ["name"]

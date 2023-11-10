@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-2 text-gray-800">Produtos</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cadastrar Nova Porcentagem de Custo Fixo</h6>
+    </div>
+    <div class="card-body">
+        {% load bootstrap %}
+        <form method="post">
+            {{ form|bootstrap}}
+            {% csrf_token %}
+            {{form.errors}}
+            <a  href="{%url 'product-list' %}" class="btn btn-danger btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-reply"></i>
+                </span>
+                <span class="text">Cancelar</span>
+            </a>
+            <button type="submit" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-file"></i>
+                </span>
+                <span class="text">Atualizar</span>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

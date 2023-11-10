@@ -54,7 +54,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.quantity}}</div>
                         </div>
                         <div class="col-auto">
-                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-primary">
+                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-primary btn-sm">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>
@@ -74,7 +74,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit}}</div>
                         </div>
                         <div class="col-auto">
-                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary">
+                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary btn-sm">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>
@@ -88,12 +88,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
-            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Ingrediente</span>
-            </a>
         </div>
         <div class="card-body">
             {% if percent_ingredients %}
@@ -130,12 +124,12 @@
                             {% endif %}
 
                             <td class="text-center">
-                                <a data-toggle="modal" data-target="#percentIngredientModal" class="btn btn-primary">
+                                <a class="btn btn-primary btn-sm" href="/percent-ingredient-update/{{ percent_ingredient.id }}" class="btn btn-primary btn-sm">
                                     <span class="icon">
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a type="button" class="btn btn-danger" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
+                                <a type="button" class="btn btn-danger btn-sm" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -149,17 +143,17 @@
                 </div>
             </div>
             {% endif %}
+            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-sm btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Ingrediente</span>
+            </a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
-            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Material</span>
-            </a>
         </div>
         <div class="card-body">
 
@@ -185,7 +179,12 @@
                             <td>{{ percent_material.percent }}</td>
                             <td> R$ {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price|stringformat:"0.2f" }}</td>
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
+                                <a class="btn btn-primary btn-sm" href="/percent-material-update/{{ percent_material.id }}" class="btn btn-primary btn-sm">
+                                    <span class="icon">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                </a>
+                                <a type="button" class="btn btn-danger btn-sm" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -200,17 +199,17 @@
                 </div>
             </div>
             {% endif %}
+            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-sm btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Material</span>
+            </a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Mãos de Obras</h6>
-            <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Mão de Obra</span>
-            </a>
         </div>
         <div class="card-body">
         {% if percent_labors%}
@@ -237,7 +236,12 @@
                             <td> R$ {{cost_labor|stringformat:"0.2f" }}</td>
                             {% endwith %}
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
+                                <a class="btn btn-primary btn-sm" href="/percent-labor-update/{{ percent_labor.id }}" class="btn btn-primary btn-sm">
+                                    <span class="icon">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                </a>
+                                <a type="button" class="btn btn-danger btn-sm" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -252,17 +256,17 @@
                 </div>
             </div>
         {% endif %}
+        <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split btn-sm">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Mão de Obra</span>
+        </a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
-            <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Custo Fixo</span>
-            </a>
         </div>
         <div class="card-body">
         {% if percent_costs%}
@@ -289,8 +293,12 @@
                             <td> R$ {{cost_cost|stringformat:"0.2f" }}</td>
                             {% endwith %}
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
-                                <a type="button" class="btn btn-primary" href="/percent-cost-update/{{ percent_cost.id }}"> <i class="fas fa-edit fa-xs"></i></a></a>
+                                <a class="btn btn-primary btn-sm" href="/percent-cost-update/{{ percent_cost.id }}" class="btn btn-primary btn-sm">
+                                    <span class="icon">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                </a>
+                                <a type="button" class="btn btn-danger btn-sm" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
 
                             </td>
                         </tr>
@@ -306,6 +314,12 @@
                 </div>
             </div>
         {% endif %}
+        <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split btn-sm">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Custo Fixo</span>
+        </a>
         </div>
     </div>
     <div class="card shadow mb-4">
@@ -331,7 +345,7 @@
                             <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
-                                <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
+                                <a type="button" class="btn btn-primary btn-sm" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
                             </td>
                         </tr>
                     </tbody>
@@ -342,12 +356,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Simuladores</h6>
-            <a data-toggle="modal" data-target="#discountModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Simulador</span>
-            </a>
         </div>
         <div class="card-body">
         {% if percent_discounts%}
@@ -380,7 +388,7 @@
                             {% endwith %}
                             {% endwith %}
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
+                                <a type="button" class="btn btn-danger btn-sm" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
                             </td>
                         </tr>
                         {% endfor %}
@@ -395,6 +403,12 @@
                 </div>
             </div>
         {% endif %}
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-success btn-icon-split btn-sm">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Simulador</span>
+        </a>
         </div>
     </div>
     <div>
