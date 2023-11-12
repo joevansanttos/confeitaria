@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 {% load mathfilters %}
+{% load humanize %}
+{% load l10n %}
+
 <h1 class="h3 mb-2 text-gray-800">Produto {{ product.name }}</h1>
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
@@ -109,17 +112,17 @@
                         <tr>
                             <td>{{ percent_ingredient.ingredient.name }}</td>
                             <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
-                            <td>R$ {{ percent_ingredient.ingredient.price|stringformat:"0.2f" }}</td>
+                            <td>R$ {{ percent_ingredient.ingredient.price|floatformat:2|localize }}</td>
                             <td>{{ percent_ingredient.percent }}{{" "}}{{percent_ingredient.measure }}</td>
                             {% if percent_ingredient.measure != percent_ingredient.ingredient.measure %}
                                 {% with calc=percent_ingredient.ingredient.quantity|mul:1000 %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:calc|mul:percent_ingredient.ingredient.price %}
-                                <td>R$ {{cost_ingredient|stringformat:"0.2f"}}</td>
+                                <td>R$ {{cost_ingredient|floatformat:2|localize}}</td>
                                 {% endwith %}
                                 {% endwith %}
                             {% else %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price %}
-                                <td> R$ {{ cost_ingredient|stringformat:"0.2f"}}</td>
+                                <td> R$ {{ cost_ingredient|floatformat:2|localize}}</td>
                                 {% endwith %}
                             {% endif %}
 
@@ -175,9 +178,9 @@
                         <tr>
                             <td>{{ percent_material.material.name }}</td>
                             <td>{{ percent_material.material.quantity }}{{ " "}}{{ percent_material.material.measure }}</td>
-                            <td>R$ {{ percent_material.material.price|stringformat:"0.2f" }}</td>
+                            <td>R$ {{ percent_material.material.price|floatformat:2|localize }}</td>
                             <td>{{ percent_material.percent }}</td>
-                            <td> R$ {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price|stringformat:"0.2f" }}</td>
+                            <td> R$ {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price|floatformat:2|localize }}</td>
                             <td class="text-center">
                                 <a class="btn btn-primary btn-sm" href="/percent-material-update/{{ percent_material.id }}" class="btn btn-primary btn-sm">
                                     <span class="icon">
@@ -229,11 +232,11 @@
                         {% for percent_labor in percent_labors %}
                         <tr>
                             <td>{{ percent_labor.labor.name }}</td>
-                            <td>R$ {{ percent_labor.labor.salary|stringformat:"0.2f" }}</td>
+                            <td>R$ {{ percent_labor.labor.salary|floatformat:2|localize }}</td>
                             <td>{{ percent_labor.labor.hours }}</td>
                             <td>{{ percent_labor.hours }}</td>
                             {% with cost_labor=percent_labor.hours|mul:percent_labor.labor.salary|div:percent_labor.labor.hours %}
-                            <td> R$ {{cost_labor|stringformat:"0.2f" }}</td>
+                            <td> R$ {{cost_labor|floatformat:2|localize }}</td>
                             {% endwith %}
                             <td class="text-center">
                                 <a class="btn btn-primary btn-sm" href="/percent-labor-update/{{ percent_labor.id }}" class="btn btn-primary btn-sm">
@@ -286,11 +289,11 @@
                         {% for percent_cost in percent_costs %}
                         <tr>
                             <td>{{ percent_cost.cost.name }}</td>
-                            <td>R$ {{ percent_cost.cost.price|stringformat:"0.2f" }}</td>
+                            <td>R$ {{ percent_cost.cost.price|floatformat:2|localize }}</td>
                             <td>{{ percent_cost.cost.hours }}</td>
                             <td>{{ percent_cost.hours }}</td>
                             {% with cost_cost=percent_cost.hours|mul:percent_cost.cost.price|div:percent_cost.cost.hours %}
-                            <td> R$ {{cost_cost|stringformat:"0.2f" }}</td>
+                            <td> R$ {{cost_cost|floatformat:2|localize }}</td>
                             {% endwith %}
                             <td class="text-center">
                                 <a class="btn btn-primary btn-sm" href="/percent-cost-update/{{ percent_cost.id }}" class="btn btn-primary btn-sm">
@@ -340,8 +343,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{"R$ "}}{{ product.another_expenses|stringformat:"0.2f"}}</td>
-                            <td>{{"R$ "}}{{ product.incalculable_expenses|stringformat:"0.2f"}}</td>
+                            <td>{{"R$ "}}{{ product.another_expenses|floatformat:2|localize}}</td>
+                            <td>{{"R$ "}}{{ product.incalculable_expenses|floatformat:2|localize}}</td>
                             <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
@@ -372,7 +375,7 @@
                     <tbody>
                         {% for percent_discount in percent_discounts %}
                         <tr>
-                            <td>{{ percent_discount.percent }} %</td>
+                            <td>{{ percent_discount.percent|intcomma|localize }} %</td>
                             {% with percent_discount_100=percent_discount.percent|div:100  %}
                             {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
                             {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
@@ -380,8 +383,8 @@
                             {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
 
 
-                            <td>R$ {{ price_discount|floatformat:2 }}</td>
-                            <td>R$ {{ profit_discount|floatformat:2 }}</td>
+                            <td>R$ {{ price_discount|localize }}</td>
+                            <td>R$ {{ profit_discount }}</td>
                             {% endwith %}
                             {% endwith %}
                             {% endwith %}
