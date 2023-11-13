@@ -130,7 +130,25 @@
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a type="button" class="btn btn-danger btn-sm" href="/percent-ingredient-delete/{{ percent_ingredient.id }}"> <i class="fas fa-trash"></i></a></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_ingredient.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <div class="modal fade" id="modal_{{ percent_ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_ingredient.id }}"
+                                            aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_{{ percent_ingredient.id }}">Tem certeza que deseja excluir?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Clique em excluir pra excluir o Ingrediente {{percent_ingredient.ingredient.name}}</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                <a href="/percent-ingredient-delete/{{ percent_ingredient.id }}" class="btn btn-primary">Excluir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
@@ -205,6 +223,20 @@
                         {% endfor %}
                     </tbody>
                 </table>
+                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Custo Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                R$ {{total_materials|floatformat:2}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             {% else %}
@@ -260,6 +292,20 @@
                             </td>
                         </tr>
                         {% endfor %}
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Custo Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                R$ {{total_labors|floatformat:2}}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -318,6 +364,20 @@
                             </td>
                         </tr>
                         {% endfor %}
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Custo Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                R$ {{total_costs|floatformat:2}}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -553,7 +553,8 @@ def productList(request):
     current_user = request.user
     products = current_user.product_set.all()
     for product in products:
-        price_unity, all_total_costs, total_ingredients = generate_price_unity(product)
+        (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
+         totals_costs) = generate_price_unity(product)
         product.price_unity = price_unity
 
     return render(request, "product-list.html", {'products': products})
@@ -677,7 +678,8 @@ def product(request, id):
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
     percent_discounts =product.percentdiscount_set.all()
-    price_unity, all_total_costs, total_ingredients = generate_price_unity(product)
+    (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
+     totals_costs) = generate_price_unity(product)
     roi = (product.profit * all_total_costs) / 100
 
 
@@ -700,7 +702,10 @@ def product(request, id):
             'price_unity': price_unity,
             'all_total_costs': all_total_costs,
             'roi': roi,
-            'total_ingredients': total_ingredients
+            'total_ingredients': total_ingredients,
+            'total_materials': total_materials,
+            'total_labors': total_labors,
+            'total_costs': totals_costs
         }
     )
 
@@ -724,7 +729,8 @@ def generate_price_unity(product):
     all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
     price_unity = (all_total_costs + product.profit) / product.quantity \
         if product.profit != 0 and product.quantity != 0 else 0
-    return round(price_unity, 2), round(all_total_costs, 2), round(total_ingredients, 2)
+    return (round(price_unity, 2), round(all_total_costs, 2), round(total_ingredients, 2), round(total_materials, 2),
+            round(total_labors, 2), round(total_costs, 2))
 
 
 def calc_ingredients_value(percent_ingredients):
@@ -747,7 +753,7 @@ def calc_materials_value(percent_materials):
     for percent_material in percent_materials:
         calc_material = (percent_material.percent / percent_material.material.quantity) * \
                         percent_material.material.price
-        calc_materials = calc_materials + calc_material
+        calc_materials = calc_materials + round(calc_material, 2)
     return calc_materials
 
 
@@ -755,7 +761,7 @@ def calc_labors_value(percent_labors):
     calc_labors = 0
     for percent_labor in percent_labors:
         calc_labor = percent_labor.hours * (percent_labor.labor.salary / percent_labor.labor.hours)
-        calc_labors = calc_labors + calc_labor
+        calc_labors = calc_labors + round(calc_labor, 2)
     return calc_labors
 
 
@@ -763,5 +769,5 @@ def calc_costs_value(percent_costs):
     calc_costs = 0
     for percent_cost in percent_costs:
         calc_cost = percent_cost.hours * (percent_cost.cost.price / percent_cost.cost.hours)
-        calc_costs = calc_costs + calc_cost
+        calc_costs = calc_costs + round(calc_cost, 2)
     return calc_costs
