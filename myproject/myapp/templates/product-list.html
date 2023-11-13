@@ -19,7 +19,7 @@
                 {% for product in products %}
                 <tr>
                     <td>{{ product.name }}</td>
-                    <td>R$ {{ product.price_unity|stringformat:"0.2f" }}</td>
+                    <td>R$ {{ product.price_unity|floatformat:2 }}</td>
                     <td>
                         <div>
                             <div class="d-none d-lg-block">

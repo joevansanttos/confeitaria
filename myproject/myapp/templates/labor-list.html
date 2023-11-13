@@ -20,7 +20,7 @@
                 {% for labor in labors %}
                 <tr>
                     <td>{{ labor.name }}</td>
-                    <td>{{"R$ "}}{{ labor.salary|stringformat:"0.2f"}}</td>
+                    <td>{{"R$ "}}{{ labor.salary|floatformat:2}}</td>
                     <td>{{ labor.hours }}{{ "/" }}{{ labor.time }}</td>
                     <td>
                         <div>

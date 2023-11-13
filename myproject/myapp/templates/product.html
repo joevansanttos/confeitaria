@@ -74,7 +74,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Lucro Desejado </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit|floatformat:2}}</div>
                         </div>
                         <div class="col-auto">
                             <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary btn-sm">
@@ -107,8 +107,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for percent_ingredient in percent_ingredients%}
-
+                        {% for percent_ingredient in percent_ingredients %}
                         <tr>
                             <td>{{ percent_ingredient.ingredient.name }}</td>
                             <td>{{ percent_ingredient.ingredient.quantity }}{{ " "}}{{ percent_ingredient.ingredient.measure }}</td>
@@ -123,7 +122,7 @@
                             {% else %}
                                 {% with cost_ingredient=percent_ingredient.percent|div:percent_ingredient.ingredient.quantity|mul:percent_ingredient.ingredient.price %}
                                 <td> R$ {{ cost_ingredient|floatformat:2|localize}}</td>
-                                {% endwith %}
+                                 {% endwith %}
                             {% endif %}
 
                             <td class="text-center">
@@ -136,6 +135,20 @@
                             </td>
                         </tr>
                         {% endfor %}
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Custo Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                R$ {{total_ingredients}}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -375,16 +388,16 @@
                     <tbody>
                         {% for percent_discount in percent_discounts %}
                         <tr>
-                            <td>{{ percent_discount.percent|intcomma|localize }} %</td>
+                            <td>{{ percent_discount.percent }} %</td>
                             {% with percent_discount_100=percent_discount.percent|div:100  %}
                             {% with price_percent_discount=price_unity|mul:percent_discount_100  %}
-                            {% with price_discount=price_unity|sub:price_percent_discount|floatformat:2  %}
-                            {% with price_discount_quantity=price_discount|floatformat:2|mul:product.quantity  %}
-                            {% with profit_discount=price_discount_quantity|floatformat:2|sub:all_total_costs|floatformat:2 %}
+                            {% with price_discount=price_unity|sub:price_percent_discount  %}
+                            {% with price_discount_quantity=price_discount|mul:product.quantity  %}
+                            {% with profit_discount=price_discount_quantity|sub:all_total_costs %}
 
 
-                            <td>R$ {{ price_discount|localize }}</td>
-                            <td>R$ {{ profit_discount }}</td>
+                            <td>R$ {{ price_discount|floatformat:2 }}</td>
+                            <td>R$ {{ price_discount_quantity|floatformat:2 }}</td>
                             {% endwith %}
                             {% endwith %}
                             {% endwith %}

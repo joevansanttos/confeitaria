@@ -21,7 +21,7 @@
                         {% for cost in costs %}
                         <tr>
                             <td>{{ cost.name }}</td>
-                            <td>{{"R$ "}}{{ cost.price|stringformat:"0.2f"}}</td>
+                            <td>{{"R$ "}}{{ cost.price|floatformat:2}}</td>
                             <td>{{ cost.hours }}{{" "}}{{ cost.time }}</td>
                             <td>
                                 <div>

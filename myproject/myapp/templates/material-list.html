@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ material.name }}</td>
                     <td>{{ material.quantity }}</td>
-                    <td>{{"R$ "}}{{ material.price|stringformat:"0.2f"}}</td>
+                    <td>{{"R$ "}}{{ material.price|floatformat:2}}</td>
                     <td>
                         <div>
                             <div class="d-none d-lg-block">

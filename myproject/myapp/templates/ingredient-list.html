@@ -24,7 +24,7 @@
                         <tr>
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.measure }}</td>
-                            <td>{{"R$ "}}{{ ingredient.price|stringformat:"0.2f"}}</td>
+                            <td>{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
                             <td >
                                 <div>
                                     <div class="d-none d-lg-block">
@@ -54,7 +54,7 @@
                                             </span>
                                         </a>
                                     </div>
-                                    <div class="modal fade" id="modal_{{ ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ ingredient.id }}" 
+                                    <div class="modal fade" id="modal_{{ ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ ingredient.id }}"
                                         aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">

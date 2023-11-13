@@ -553,7 +553,7 @@ def productList(request):
     current_user = request.user
     products = current_user.product_set.all()
     for product in products:
-        price_unity, all_total_costs = generate_price_unity(product)
+        price_unity, all_total_costs, total_ingredients = generate_price_unity(product)
         product.price_unity = price_unity
 
     return render(request, "product-list.html", {'products': products})
@@ -677,7 +677,7 @@ def product(request, id):
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
     percent_discounts =product.percentdiscount_set.all()
-    price_unity, all_total_costs = generate_price_unity(product)
+    price_unity, all_total_costs, total_ingredients = generate_price_unity(product)
     roi = (product.profit * all_total_costs) / 100
 
 
@@ -699,7 +699,8 @@ def product(request, id):
             'percent_discounts': percent_discounts,
             'price_unity': price_unity,
             'all_total_costs': all_total_costs,
-            'roi': roi
+            'roi': roi,
+            'total_ingredients': total_ingredients
         }
     )
 
@@ -723,7 +724,7 @@ def generate_price_unity(product):
     all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
     price_unity = (all_total_costs + product.profit) / product.quantity \
         if product.profit != 0 and product.quantity != 0 else 0
-    return round(price_unity, 2), round(all_total_costs, 2)
+    return round(price_unity, 2), round(all_total_costs, 2), round(total_ingredients, 2)
 
 
 def calc_ingredients_value(percent_ingredients):
@@ -737,7 +738,7 @@ def calc_ingredients_value(percent_ingredients):
             calc_ingredient = (percent_ingredient.percent / percent_ingredient.ingredient.quantity) * \
                               percent_ingredient.ingredient.price
 
-        calc_ingredients = calc_ingredients + calc_ingredient
+        calc_ingredients = calc_ingredients + round(calc_ingredient, 2)
     return calc_ingredients
 
 
