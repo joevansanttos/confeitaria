@@ -7,8 +7,11 @@ from django.contrib.auth import login, authenticate
 from django.contrib import messages #import messages
 
 
-from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateForm, PercentDiscountForm, PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, PercentMaterialForm, \
-    CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate
+from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateForm, PercentDiscountForm, \
+    PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, \
+    PercentMaterialForm, \
+    CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate, \
+    PercentDiscountUpdateForm
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
@@ -545,6 +548,23 @@ def percentDiscountDelete(request, id):
     except:
         pass
     return HttpResponseRedirect('/product/%d' % product_id)
+
+@login_required
+def percentDiscountUpdate(request, id):
+    percentDiscount = PercentDiscount.objects.get(id=id)
+    form = PercentDiscountUpdateForm(initial={'percent': percentDiscount.percent, 'product': percentDiscount.product})
+    if request.method == "POST":
+        form = PercentDiscountUpdateForm(request.POST, instance=percentDiscount)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                print(percentDiscount.product.pk)
+                messages.info(request, "Porcentagem do Custo " + percentDiscount.percent + "% Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentDiscount.product.pk)
+            except Exception as e:
+                pass
+    return render(request, 'percent-discount-update.html', {'form': form})
 
 
 

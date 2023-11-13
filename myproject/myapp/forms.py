@@ -55,11 +55,13 @@ class PercentIngredientForm(ModelForm):
         }
         exclude = ['product']
 
+
 class PercentIngredientUpdateForm(ModelForm):
     class Meta:
         model = PercentIngredient
         fields = ('percent', 'measure')
         exclude = ['product', 'ingredient']
+
 
 class PercentMaterialForm(ModelForm):
     class Meta:
@@ -67,6 +69,7 @@ class PercentMaterialForm(ModelForm):
         fields = ('material', 'percent', 'product')
 
         exclude = ['product']
+
 
 class PercentMaterialUpdateForm(ModelForm):
     class Meta:
@@ -87,6 +90,7 @@ class PercentLaborForm(ModelForm):
             "labor": "Mão de Obra"
         }
 
+
 class PercentLaborUpdateForm(ModelForm):
     class Meta:
         model = PercentLabor
@@ -106,6 +110,7 @@ class PercentCostForm(ModelForm):
             "cost": "Custo Fixo"
         }
 
+
 class PercentCostUpdateForm(ModelForm):
     class Meta:
         model = PercentCost
@@ -115,6 +120,14 @@ class PercentCostUpdateForm(ModelForm):
 
 
 class PercentDiscountForm(ModelForm):
+    class Meta:
+        model = PercentDiscount
+        fields = ('percent',)
+
+        exclude = ['product']
+
+
+class PercentDiscountUpdateForm(ModelForm):
     class Meta:
         model = PercentDiscount
         fields = ('percent',)
@@ -136,17 +149,18 @@ class ProductFormUpdate(ModelForm):
         fields = ('another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes')
         exclude = ['user', 'name']
 
+
 class ProductQuantityFormUpdate(ModelForm):
     class Meta:
         model = Product
         fields = ('quantity',)
         exclude = ['user', 'name',
-                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'profit']
+                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'profit']
+
 
 class ProductProfitFormUpdate(ModelForm):
     class Meta:
         model = Product
         fields = ('profit',)
         exclude = ['user', 'name',
-                  'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity']
-
+                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity']

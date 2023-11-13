@@ -217,7 +217,25 @@
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a type="button" class="btn btn-danger btn-sm" href="/percent-material-delete/{{ percent_material.id }}"> <i class="fas fa-trash"></i></a></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_material.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <div class="modal fade" id="modal_{{ percent_material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_material.id }}"
+                                            aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_{{ percent_material.id }}">Tem certeza que deseja excluir?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Clique em excluir pra excluir a porcentagem do Material {{percent_material.material.name}}</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                <a href="/percent-material-delete/{{ percent_material.id }}" class="btn btn-primary">Excluir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
@@ -288,7 +306,25 @@
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a type="button" class="btn btn-danger btn-sm" href="/percent-labor-delete/{{ percent_labor.id }}"> <i class="fas fa-trash"></i></a></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_labor.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <div class="modal fade" id="modal_{{ percent_labor.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_labor.id }}"
+                                            aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_{{ percent_labor.id }}">Tem certeza que deseja excluir?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Clique em excluir pra excluir a porcentagem do Mão de Obra {{percent_labor.labor.name}}</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                <a href="/percent-labor-delete/{{ percent_labor.id }}" class="btn btn-primary">Excluir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
@@ -359,7 +395,25 @@
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a type="button" class="btn btn-danger btn-sm" href="/percent-cost-delete/{{ percent_cost.id }}"> <i class="fas fa-trash"></i></a></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_cost.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <div class="modal fade" id="modal_{{ percent_cost.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_cost.id }}"
+                                            aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_{{ percent_cost.id }}">Tem certeza que deseja excluir?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Clique em excluir pra excluir a porcentagem do Custo {{percent_cost.cost.name}}</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                <a href="/percent-cost-delete/{{ percent_cost.id }}" class="btn btn-primary">Excluir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </td>
                         </tr>
@@ -420,7 +474,7 @@
                             <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
-                                <a type="button" class="btn btn-primary btn-sm" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a></a>
+                                <a type="button" class="btn btn-primary btn-sm" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -463,7 +517,30 @@
                             {% endwith %}
                             {% endwith %}
                             <td class="text-center">
-                                <a type="button" class="btn btn-danger btn-sm" href="/percent_discount-delete/{{ percent_discount.id }}"> <i class="fas fa-trash fa-xs"></i></a></a>
+                                <a class="btn btn-primary btn-sm" href="/percent-discount-update/{{ percent_discount.id }}" class="btn btn-primary btn-sm">
+                                    <span class="icon">
+                                        <i class="fas fa-edit"></i>
+                                    </span>
+                                </a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_discount.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <div class="modal fade" id="modal_{{ percent_discount.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_discount.id }}"
+                                            aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_{{ percent_discount.id }}">Tem certeza que deseja excluir?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">Clique em excluir pra excluir o Simulador {{percent_discount.percent}} %</div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                <a href="/percent-discount-delete/{{ percent_discount.id }}" class="btn btn-primary">Excluir</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}
