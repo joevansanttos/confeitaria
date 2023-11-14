@@ -90,8 +90,6 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
-            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_ingredients}}</h6>
-
         </div>
         <div class="card-body">
             {% if percent_ingredients %}
@@ -167,18 +165,25 @@
                 </div>
             </div>
             {% endif %}
-            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Ingrediente</span>
-            </a>
+            <div>
+                <div class="float-left">
+                    <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Ingrediente</span>
+                    </a>
+                </div>
+                <div class="float-right">
+                    <button type="button" class="btn btn-outline-danger float-left" disabled>Custo Total: R$ {{total_ingredients}}</button>
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
-            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_materials}}</h6>
         </div>
         <div class="card-body">
 
@@ -244,18 +249,25 @@
                 </div>
             </div>
             {% endif %}
-            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-icon-split">
-                <span class="icon">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Material</span>
-            </a>
+            <div>
+                <div class="float-left">
+                    <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-icon-split">
+                        <span class="icon">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                        <span class="text">Material</span>
+                    </a>
+                </div>
+                <div class="float-right">
+                    <button type="button" class="btn btn-outline-danger float-left" disabled>Custo Total: R$ {{total_materials}}</button>
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Mãos de Obras</h6>
-            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_labors}}</h6>
         </div>
         <div class="card-body">
         {% if percent_labors%}
@@ -322,18 +334,23 @@
                 </div>
             </div>
         {% endif %}
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split">
-            <span class="icon">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Mão de Obra</span>
-        </a>
+        <div class="float-left">
+            <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Mão de Obra</span>
+            </a>
+        </div>
+        <div class="float-right">
+            <button type="button" class="btn btn-outline-danger float-left" disabled>Custo Total: R$ {{total_labors}}</button>
+
+        </div>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
-            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_costs}}</h6>
         </div>
         <div class="card-body">
         {% if percent_costs%}
@@ -401,12 +418,18 @@
                 </div>
             </div>
         {% endif %}
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split">
-            <span class="icon">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span class="text">Custo Fixo</span>
-        </a>
+        <div class="float-left">
+            <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split">
+                <span class="icon">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Custo Fixo</span>
+            </a>
+        </div>
+        <div class="float-right">
+            <button type="button" class="btn btn-outline-danger float-left" disabled>Custo Total: R$ {{total_costs}}</button>
+
+        </div>
         </div>
     </div>
     <div class="card shadow mb-4">
