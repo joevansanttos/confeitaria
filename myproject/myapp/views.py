@@ -701,7 +701,7 @@ def product(request, id):
     (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
      totals_costs) = generate_price_unity(product)
     roi = (product.profit * all_total_costs) / 100
-    cmv = (total_ingredients + total_materials) / (round(price_unity, 2) * product.quantity)
+    cmv = ((total_ingredients + total_materials) / (round(price_unity, 2) * product.quantity) * 100)
 
 
 
