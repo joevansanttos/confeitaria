@@ -701,6 +701,8 @@ def product(request, id):
     (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
      totals_costs) = generate_price_unity(product)
     roi = (product.profit * all_total_costs) / 100
+    cmv = (total_ingredients + total_materials) / (round(price_unity, 2) * product.quantity)
+
 
 
     return render(
@@ -719,13 +721,14 @@ def product(request, id):
             'percent_labors': percent_labors,
             'percent_costs': percent_costs,
             'percent_discounts': percent_discounts,
-            'price_unity': price_unity,
+            'price_unity': round(price_unity, 2),
             'all_total_costs': all_total_costs,
-            'roi': roi,
+            'roi': round(roi, 2),
             'total_ingredients': total_ingredients,
             'total_materials': total_materials,
             'total_labors': total_labors,
-            'total_costs': totals_costs
+            'total_costs': totals_costs,
+            'cmv': round(cmv, 2)
         }
     )
 

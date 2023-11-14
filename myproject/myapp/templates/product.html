@@ -15,9 +15,10 @@
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 ${{price_unity}}
-                                <div class="text-xs font-weight-bold text-success mb-1">
-                                    RETORNO % {{roi|floatformat:2}}
+                                <div class="text-xs font-weight-bold text-primary mb-1">
+                                    CMV {{cmv}} %
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -74,6 +75,9 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Lucro Desejado </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit|floatformat:2}}</div>
+                            <div class="text-xs font-weight-bold text-success mb-1">
+                                RETORNO % {{roi}}
+                            </div>
                         </div>
                         <div class="col-auto">
                             <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary btn-sm">
@@ -442,7 +446,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Outros Custos</th>
-                            <th scope="col">Custos Incalculáveis (%)</th>
+                            <th scope="col">Custos Incalculáveis</th>
                             <th scope="col">Taxa de Marketplace </th>
                             <th scope="col">Impostos</th>
                             <th scope="col">Ações</th>
@@ -451,7 +455,7 @@
                     <tbody>
                         <tr>
                             <td>{{"R$ "}}{{ product.another_expenses|floatformat:2|localize}}</td>
-                            <td>{{"R$ "}}{{ product.incalculable_expenses|floatformat:2|localize}}</td>
+                            <td>{{ product.incalculable_expenses|floatformat:2|localize}} %</td>
                             <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
