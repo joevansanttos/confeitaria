@@ -6,9 +6,9 @@
     <h6 class="m-0 font-weight-bold text-primary">Materiais/Embalagens</h6>
 </div>
 <div class="card-body">
-    <div class="table-responsive">
+    <div>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
+            <thead class="thead-light">
                 <tr>
                     <th scope="col">Nome do Item</th>
                     <th scope="col">Quantidade Comprada</th>
@@ -22,38 +22,38 @@
                     <td>{{ material.name }}</td>
                     <td>{{ material.quantity }}</td>
                     <td>{{"R$ "}}{{ material.price|floatformat:2}}</td>
-                    <td>
+                    <td class="d-none d-lg-block">
                         <div>
-                            <div class="d-none d-lg-block">
-                                <a href="/material-update/{{ material.id }}" class="btn btn-warning btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-edit"></i>
-                                            </span>
-                                            <span class="text">Atualizar</span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">Excluir</span>
-                                </a>
-                            </div>
-                            <div class="d-lg-none row">
-                                <div>
-                                    <a href="/material-update/{{ material.id }}" class="btn btn-warning">
+                            <a href="/material-update/{{ material.id }}" class="btn btn-warning btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-edit"></i>
                                         </span>
-                                    </a>
-                                    <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="modal fade" id="modal_{{ material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ material.id }}"
+                                        <span class="text">Atualizar</span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                                <span class="text">Excluir</span>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="d-lg-none text-center align-middle">
+                        <div class="btn-group">
+                            <a href="/material-update/{{ material.id }}" class="btn btn-warning">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                        
+                    </td>
+                    <div class="modal fade" id="modal_{{ material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ material.id }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -71,8 +71,6 @@
                                                 </div>
                                             </div>
                             </div>
-                        </div>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -3,12 +3,12 @@
 <h1 class="h3 mb-2 text-gray-800">Mão de Obra</h1>
 <div class="card shadow mb-4">
 <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Cadastre nova Mão de Obra</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Lista das Mãos de Obra</h6>
 </div>
 <div class="card-body">
-    <div class="table-responsive">
+    <div>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
+            <thead class="thead-light">
                 <tr>
                     <th scope="col">Nome do Serviço</th>
                     <th scope="col">Salário Médio</th>
@@ -22,35 +22,37 @@
                     <td>{{ labor.name }}</td>
                     <td>{{"R$ "}}{{ labor.salary|floatformat:2}}</td>
                     <td>{{ labor.hours }}{{ "/" }}{{ labor.time }}</td>
-                    <td>
-                        <div>
-                            <div class="d-none d-lg-block">
-                                <a href="/labor-update/{{ labor.id }}" class="btn btn-warning btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                    <span class="text">Atualizar</span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ labor.id }}" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">Excluir</span>
-                                </a>
-                            </div>
-                            <div class="d-lg-none row">
-                                <a href="/labor-update/{{ labor.id }}" class="btn btn-warning">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ labor.id }}" class="btn btn-danger">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="modal fade" id="modal_{{ labor.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ labor.id }}"
+                    <td class="d-none d-lg-block">
+                        <a href="/labor-update/{{ labor.id }}" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="text">Atualizar</span>
+                        </a>
+                        <a data-toggle="modal" data-target="#modal_{{ labor.id }}" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Excluir</span>
+                        </a>
+                    </td>
+                    <td class="d-lg-none text-center align-middle">
+                        <div  class="btn-group">
+                            <a href="/labor-update/{{ labor.id }}" class="btn btn-warning">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ labor.id }}" class="btn btn-danger">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                    
+                </tr>
+                <div class="modal fade" id="modal_{{ labor.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ labor.id }}"
                                             aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -67,11 +69,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                    </td>
-                </tr>
+                </div>
                 {% endfor %}
             </tbody>
         </table>

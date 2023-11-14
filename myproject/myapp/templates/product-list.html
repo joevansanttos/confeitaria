@@ -6,13 +6,13 @@
     <h6 class="m-0 font-weight-bold text-primary">Listar Todos Produtos</h6>
 </div>
 <div class="card-body">
-    <div class="table-responsive">
-        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-            <thead>
+    <div>
+        <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+            <thead class="thead-light">
                 <tr>
                     <th scope="col">Nome</th>
                     <th scope="col">Preço Unitário Recomendado</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col-md-6">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,35 +20,36 @@
                 <tr>
                     <td>{{ product.name }}</td>
                     <td>R$ {{ product.price_unity|floatformat:2 }}</td>
-                    <td>
-                        <div>
-                            <div class="d-none d-lg-block">
-                                <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                    <span class="text">Atualizar</span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">Excluir</span>
-                                </a>
-                            </div>
-                            <div class="d-lg-none row">
-                                <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-primary">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                </a>
-                                <a href="/product-delete/{{ product.id }}" class="btn btn-danger">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="modal fade" id="modal_{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ product.id }}"
+                    <td class="d-none d-lg-block">
+                        <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            <span class="text">Atualizar</span>
+                        </a>
+                        <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Excluir</span>
+                        </a>
+                    </td>
+                    <td class="d-lg-none text-center align-middle">
+                        <div class="btn-group">
+                            <a  class="btn btn-primary" href="/product/{{ product.id }}">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                        
+                    </td>
+                    <div class="modal fade" id="modal_{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ product.id }}"
                                         aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -65,9 +66,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                            </div>
-                        </div>
-                    </td>
+                    </div>
 
                 </tr>
                 {% endfor %}

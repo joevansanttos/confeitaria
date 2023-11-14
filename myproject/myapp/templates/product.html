@@ -88,14 +88,16 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Ingredientes</h6>
+            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_ingredients}}</h6>
+            
         </div>
         <div class="card-body">
             {% if percent_ingredients %}
             <div class="table-responsive" style="margin-top:5px">
-                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Ingrediente</th>
                             <th scope="col">Quantidade Comprada</th>
@@ -125,47 +127,36 @@
                             {% endif %}
 
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm" href="/percent-ingredient-update/{{ percent_ingredient.id }}" class="btn btn-primary btn-sm">
-                                    <span class="icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ percent_ingredient.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
-                                <div class="modal fade" id="modal_{{ percent_ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_ingredient.id }}"
-                                            aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="label_{{ percent_ingredient.id }}">Tem certeza que deseja excluir?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">Clique em excluir pra excluir o Ingrediente {{percent_ingredient.ingredient.name}}</div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                <a href="/percent-ingredient-delete/{{ percent_ingredient.id }}" class="btn btn-primary">Excluir</a>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="/percent-ingredient-update/{{ percent_ingredient.id }}" class="btn btn-primary">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#modal_{{ percent_ingredient.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
+                                    <div class="modal fade" id="modal_{{ percent_ingredient.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_ingredient.id }}"
+                                                aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ percent_ingredient.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir o Ingrediente {{percent_ingredient.ingredient.name}}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/percent-ingredient-delete/{{ percent_ingredient.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </td>
                         </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Custo Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                R$ {{total_ingredients}}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -176,7 +167,7 @@
                 </div>
             </div>
             {% endif %}
-            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-sm btn-icon-split">
+            <a data-toggle="modal" data-target="#ingredientModal" class="btn btn-success btn-icon-split">
                 <span class="icon">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -187,13 +178,14 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Materiais</h6>
+            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_materials}}</h6>
         </div>
         <div class="card-body">
 
             {% if percent_materials %}
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Material/Embalagem</th>
                             <th scope="col">Quantidade Comprada</th>
@@ -212,26 +204,28 @@
                             <td>{{ percent_material.percent }}</td>
                             <td> R$ {{percent_material.percent|div:percent_material.material.quantity|mul:percent_material.material.price|floatformat:2|localize }}</td>
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm" href="/percent-material-update/{{ percent_material.id }}" class="btn btn-primary btn-sm">
-                                    <span class="icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ percent_material.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
-                                <div class="modal fade" id="modal_{{ percent_material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_material.id }}"
-                                            aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="label_{{ percent_material.id }}">Tem certeza que deseja excluir?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">Clique em excluir pra excluir a porcentagem do Material {{percent_material.material.name}}</div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                <a href="/percent-material-delete/{{ percent_material.id }}" class="btn btn-primary">Excluir</a>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="/percent-material-update/{{ percent_material.id }}" class="btn btn-primary">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#modal_{{ percent_material.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
+                                    <div class="modal fade" id="modal_{{ percent_material.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_material.id }}"
+                                                aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ percent_material.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir a porcentagem do Material {{percent_material.material.name}}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/percent-material-delete/{{ percent_material.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -239,20 +233,6 @@
                             </td>
                         </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Custo Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                R$ {{total_materials|floatformat:2}}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -264,7 +244,7 @@
                 </div>
             </div>
             {% endif %}
-            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-sm btn-icon-split">
+            <a data-toggle="modal" data-target="#materialModal" class="btn btn-success btn-icon-split">
                 <span class="icon">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -273,14 +253,15 @@
         </div>
     </div>
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-primary">Mãos de Obras</h6>
+            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_labors}}</h6>
         </div>
         <div class="card-body">
         {% if percent_labors%}
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Mão de Obra</th>
                             <th scope="col">Salário</th>
@@ -301,12 +282,13 @@
                             <td> R$ {{cost_labor|floatformat:2|localize }}</td>
                             {% endwith %}
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm" href="/percent-labor-update/{{ percent_labor.id }}" class="btn btn-primary btn-sm">
+                               <div class="btn-group">
+                                <a class="btn btn-primary" href="/percent-labor-update/{{ percent_labor.id }}" class="btn btn-primary">
                                     <span class="icon">
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a data-toggle="modal" data-target="#modal_{{ percent_labor.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_labor.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
                                 <div class="modal fade" id="modal_{{ percent_labor.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_labor.id }}"
                                             aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -325,23 +307,10 @@
                                         </div>
                                     </div>
                                 </div>
+                               </div>
                             </td>
                         </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Custo Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                R$ {{total_labors|floatformat:2}}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -353,7 +322,7 @@
                 </div>
             </div>
         {% endif %}
-        <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split btn-sm">
+        <a data-toggle="modal" data-target="#laborModal" class="btn btn-success btn-icon-split">
             <span class="icon">
                 <i class="fas fa-plus"></i>
             </span>
@@ -364,12 +333,13 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Custos Fixos</h6>
+            <h6 class="m-0 font-weight-bold text-danger">Custo Total: R$ {{total_costs}}</h6>
         </div>
         <div class="card-body">
         {% if percent_costs%}
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Custo Fixo</th>
                             <th scope="col">Preço</th>
@@ -390,12 +360,13 @@
                             <td> R$ {{cost_cost|floatformat:2|localize }}</td>
                             {% endwith %}
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm" href="/percent-cost-update/{{ percent_cost.id }}" class="btn btn-primary btn-sm">
+                               <div class="btn-group">
+                                <a class="btn btn-primary" href="/percent-cost-update/{{ percent_cost.id }}" class="btn btn-primary">
                                     <span class="icon">
                                         <i class="fas fa-edit"></i>
                                     </span>
                                 </a>
-                                <a data-toggle="modal" data-target="#modal_{{ percent_cost.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
+                                <a data-toggle="modal" data-target="#modal_{{ percent_cost.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
                                 <div class="modal fade" id="modal_{{ percent_cost.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_cost.id }}"
                                             aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -414,24 +385,11 @@
                                         </div>
                                     </div>
                                 </div>
+                               </div>
 
                             </td>
                         </tr>
                         {% endfor %}
-                    </tbody>
-                </table>
-                <table class="table table-bordered table-sm  " width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Custo Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                R$ {{total_costs|floatformat:2}}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -443,7 +401,7 @@
                 </div>
             </div>
         {% endif %}
-        <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split btn-sm">
+        <a data-toggle="modal" data-target="#costModal" class="btn btn-success btn-icon-split">
             <span class="icon">
                 <i class="fas fa-plus"></i>
             </span>
@@ -457,8 +415,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Outros Custos</th>
                             <th scope="col">Custos Incalculáveis (%)</th>
@@ -474,7 +432,7 @@
                             <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
-                                <a type="button" class="btn btn-primary btn-sm" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a>
+                                <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -489,8 +447,8 @@
         <div class="card-body">
         {% if percent_discounts%}
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead class="thead-light">
                         <tr>
                             <th scope="col">Porcentagem</th>
                             <th scope="col">Preço com Desconto</th>
@@ -517,26 +475,28 @@
                             {% endwith %}
                             {% endwith %}
                             <td class="text-center">
-                                <a class="btn btn-primary btn-sm" href="/percent-discount-update/{{ percent_discount.id }}" class="btn btn-primary btn-sm">
-                                    <span class="icon">
-                                        <i class="fas fa-edit"></i>
-                                    </span>
-                                </a>
-                                <a data-toggle="modal" data-target="#modal_{{ percent_discount.id }}" class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i></a>
-                                <div class="modal fade" id="modal_{{ percent_discount.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_discount.id }}"
-                                            aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="label_{{ percent_discount.id }}">Tem certeza que deseja excluir?</h5>
-                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">Clique em excluir pra excluir o Simulador {{percent_discount.percent}} %</div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                                                <a href="/percent-discount-delete/{{ percent_discount.id }}" class="btn btn-primary">Excluir</a>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="/percent-discount-update/{{ percent_discount.id }}" class="btn btn-primary">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#modal_{{ percent_discount.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
+                                    <div class="modal fade" id="modal_{{ percent_discount.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_discount.id }}"
+                                                aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ percent_discount.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir o Simulador {{percent_discount.percent}} %</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/percent-discount-delete/{{ percent_discount.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -555,7 +515,7 @@
                 </div>
             </div>
         {% endif %}
-        <a data-toggle="modal" data-target="#discountModal" class="btn btn-success btn-icon-split btn-sm">
+        <a data-toggle="modal" data-target="#discountModal" class="btn btn-success btn-icon-split">
             <span class="icon">
                 <i class="fas fa-plus"></i>
             </span>
