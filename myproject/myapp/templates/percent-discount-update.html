@@ -11,7 +11,7 @@
             {{ form|bootstrap}}
             {% csrf_token %}
             {{form.errors}}
-            <a  href="{%url 'product-list' %}" class="btn btn-danger btn-icon-split">
+            <a  href="{%url 'product' id%}" class="btn btn-danger btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-reply"></i>
                 </span>

@@ -161,7 +161,7 @@ def percentIngredientUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % percentIngredient.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'percent-ingredient-update.html', {'form': form})
+    return render(request, 'percent-ingredient-update.html', {'form': form, 'id': percentIngredient.product.pk})
 
 
 @login_required
@@ -275,7 +275,7 @@ def percentMaterialUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % percentMaterial.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'percent-material-update.html', {'form': form})
+    return render(request, 'percent-material-update.html', {'form': form, 'id': percentMaterial.product.pk})
 
 
 @login_required
@@ -390,7 +390,7 @@ def percentLaborUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % percentLabor.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'percent-labor-update.html', {'form': form})
+    return render(request, 'percent-labor-update.html', {'form': form, 'id': percentLabor.product.pk})
 
 
 @login_required
@@ -506,7 +506,7 @@ def percentCostUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % percentCost.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'percent-cost-update.html', {'form': form})
+    return render(request, 'percent-cost-update.html', {'form': form, 'id': percentCost.product.pk})
 
 
 @login_required
@@ -564,7 +564,7 @@ def percentDiscountUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % percentDiscount.product.pk)
             except Exception as e:
                 pass
-    return render(request, 'percent-discount-update.html', {'form': form})
+    return render(request, 'percent-discount-update.html', {'form': form, 'id': percentDiscount.product.pk})
 
 
 
@@ -625,7 +625,7 @@ def productUpdate(request, id):
                 return HttpResponseRedirect('/product/%d' % id)
             except Exception as e:
                 pass
-    return render(request, 'product-update.html', {'form': form})
+    return render(request, 'product-update.html', {'form': form, 'id': id})
 
 @login_required
 def productQuantityUpdate(request, id):
