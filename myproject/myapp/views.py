@@ -700,7 +700,7 @@ def product(request, id):
     percent_discounts =product.percentdiscount_set.all()
     (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
      totals_costs) = generate_price_unity(product)
-    roi = (product.profit / round(price_unity, 2)) * 100 if price_unity != 0 else 0
+    roi = (product.profit / (round(price_unity, 2) * product.quantity)) * 100 if price_unity != 0 else 0
     cmv = ((total_ingredients + total_materials) / (round(price_unity, 2) * product.quantity) * 100) if price_unity != 0 and product.quantity != 0 else 0
 
 
