@@ -30,9 +30,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 MEASURES_CHOICES = [
     ("KG", "Kg"),
-    ("GRAMAS", "Gramas"),
-    ("L", "L"),
-    ("mL", "ML"),
+    ("GRAMAS", "g"),
+    ("L", "l"),
+    ("ML", "Ml"),
     ("UNIDADES", "Unidade(s)")
 ]
 
@@ -46,11 +46,11 @@ TIME_CHOICES = [
 
 class Ingredient(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(_("Nome do Item:"), db_column='name', max_length=100, blank=False)
+    name = models.CharField(_("Nome do Insumo:"), db_column='name', max_length=100, blank=False)
     quantity = models.IntegerField(
-        _("Quantidade do Pacote:"), db_column='quantity', blank=False)
-    measure = models.CharField(_("Medida do Pacote:"), max_length=8, choices=MEASURES_CHOICES)
-    price = models.FloatField(_("(R$) Valor do Pacote:"), db_column='price', blank=False)
+        _("Quantidade em Embalagem Fechada:"), db_column='quantity', blank=False)
+    measure = models.CharField(_("Medida da Embalagem:"), max_length=8, choices=MEASURES_CHOICES)
+    price = models.FloatField(_("(R$) Preço:"), db_column='price', blank=False)
 
     def __str__(self):
         string = self.name + " " + str(self.quantity)
@@ -78,11 +78,11 @@ class Material(models.Model):
 
 class Labor(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, on_delete=models.CASCADE)
-    name = models.CharField(_("Nome do Serviço:"), db_column='name', max_length=100, blank=False)
-    salary = models.FloatField(_("Salário Médio:"), db_column='salary', blank=False)
+    name = models.CharField(_("Nome da Mão de Obra:"), db_column='name', max_length=100, blank=False)
+    salary = models.FloatField(_("Salário do Mês:"), db_column='salary', blank=False)
     hours = models.FloatField(
-        _("Tempo:"), db_column='hours', blank=False)
-    time = models.CharField(_("Medida do Tempo:"), max_length=15, choices=TIME_CHOICES)
+        _("Total de Horas trabalhada por dia:"), db_column='hours', blank=False)
+    time = models.CharField(_("Total de Dias trabalhados na semana:"), max_length=15, choices=TIME_CHOICES)
 
     def __str__(self):
         string = self.name + " " + str(self.salary)

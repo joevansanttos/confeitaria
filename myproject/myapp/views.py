@@ -11,7 +11,7 @@ from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateFor
     PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, \
     PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate, \
-    PercentDiscountUpdateForm
+    PercentDiscountUpdateForm, ProductNameFormUpdate
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
@@ -646,6 +646,25 @@ def productQuantityUpdate(request, id):
         form = ProductQuantityFormUpdate()
     return redirect('product-list')
 
+def productNameUpdate(request, id):
+    product = Product.objects.get(id=id)
+    if request.method == "POST":
+        form = ProductNameFormUpdate(request.POST, instance=product)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = ProductNameFormUpdate()
+    return redirect('product-list')
+
+
 @login_required
 def productProfitUpdate(request, id):
     product = Product.objects.get(id=id)
@@ -693,6 +712,7 @@ def product(request, id):
     percent_discount_form = PercentDiscountForm()
     product_quantity_update_form = ProductQuantityFormUpdate()
     product_profit_update_form = ProductProfitFormUpdate()
+    product_name_update_form = ProductNameFormUpdate()
     percent_ingredients = product.percentingredient_set.all()
     percent_materials = product.percentmaterial_set.all()
     percent_labors = product.percentlabor_set.all()
@@ -715,6 +735,7 @@ def product(request, id):
             'percent_cost_form': percent_cost_form,
             'percent_discount_form':  percent_discount_form,
             'product_quantity_update_form': product_quantity_update_form,
+            'product_name_update_form': product_name_update_form,
             'product_profit_update_form': product_profit_update_form,
             'percent_ingredients': percent_ingredients,
             'percent_materials': percent_materials,

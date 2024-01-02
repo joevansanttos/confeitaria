@@ -64,6 +64,8 @@ urlpatterns = [
          views.productQuantityUpdate, name='product-quantity-update'),
     path('product-profit-update/<int:id>',
          views.productProfitUpdate, name='product-profit-update'),
+    path('product-name-update/<int:id>',
+         views.productNameUpdate, name='product-name-update'),
     path('product/<int:id>',
          views.product, name='product'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),

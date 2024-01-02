@@ -70,64 +70,16 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-seedling"></i>
-                    <span>Ingredientes</span>
+                    <span>Gerenciar Custos</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Itens:</h6>
-                        <a class="collapse-item" href="{%url 'ingredient-create' %}">Cadastrar Ingredientes</a>
-                        <a class="collapse-item" href="{%url 'ingredient-list' %}">Listar Ingredientes</a>
-                    </div>
-                </div>
-            </li>
+                        <a class="collapse-item" href="{%url 'ingredient-list' %}">Insumos</a>
+                        <a class="collapse-item" href="{%url 'material-list' %}">Materiais</a>
+                        <a class="collapse-item" href="{%url 'labor-list' %}">Mão de Obra</a>
+                        <a class="collapse-item" href="{%url 'cost-list' %}">Custos Fixos</a>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-tree"></i>
-                    <span>Materiais</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Itens:</h6>
-                        <a class="collapse-item" href="{%url 'material-create' %}">Cadastrar Material</a>
-                        <a class="collapse-item" href="{%url 'material-list' %}">Listar Materiais</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLabors"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-hammer"></i>
-                    <span>Mão de Obra</span>
-                </a>
-                <div id="collapseLabors" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Itens:</h6>
-                        <a class="collapse-item" href="{%url 'labor-create' %}">Cadastrar Mão de Obra</a>
-                        <a class="collapse-item" href="{%url 'labor-list' %}">Listar Mão de Obra</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCost"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-dollar-sign"></i>
-                    <span>Custos Fixos</span>
-                </a>
-                <div id="collapseCost" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Itens:</h6>
-                        <a class="collapse-item" href="{%url 'cost-create' %}">Cadastrar Custo</a>
-                        <a class="collapse-item" href="{%url 'cost-list' %}">Listar Custos</a>
                     </div>
                 </div>
             </li>
@@ -136,15 +88,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-pizza-slice"></i>
-                    <span>Produtos</span>
+                    <i class="fas fa-fw fa-robot"></i>
+                    <span>Robô Precificador</span>
                 </a>
                 <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Itens:</h6>
-                        <a class="collapse-item" href="{%url 'product-create' %}">Cadastrar Produtos</a>
-                        <a class="collapse-item" href="{%url 'product-list' %}">Listar Produtos</a>
+                        <a class="collapse-item" href="{%url 'product-list' %}">Meus Produtos</a>
                     </div>
                 </div>
             </li>

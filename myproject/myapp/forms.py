@@ -158,6 +158,14 @@ class ProductQuantityFormUpdate(ModelForm):
                    'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'profit']
 
 
+class ProductNameFormUpdate(ModelForm):
+    class Meta:
+        model = Product
+        fields = ('name',)
+        exclude = ['user', 'quantity',
+                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'profit']
+
+
 class ProductProfitFormUpdate(ModelForm):
     class Meta:
         model = Product
