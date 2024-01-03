@@ -23,17 +23,15 @@
                     <td>{{"R$ "}}{{ material.price|floatformat:2}}</td>
                     <td>
                         <div class="d-none d-lg-block">
-                            <a href="/material-update/{{ material.id }}" class="btn btn-warning btn-icon-split">
-                                        <span class="icon text-white-50">
+                            <a href="/material-update/{{ material.id }}" class="btn btn-warning">
+                                        <span class="icon">
                                             <i class="fas fa-edit"></i>
                                         </span>
-                                        <span class="text">Atualizar</span>
                             </a>
-                            <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger btn-icon-split">
-                                <span class="icon text-white-50">
+                            <a data-toggle="modal" data-target="#modal_{{ material.id }}" class="btn btn-danger">
+                                <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>
-                                <span class="text">Excluir</span>
                             </a>
                         </div>
                         <div class="d-lg-none text-center align-middle btn-group">

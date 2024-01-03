@@ -21,17 +21,15 @@
                     <td>R$ {{ product.price_unity|floatformat:2 }}</td>
                     <td >
                         <div class="d-none d-lg-block">
-                            <a href="/product/{{ product.id }}" class="btn btn-primary btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-edit"></i>
+                            <a href="/product/{{ product.id }}" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-robot"></i>
                                 </span>
-                                <span class="text">Precificar</span>
                             </a>
-                            <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger btn-icon-split">
-                                <span class="icon text-white-50">
+                            <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger">
+                                <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>
-                                <span class="text">Excluir</span>
                             </a>
                         </div>
                         <div class="d-lg-none text-center align-middle btn-group">
