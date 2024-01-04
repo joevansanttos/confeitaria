@@ -3,15 +3,16 @@
 {% load mathfilters %}
 {% load l10n %}
 
-<div class="row">
-    <h1 class="h3 mb-2 text-gray-800">Produto {{ product.name }}</h1>
-<div class="col-auto">
-    <a data-toggle="modal" data-target="#productNameModal" class="btn btn-primary btn-sm">
+<div class="container mb-3">
+    <div class="row">
+        <h1 class="h3 mb-2 text-gray-800">Produto {{ product.name }}</h1>
+    <a data-toggle="modal" data-target="#productNameModal" class="btn btn-light">
         <span class="icon">
             <i class="fas fa-edit"></i>
         </span>
     </a>
 </div>
+
 </div>
 
     <div class="row">
@@ -28,7 +29,7 @@
                                 <div class="text-xs font-weight-bold text-primary mb-1">
                                     CMV {{cmv}} %
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -67,7 +68,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.quantity}}</div>
                         </div>
                         <div class="col-auto">
-                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-primary btn-sm">
+                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-light">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>
@@ -90,7 +91,7 @@
                             </div>
                         </div>
                         <div class="col-auto">
-                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-primary btn-sm">
+                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-light">
                                 <span class="icon">
                                     <i class="fas fa-edit"></i>
                                 </span>
