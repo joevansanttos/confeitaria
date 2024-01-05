@@ -57,8 +57,6 @@ def ingredientList(request):
     for ingredient in ingredients:
         median_price = Ingredient.objects.all().filter(name=ingredient.name).aggregate(Avg("price", default=0))
         pk_dict = {'pk_value':ingredient.pk}
-
-        
         median_ingredients.append([ingredient.name, pk_dict, median_price])
 
     return render(request, "ingredient-list.html",

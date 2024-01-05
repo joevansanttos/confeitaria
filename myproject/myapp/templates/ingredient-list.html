@@ -41,6 +41,8 @@
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.get_measure_display }}</td>
 
+                                {{median_ingredients}}
+
                             {% for median_ingredient in median_ingredients %}
 
                                 {% if median_ingredient.1.pk_value == ingredient.pk %}
