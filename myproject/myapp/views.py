@@ -15,6 +15,7 @@ from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateFor
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
+from django.db.models import Avg
 import logging
 
 logger = logging.getLogger(__name__)
@@ -52,8 +53,16 @@ def profile(request):
 def ingredientList(request):
     current_user = request.user
     ingredients = current_user.ingredient_set.all()
+    median_ingredients = []
+    for ingredient in ingredients:
+        median_price = Ingredient.objects.all().filter(name=ingredient.name).aggregate(Avg("price", default=0))
+        pk_dict = {'pk_value':ingredient.pk}
+
+        
+        median_ingredients.append([ingredient.name, pk_dict, median_price])
+
     return render(request, "ingredient-list.html",
-                  {'ingredients': ingredients})
+                  {'ingredients': ingredients, 'median_ingredients': median_ingredients})
 
 
 def ingredientCreate(request):

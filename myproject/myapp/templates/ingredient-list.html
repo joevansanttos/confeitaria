@@ -40,7 +40,23 @@
                         <tr>
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.get_measure_display }}</td>
-                            <td>{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
+
+                            {% for median_ingredient in median_ingredients %}
+
+                                {% if median_ingredient.1.pk_value == ingredient.pk %}
+
+                                    {% if median_ingredient.2.price__avg < ingredient.price %}
+
+                            <td class="text-danger">{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
+
+                                    {% else %}
+                            <td class="text-success">{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
+
+                                    {% endif %}
+
+                                {% endif %}
+
+                            {% endfor %}
                             <td>
                                 <div class="text-center align-middle">
                                     <a href="/ingredient-update/{{ ingredient.id }}" class="btn btn-warning">
