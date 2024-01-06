@@ -1,4 +1,6 @@
 import logging
+import copy
+
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -17,6 +19,8 @@ from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, 
 from .forms import CustomUserCreationForm
 from django.db.models import Avg
 import logging
+
+# pylint: disable=E1101
 
 logger = logging.getLogger(__name__)
 
@@ -702,6 +706,31 @@ def productDelete(request, id):
         pass
     return redirect('product-list')
 
+@login_required
+def productCopy(request, id):
+    product = Product.objects.get(id=id)
+
+    try:
+        cloned = copy.copy(product) # don't alter original instance
+        cloned.pk = None
+        cloned.name = "Copia do " + product.name
+        cloned.save()
+
+        percent_ingredients = product.percentingredient_set.all()
+        percent_materials = product.percentmaterial_set.all()
+        percent_labors = product.percentlabor_set.all()
+        percent_costs = product.percentcost_set.all()
+
+        create_copy_percent(percent_ingredients,cloned)
+        create_copy_percent(percent_materials, cloned)
+        create_copy_percent(percent_labors, cloned)
+        create_copy_percent(percent_costs, cloned)
+
+        return HttpResponseRedirect('/product/%d' % cloned.pk)
+    except:
+        pass
+    return redirect('product-list')
+
 
 @login_required
 def product(request, id):
@@ -822,3 +851,9 @@ def calc_costs_value(percent_costs):
         calc_cost = percent_cost.hours * (percent_cost.cost.price / percent_cost.cost.hours)
         calc_costs = calc_costs + round(calc_cost, 2)
     return calc_costs
+
+def create_copy_percent(percents, product):
+    for percent in percents:
+        percent.pk = None
+        percent.product = product
+        percent.save()

@@ -21,9 +21,14 @@
                     <td>R$ {{ product.price_unity|floatformat:2 }}</td>
                     <td >
                         <div class="d-none d-lg-block">
-                            <a href="/product/{{ product.id }}" class="btn btn-primary">
+                            <a href="/product/{{ product.id }}" class="btn btn-warning">
                                 <span class="icon">
                                     <i class="fas fa-robot"></i>
+                                </span>
+                            </a>
+                            <a href="/product-copy/{{ product.id }}" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-copy"></i>
                                 </span>
                             </a>
                             <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger">
@@ -33,13 +38,18 @@
                             </a>
                         </div>
                         <div class="d-lg-none text-center align-middle btn-group">
-                            <a  class="btn btn-primary" href="/product/{{ product.id }}">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-edit"></i>
+                            <a href="/product/{{ product.id }}" class="btn btn-warning">
+                                <span class="icon">
+                                    <i class="fas fa-robot"></i>
+                                </span>
+                            </a>
+                            <a href="/product-copy/{{ product.id }}" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-copy"></i>
                                 </span>
                             </a>
                             <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger">
-                                <span class="icon text-white-50">
+                                <span class="icon">
                                     <i class="fas fa-trash"></i>
                                 </span>
                             </a>

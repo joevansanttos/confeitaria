@@ -60,6 +60,8 @@ urlpatterns = [
     path('product-delete/<int:id>', views.productDelete, name='product-delete'),
     path('product-update/<int:id>',
          views.productUpdate, name='product-update'),
+    path('product-copy/<int:id>',
+         views.productCopy, name='product-copy'),
     path('product-quantity-update/<int:id>',
          views.productQuantityUpdate, name='product-quantity-update'),
     path('product-profit-update/<int:id>',
