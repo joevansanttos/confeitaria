@@ -60,8 +60,20 @@ def ingredientList(request):
     median_ingredients = []
     for ingredient in ingredients:
         median_price = Ingredient.objects.all().filter(name=ingredient.name).aggregate(Avg("price", default=0))
+        if median_price.get("price__avg") > ingredient.price :
+            profit = median_price.get("price__avg") - ingredient.price
+            profit_per = (profit * 100)//ingredient.price
+            value_per = "- " +  str(profit_per) + "%"
+        elif median_price.get("price__avg") < ingredient.price:
+            loss = ingredient.price - median_price.get("price__avg")
+            loss_per = (loss * 100)//ingredient.price
+            value_per = "+ " + str(loss_per)  + "%"
+        else:
+            value_per = str(0) + "%"
         pk_dict = {'pk_value':ingredient.pk}
-        median_ingredients.append([ingredient.name, pk_dict, median_price])
+        value_per_dict = {'value_per': value_per}
+        median_ingredients.append([ingredient.name, pk_dict, median_price, value_per_dict])
+
 
     return render(request, "ingredient-list.html",
                   {'ingredients': ingredients, 'median_ingredients': median_ingredients})
@@ -142,7 +154,6 @@ def percentIngredientCreate(request, id):
             except:
                 pass
     else:
-        print("percent")
         form = PercentIngredientForm()
     return redirect('product-list')
 

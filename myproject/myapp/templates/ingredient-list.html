@@ -41,7 +41,7 @@
                             <td>{{ ingredient.name }}</td>
                             <td>{{ ingredient.quantity }}{{" "}}{{ ingredient.get_measure_display }}</td>
 
-                            {% if median_ingredients %}
+                        {% if median_ingredients %}
 
                             {% for median_ingredient in median_ingredients %}
 
@@ -49,10 +49,10 @@
 
                                     {% if median_ingredient.2.price__avg < ingredient.price %}
 
-                            <td class="text-danger">{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
+                            <td>{{"R$ "}}{{ ingredient.price|floatformat:2}} <span class="text-danger small-font-size">({{median_ingredient.3.value_per}})</span></td>
 
                                     {% else %}
-                            <td class="text-success">{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
+                            <td>{{"R$ "}}{{ ingredient.price|floatformat:2}} <span class="text-success small-font-size">({{median_ingredient.3.value_per}})</span></td>
 
                                     {% endif %}
 
@@ -65,7 +65,7 @@
 
                             <td>{{"R$ "}}{{ ingredient.price|floatformat:2}}</td>
 
-                            {% endif %}
+                        {% endif %}
 
 
 
