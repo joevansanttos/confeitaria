@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+{% load mathfilters %}
+{% load l10n %}
+
+<div class="container mb-3">
+    <div class="row">
+        <h1 class="h3 mb-2 text-gray-800">Combo {{ combo.name }}</h1>
+    <a data-toggle="modal" data-target="#comboNameModal" class="btn btn-light">
+        <span class="icon">
+            <i class="fas fa-edit"></i>
+        </span>
+    </a>
+</div>
+
+</div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Preço de Venda (Unidade)
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                ${{price_unity}}
+                                <div class="text-xs font-weight-bold text-primary mb-1">
+                                    CMV {{cmv}} %
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                Preço Mais Barato (Unidade) </div>
+                            {% if all_total_costs > 0 and product.quantity > 0 %}
+                            {% with minor_price=all_total_costs|div:product.quantity %}
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">${{minor_price|floatformat:2}}</div>
+                            {% endwith %}
+                            {% else %}
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$0</div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Rendimento </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.quantity}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <a data-toggle="modal" data-target="#quantityModal" class="btn btn-light">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Lucro Desejado </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{product.profit|floatformat:2}}</div>
+                            <div class="text-xs font-weight-bold text-success mb-1">
+                                Margem de Lucro % {{roi}}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <a data-toggle="modal" data-target="#profitModal" class="btn btn-light">
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

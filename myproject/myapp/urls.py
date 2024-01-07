@@ -70,6 +70,8 @@ urlpatterns = [
          views.productNameUpdate, name='product-name-update'),
     path('product/<int:id>',
          views.product, name='product'),
+    path('combo-list', views.comboList, name='combo-list'),
+    path('combo-create', views.comboCreate, name='combo-create'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/accounts/login'), name='logout'),
     path('profile', views.profile, name='profile'),

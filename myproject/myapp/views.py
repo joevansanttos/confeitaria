@@ -13,7 +13,7 @@ from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateFor
     PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, \
     PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate, \
-    PercentDiscountUpdateForm, ProductNameFormUpdate
+    PercentDiscountUpdateForm, ProductNameFormUpdate, ComboForm
 from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
     PercentCost
 from .forms import CustomUserCreationForm
@@ -741,6 +741,40 @@ def productCopy(request, id):
     except:
         pass
     return redirect('product-list')
+
+
+@login_required
+def comboList(request):
+    current_user = request.user
+    combos = current_user.combo_set.all()
+    return render(request, "combo-list.html", {'combos': combos})
+
+
+@login_required
+def comboCreate(request):
+    if request.method == "POST":
+        form = ComboForm(request.POST)
+        if form.is_valid():
+            print("is valido")
+            try:
+                instance = form.save(commit=False)
+                instance.user = request.user
+                instance.another_expenses = 0
+                instance.incalculable_expenses = 0
+                instance.marketplace_tax = 0
+                instance.taxes = 0
+                instance.quantity = 0
+                instance.profit = 0
+                instance.save()
+                form.save()
+                model = form.instance
+                messages.success(request, "Combo " + instance.name + " Adicionado!")
+                return HttpResponseRedirect('/combo/%d' % model.id)
+            except:
+                pass
+    else:
+        form = ComboForm()
+    return render(request, 'combo-create.html', {'form': form})
 
 
 @login_required

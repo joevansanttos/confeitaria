@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow mb-4">
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listar Todos Combos</h6>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-striped " id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Preço Unitário Recomendado</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for combo in combos %}
+                <tr>
+                    <td>{{ combo.name }}</td>
+                    <td>R$ {{ combo.price_unity|floatformat:2 }}</td>
+                    <td >
+                        <div class="d-none d-lg-block">
+                            <a href="/combo/{{ combo.id }}" class="btn btn-warning">
+                                <span class="icon">
+                                    <i class="fas fa-robot"></i>
+                                </span>
+                            </a>
+                            <a href="/combo-copy/{{ combo.id }}" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-copy"></i>
+                                </span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ product.id }}" class="btn btn-danger">
+                                <span class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="d-lg-none text-center align-middle btn-group">
+                            <a href="/combo/{{ combo.id }}" class="btn btn-warning">
+                                <span class="icon">
+                                    <i class="fas fa-robot"></i>
+                                </span>
+                            </a>
+                            <a href="/combo-copy/{{ combo.id }}" class="btn btn-primary">
+                                <span class="icon">
+                                    <i class="fas fa-copy"></i>
+                                </span>
+                            </a>
+                            <a data-toggle="modal" data-target="#modal_{{ combo.id }}" class="btn btn-danger">
+                                <span class="icon">
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </td>
+                    <div class="modal fade" id="modal_{{ combo.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ product.id }}"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ combo.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir o ingrediente {{product.name}}</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/combo-delete/{{ combo.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                    </div>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{%url 'combo-create' %}" class="btn btn-success btn-icon-split">
+                <span class="icon text-white-50">
+                <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Novo Combo</span>
+        </a>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
 from .models import CustomUser, Cost, PercentCost, PercentDiscount, PercentLabor
-from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial
+from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial, Combo
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -172,3 +172,10 @@ class ProductProfitFormUpdate(ModelForm):
         fields = ('profit',)
         exclude = ['user', 'name',
                    'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes', 'quantity']
+
+class ComboForm(ModelForm):
+    class Meta:
+        model = Combo
+        fields = ('name',)
+        exclude = ['user',
+                   'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes']

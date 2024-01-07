@@ -142,6 +142,26 @@ class PercentIngredient(models.Model):
     class Meta:
         ordering = ["ingredient"]
 
+class Combo(models.Model):
+    user = models.ForeignKey(CustomUser, blank=False, on_delete=models.CASCADE)
+    name = models.CharField(_("Nome do Produto:"), db_column='name', max_length=100, blank=False)
+    another_expenses = models.FloatField(_("Outros Custos (R$):"), db_column='another_expenses', blank=True)
+    incalculable_expenses = models.FloatField(_("Custos Incalculáveis (R$):"), db_column='incalculable_expenses',
+                                              blank=True)
+    marketplace_tax = models.FloatField(_("Taxa de Comissão em Marketplace %:"), db_column='marketplace_tax',
+                                        blank=True)
+    taxes = models.FloatField(_("Impostos %:"), db_column='taxes', blank=True)
+    quantity = models.IntegerField(
+        _("Quantidade Desejada (UNI):"), db_column='quantity', blank=True)
+    profit = models.FloatField(_("Lucro Desejado (R$):"), db_column='profit', blank=True)
+
+    def __str__(self):
+        string = self.name + " " + str(self.quantity)
+        return string
+
+    class Meta:
+        ordering = ["name"]
+
 
 class PercentMaterial(models.Model):
     material = models.ForeignKey(Material, blank=True, on_delete=models.CASCADE)
@@ -193,3 +213,19 @@ class PercentDiscount(models.Model):
 
     class Meta:
         ordering = ["percent"]
+
+class PercentProduct(models.Model):
+    quantity = models.IntegerField(
+        _("Quantidade Desejada (UNI):"), db_column='quantity', blank=True)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
+    combo = models.ForeignKey(Combo, blank=True, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        string = self.combo.name + " " + str(self.quantity)
+        return string
+
+    class Meta:
+        ordering = ["product"]
+
+
