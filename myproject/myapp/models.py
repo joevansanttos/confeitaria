@@ -228,4 +228,15 @@ class PercentProduct(models.Model):
     class Meta:
         ordering = ["product"]
 
+class PercentTax(models.Model):
+    name = models.CharField(_("Nome da Taxa:"), db_column='name', max_length=100, blank=False)
+    percent = models.FloatField(
+        _("Porcentagem do Desconto:"), db_column='percent', blank=False)
+    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        string = self.name + " " + str(self.percent)
+        return string
+
+    class Meta:
+        ordering = ["name"]

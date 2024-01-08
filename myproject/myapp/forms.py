@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple
 
-from .models import CustomUser, Cost, PercentCost, PercentDiscount, PercentLabor
+from .models import CustomUser, Cost, PercentCost, PercentDiscount, PercentLabor, PercentTax
 from .models import Material, Ingredient, Labor, Product, PercentIngredient, PercentMaterial, Combo
 
 
@@ -146,8 +146,8 @@ class ProductForm(ModelForm):
 class ProductFormUpdate(ModelForm):
     class Meta:
         model = Product
-        fields = ('another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes')
-        exclude = ['user', 'name']
+        fields = ('another_expenses', 'incalculable_expenses', 'taxes')
+        exclude = ['user', 'name', 'marketplace_tax']
 
 
 class ProductQuantityFormUpdate(ModelForm):
@@ -179,3 +179,18 @@ class ComboForm(ModelForm):
         fields = ('name',)
         exclude = ['user',
                    'another_expenses', 'incalculable_expenses', 'marketplace_tax', 'taxes']
+
+class PercentTaxForm(ModelForm):
+    class Meta:
+        model = PercentTax
+        fields = ('percent', 'name')
+
+        exclude = ['product']
+
+
+class PercentTaxUpdateForm(ModelForm):
+    class Meta:
+        model = PercentTax
+        fields = ('percent', 'name')
+
+        exclude = ['product']

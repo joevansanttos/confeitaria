@@ -13,9 +13,9 @@ from .forms import MaterialForm, IngredientForm, LaborForm, PercentCostUpdateFor
     PercentIngredientUpdateForm, PercentLaborUpdateForm, PercentMaterialUpdateForm, ProductForm, PercentIngredientForm, \
     PercentMaterialForm, \
     CostForm, PercentLaborForm, PercentCostForm, ProductFormUpdate, ProductProfitFormUpdate, ProductQuantityFormUpdate, \
-    PercentDiscountUpdateForm, ProductNameFormUpdate, ComboForm
-from .models import TIME_CHOICES, Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
-    PercentCost
+    PercentDiscountUpdateForm, ProductNameFormUpdate, ComboForm, PercentTaxForm, PercentTaxUpdateForm
+from .models import Material, Ingredient, Labor, PercentDiscount, Product, PercentIngredient, PercentMaterial, Cost, PercentLabor, \
+    PercentCost, PercentTax
 from .forms import CustomUserCreationForm
 from django.db.models import Avg
 import logging
@@ -588,6 +588,54 @@ def percentDiscountUpdate(request, id):
                 pass
     return render(request, 'percent-discount-update.html', {'form': form, 'id': percentDiscount.product.pk})
 
+@login_required()
+def percentTaxCreate(request, id):
+    if request.method == "POST":
+        product = Product.objects.get(id=id)
+        if not product:
+            return redirect('product-list')
+        form = PercentTaxForm(request.POST)
+        if form.is_valid():
+            try:
+                instance = form.save(commit=False)
+                instance.product = product
+                instance.save()
+                form.save()
+                model = form.instance
+                return HttpResponseRedirect('/product/%d' % id)
+            except:
+                pass
+    else:
+        form = PercentTaxForm()
+    return redirect('product-list')
+
+
+@login_required
+def percentTaxDelete(request, id):
+    percent_discount = PercentTax.objects.get(id=id)
+    product = percent_discount.product
+    product_id = product.id
+    try:
+        percent_discount.delete()
+    except:
+        pass
+    return HttpResponseRedirect('/product/%d' % product_id)
+
+@login_required
+def percentTaxUpdate(request, id):
+    percentDiscount = PercentTax.objects.get(id=id)
+    form = PercentTaxUpdateForm(initial={'percent': percentDiscount.percent, 'product': percentDiscount.product, 'name': percentDiscount.name})
+    if request.method == "POST":
+        form = PercentTaxUpdateForm(request.POST, instance=percentDiscount)
+        if form.is_valid():
+            try:
+                form.save()
+                model = form.instance
+                messages.info(request, "Porcentagem do Custo " + percentDiscount.percent + "% Atualizado!!!")
+                return HttpResponseRedirect('/product/%d' % percentDiscount.product.pk)
+            except Exception as e:
+                pass
+    return render(request, 'percent-tax-update.html', {'form': form, 'id': percentDiscount.product.pk})
 
 
 @login_required
@@ -791,6 +839,7 @@ def product(request, id):
     percent_cost_form = PercentCostForm()
     percent_cost_form.fields["cost"].queryset = Cost.objects.filter(user_id=current_user.id)
     percent_discount_form = PercentDiscountForm()
+    percent_tax_form = PercentTaxForm()
     product_quantity_update_form = ProductQuantityFormUpdate()
     product_profit_update_form = ProductProfitFormUpdate()
     product_name_update_form = ProductNameFormUpdate()
@@ -799,6 +848,7 @@ def product(request, id):
     percent_labors = product.percentlabor_set.all()
     percent_costs =product.percentcost_set.all()
     percent_discounts =product.percentdiscount_set.all()
+    percent_taxs =product.percenttax_set.all()
     (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
      totals_costs) = generate_price_unity(product)
     roi = (product.profit / (round(price_unity, 2) * product.quantity)) * 100 if price_unity != 0 else 0
@@ -815,6 +865,7 @@ def product(request, id):
             'percent_labor_form': percent_labor_form,
             'percent_cost_form': percent_cost_form,
             'percent_discount_form':  percent_discount_form,
+            'percent_tax_form':  percent_tax_form,
             'product_quantity_update_form': product_quantity_update_form,
             'product_name_update_form': product_name_update_form,
             'product_profit_update_form': product_profit_update_form,
@@ -823,6 +874,7 @@ def product(request, id):
             'percent_labors': percent_labors,
             'percent_costs': percent_costs,
             'percent_discounts': percent_discounts,
+            'percent_taxs': percent_taxs,
             'price_unity': round(price_unity, 2),
             'all_total_costs': all_total_costs,
             'roi': round(roi, 2),

@@ -458,7 +458,6 @@
                         <tr>
                             <th scope="col">Outros Custos</th>
                             <th scope="col">Custos Incalculáveis</th>
-                            <th scope="col">Taxa de Marketplace </th>
                             <th scope="col">Impostos</th>
                             <th scope="col">Ações</th>
                         </tr>
@@ -467,7 +466,6 @@
                         <tr>
                             <td>{{"R$ "}}{{ product.another_expenses|floatformat:2|localize}}</td>
                             <td>{{ product.incalculable_expenses|floatformat:2|localize}} %</td>
-                            <td> {{product.marketplace_tax }} %</td>
                             <td> {{product.taxes }} %</td>
                             <td class="text-center">
                                 <a type="button" class="btn btn-primary" href="/product-update/{{ product.id }}"> <i class="fas fa-edit"></i></a>
@@ -478,6 +476,77 @@
             </div>
         </div>
     </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-cente">
+            <h6 class="m-0 font-weight-bold text-primary">Taxas</h6>
+        </div>
+        <div class="card-body">
+        {% if percent_taxs%}
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Porcentagem</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for percent_tax in percent_taxs %}
+                        <tr>
+                            <td>{{ percent_tax.name }}</td>
+                            <td>{{ percent_tax.percent }} %</td>                           
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="/percent-tax-update/{{ percent_tax.id }}" class="btn btn-primary">
+                                        <span class="icon">
+                                            <i class="fas fa-edit"></i>
+                                        </span>
+                                    </a>
+                                    <a data-toggle="modal" data-target="#modal_{{ percent_tax.id }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
+                                    <div class="modal fade" id="modal_{{ percent_tax.id }}" tabindex="-1" role="dialog" aria-labelledby="label_{{ percent_tax.id }}"
+                                                aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_{{ percent_tax.id }}">Tem certeza que deseja excluir?</h5>
+                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">Clique em excluir pra excluir a taxa {{percent_tax.percent}} %</div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                                    <a href="/percent-tax-delete/{{ percent_tax.id }}" class="btn btn-primary">Excluir</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <div class="card mb-4 py-3 border-left-danger">
+                <div class="card-body">
+                    Sem Taxas Adicionadas
+                </div>
+            </div>
+        {% endif %}
+        <a data-toggle="modal" data-target="#taxModal" class="btn btn-success btn-icon-split">
+            <span class="icon">
+                <i class="fas fa-plus"></i>
+            </span>
+            <span class="text">Taxa</span>
+        </a>
+        </div>
+    </div>
+
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-cente">
             <h6 class="m-0 font-weight-bold text-primary">Simuladores</h6>
@@ -561,6 +630,7 @@
         </a>
         </div>
     </div>
+
     <div>
         <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog" aria-labelledby="ingredientModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -659,6 +729,27 @@
                         {% load bootstrap %}
                         <form method="post"  action="/percent-discount-create/{{ product.id }}">
                             {{ percent_discount_form|bootstrap}}
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Cadastrar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="taxModal" tabindex="-1" role="dialog" aria-labelledby="taxModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="taxModalLabel">Taxa</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% load bootstrap %}
+                        <form method="post"  action="/percent-tax-create/{{ product.id }}">
+                            {{ percent_tax_form|bootstrap}}
                             {% csrf_token %}
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Cadastrar</button>
