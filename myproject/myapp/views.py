@@ -644,7 +644,7 @@ def productList(request):
     products = current_user.product_set.all()
     for product in products:
         (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
-         totals_costs) = generate_price_unity(product)
+         totals_costs, total_cost) = generate_price_unity(product)
         product.price_unity = price_unity
 
     return render(request, "product-list.html", {'products': products})
@@ -850,11 +850,9 @@ def product(request, id):
     percent_discounts =product.percentdiscount_set.all()
     percent_taxs =product.percenttax_set.all()
     (price_unity, all_total_costs, total_ingredients, total_materials, total_labors,
-     totals_costs) = generate_price_unity(product)
+     totals_costs, total_cost) = generate_price_unity(product)
     roi = (product.profit / (round(price_unity, 2) * product.quantity)) * 100 if price_unity != 0 else 0
     cmv = ((total_ingredients + total_materials) / (round(price_unity, 2) * product.quantity) * 100) if price_unity != 0 and product.quantity != 0 else 0
-
-
 
     return render(
         request, 'product.html', {
@@ -882,6 +880,7 @@ def product(request, id):
             'total_materials': total_materials,
             'total_labors': total_labors,
             'total_costs': totals_costs,
+            'total_cost': total_cost,
             'cmv': round(cmv, 2)
         }
     )
@@ -898,17 +897,17 @@ def generate_price_unity(product):
     total_costs = calc_costs_value(percent_costs)
     incalculable = product.incalculable_expenses / 100 * total_ingredients
     total_cost = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + product.profit
-    machine = product.taxes / 100 if product.taxes != 0 else 0
-    comission = product.marketplace_tax / 100 if product.marketplace_tax != 0 else 0
-    taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
-    comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
-    comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
+    #machine = product.taxes / 100 if product.taxes != 0 else 0
+    #comission = product.marketplace_tax / 100 if product.marketplace_tax != 0 else 0
+    #taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
+    #comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
+    #comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
     #all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
     all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable
     price_unity = (all_total_costs + product.profit) / product.quantity \
         if product.profit != 0 and product.quantity != 0 else 0
     return (round(price_unity, 2), round(all_total_costs, 2), round(total_ingredients, 2), round(total_materials, 2),
-            round(total_labors, 2), round(total_costs, 2))
+            round(total_labors, 2), round(total_costs, 2), round(total_cost, 2))
 
 
 def calc_ingredients_value(percent_ingredients):
