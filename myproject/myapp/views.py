@@ -903,7 +903,8 @@ def generate_price_unity(product):
     taxes_market = (total_cost / (1 - (comission + machine)) - total_cost)
     comission_tax = taxes_market * (comission / (comission + machine)) if comission != 0 else 0
     comission_machine = taxes_market * (machine / (comission + machine)) if machine != 0 else 0
-    all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
+    #all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable + comission_tax + comission_machine
+    all_total_costs = total_ingredients + total_materials + total_labors + total_costs + product.another_expenses + incalculable
     price_unity = (all_total_costs + product.profit) / product.quantity \
         if product.profit != 0 and product.quantity != 0 else 0
     return (round(price_unity, 2), round(all_total_costs, 2), round(total_ingredients, 2), round(total_materials, 2),

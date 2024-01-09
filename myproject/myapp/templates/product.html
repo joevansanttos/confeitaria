@@ -489,14 +489,43 @@
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Porcentagem</th>
+                            <th scope="col">Preço com Taxa</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for percent_tax in percent_taxs %}
+                    {% for percent_tax in percent_taxs %}
+
+
                         <tr>
                             <td>{{ percent_tax.name }}</td>
-                            <td>{{ percent_tax.percent }} %</td>                           
+                            <td>{{ percent_tax.percent }} %</td>
+
+                        {% with comission_tax=percent_tax.percent|div:100 %}
+                        {% if product.taxes != 0 %}
+                            {% with machine_tax=product.taxes.percent|div:100 %}
+                                {% with comission_machine=1|sub:comission_tax|add:machine_tax %}
+                                    {% with taxes_market=total_costs|div:comission_machine|sub:total_costs %}
+                                        <td>{{ comission_tax }}</td>
+                                    {% endwith %}
+                                {% endwith %}
+                            {% endwith %}
+
+                        {% else %}
+                            {% with machine_tax=0 %}
+                                {% with comission_machine=comission_tax|add:machine_tax %}
+                                    {% with comission_machine_percent=1|sub:comission_machine %}
+                                        {% with taxes_market=total_costs|div:comission_machine_percent|sub:total_costs %}
+                                            <td>{{ machine_tax }}</td>
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endwith %}
+                            {% endwith %}
+
+                        {% endif %}
+
+
+                        {% endwith %}
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a class="btn btn-primary" href="/percent-tax-update/{{ percent_tax.id }}" class="btn btn-primary">
@@ -526,7 +555,7 @@
                                 </div>
                             </td>
                         </tr>
-                        {% endfor %}
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
