@@ -489,7 +489,7 @@
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Porcentagem</th>
-                            <th scope="col">Preço com Taxa</th>
+                            <th scope="col">Preço de Venda com a Taxa</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
@@ -513,10 +513,10 @@
                                             {% with machine_value=taxes_market|floatformat:2|mul:machine_division %}
                                                 {% if product.profit != 0 and product.quantity != 0 %}
                                                     {% with all_tax_costs=all_total_costs|addition:comission_value|addition:machine_value|addition:product.profit|div:product.quantity %}
-                                                        <td>{{ all_tax_costs|floatformat:2 }}</td>
+                                                        <td>R$ {{ all_tax_costs|floatformat:2 }}</td>
                                                     {% endwith %}
                                                 {% else %}
-                                                    <td>{{"ERR"}}</td>
+                                                <td ><a type="button" class="btn btn-danger">ERRO</a></td>
                                                 {% endif %}
                                             {% endwith %}
                                             {% endwith %}
@@ -538,10 +538,10 @@
                                             {% with machine_value=taxes_market|mul:machine_division %}
                                                 {% if product.profit != 0 and product.quantity != 0 %}
                                                     {% with all_tax_costs=all_total_costs|addition:comission_value|addition:machine_value|addition:product.profit|div:product.quantity %}
-                                                        <td>{{ all_tax_costs|floatformat:2 }}</td>
+                                                        <td>R$ {{ all_tax_costs|floatformat:2 }}</td>
                                                     {% endwith %}
                                                 {% else %}
-                                                    <td>{{"ERR"}}</td>
+                                                    <td ><a type="button" class="btn btn-danger">ERRO</a></td>
                                                 {% endif %}
                                             {% endwith %}
                                             {% endwith %}
